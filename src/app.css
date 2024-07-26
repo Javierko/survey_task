@@ -76,3 +76,28 @@
     @apply bg-background text-foreground;
   }
 }
+
+.question-row {
+  @apply flex items-center transition-colors duration-200;
+}
+
+.question-row--disabled {
+  @apply bg-gray-100;
+}
+
+.col-item {
+  @apply inline-flex items-center justify-center text-center;
+
+  width: 120px;
+  height: 110px;
+}
+
+.col-item--title {
+  @apply justify-start text-left pl-2 mr-8;
+
+  width: 445px;
+}
+
+.question-row--disabled .col-item--title {
+  @apply text-gray-600;
+}
