@@ -26,7 +26,7 @@ let loadTime: number | null = null;
 const initValues = () => new Array(questions.length);
 const initAois = () => new Array(questions.length + 1).fill(0).map(() => []);
 
-let values: number[] = initValues();
+let values: string[] = initValues();
 let aois: HTMLDivElement[][] = initAois();
 
 // biome-ignore lint/style/noCommaOperator: <explanation>
@@ -74,7 +74,7 @@ async function onNextSlide(last = false) {
 
 	for (let i = 0; i < questions.length; i++) {
 		const question = questions[i];
-		const answer = values[i];
+		const answer = +values[i];
 
 		const click = await clickRepository.read(
 			$surveyUserId as string,

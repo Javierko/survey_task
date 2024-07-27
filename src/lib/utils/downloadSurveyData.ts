@@ -5,16 +5,15 @@ import clickRepository from '$lib/database/repositories/click.repository';
 import userRepository from '$lib/database/repositories/user.repository';
 import fileSaver from 'file-saver';
 import JSZip from 'jszip';
-import { exportGazeDataToCsv, gazeDataCsvHeader } from './gazeDataCsv';
-import type { ETGazeDataLogger } from '$lib/core/ETGazeData/ETGazeDataLogger';
+import pointRepository from '$lib/database/repositories/point.repository';
 
-export const downloadData = async (userIds: string[], etLogger: ETGazeDataLogger): Promise<boolean> => {
+export const downloadData = async (userIds: string[]): Promise<boolean> => {
   const output: Record<string, string[]> = {
     users: [userRepository.csvHeader()],
     clicks: [clickRepository.csvHeader()],
     aois: [aoiRepository.csvHeader()],
     answers: [answerRepository.csvReactionHeader()],
-    et: [gazeDataCsvHeader]
+    et: [pointRepository.csvHeader()]
   };
 
   for (const id of userIds) {
@@ -30,8 +29,9 @@ export const downloadData = async (userIds: string[], etLogger: ETGazeDataLogger
     const clicks = await clickRepository.readMany(user.id);
     const aois = await aoiRepository.readMany(user.id);
     const answers = await answerRepository.readMany(user.id);
+    const points = await pointRepository.readMany(user.id);
 
-    if (!clicks || !aois || !answers) {
+    if (!clicks || !aois || !answers || !points) {
       console.error('Data not found');
 
       return false;
@@ -42,7 +42,7 @@ export const downloadData = async (userIds: string[], etLogger: ETGazeDataLogger
       reaction:
         i === 0 || answer.timestamp == null || array[i - 1] == null || array[i - 1].timestamp == null
           ? 0
-          : Math.abs((answer.timestamp - array[i - 1].timestamp) / 1000)
+          : Math.abs((answer.timestamp - (array[i - 1]?.timestamp ?? 0)) / 1000)
     }));
 
     output.clicks.push(await clickRepository.toCsv(clicks));
@@ -50,9 +50,7 @@ export const downloadData = async (userIds: string[], etLogger: ETGazeDataLogger
     output.answers.push(await answerRepository.toCsvReaction(
       answersReaction.filter((answer) => answer.questionId !== -1 && answer.answer !== -1)
     ));
-
-    const etData = (await etLogger.getAll()).filter((data) => data && data.userId === user.id);
-    output.et.push(exportGazeDataToCsv(etData));
+    output.et.push(await pointRepository.toCsv(points));
   }
 
   const zip = new JSZip();

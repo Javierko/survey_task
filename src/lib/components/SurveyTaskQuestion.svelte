@@ -11,7 +11,7 @@ import * as RadioGroup from "$lib/shadcn/ui/radio-group";
 export let question: string;
 export let totalOptions: number;
 export let aoi: HTMLDivElement[];
-export let value: number;
+export let value: string;
 export let rowId: number;
 export let disabled: boolean;
 
@@ -19,8 +19,8 @@ const options = Array(totalOptions)
 	.fill(0)
 	.map((_, i) => i + 1);
 
-const handleOptionClick = (e: Event, option: number) => {
-	const mouseEvent = e as PointerEvent;
+const handleOptionClick = (e: CustomEvent, option: number) => {
+	const mouseEvent = e.detail.originalEvent as PointerEvent;
 
 	if ($surveyQuestion.has(rowId - 1)) {
 		surveyQuestion.update((prev) => {
@@ -36,8 +36,7 @@ const handleOptionClick = (e: Event, option: number) => {
 		});
 	}
 
-	const aoiElement = (mouseEvent.target as HTMLElement)?.parentElement
-		?.parentElement;
+	const aoiElement = (mouseEvent.target as HTMLElement)?.parentElement;
 
 	if (!aoiElement) {
 		console.warn("Unable to get AOI element from click!");
@@ -64,7 +63,7 @@ const handleOptionClick = (e: Event, option: number) => {
 		{question}
 	</div>
 
-  <RadioGroup.Root data-orientation="horizontal" class="flex items-center">
+  <RadioGroup.Root data-orientation="horizontal" class="flex items-center" bind:value={value}>
     {#each options as option, j}
 		<div id={getQuestionId($surveySlide, rowId, j + 1)} class="col-item" bind:this={aoi[j + 1]}>
 			<RadioGroup.Item
