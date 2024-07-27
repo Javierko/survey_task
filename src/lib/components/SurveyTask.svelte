@@ -5,7 +5,6 @@
 	import type { GazeDataPoint, GazeInputConfigGazePoint } from '@473783/develex-core';
 	import { createGazeInput, type GazeInput } from '@473783/develex-core';
 	import { onMount } from 'svelte';
-	import * as Alert from '$lib/shadcn/ui/alert/index.js';
 	import { surveyUserId, surveyFinished } from '$lib/stores/surveyTask';
 	import SurveyTaskSlider from '$lib/components/SurveyTaskSlider.svelte';
 	import pointRepository from '$lib/database/repositories/point.repository';
@@ -48,6 +47,16 @@
 		});
 	};
 
+	const closeBridgeConnection = async () => {
+		if (gazeInput) {
+			gazeInput.off('data', onDataRecieve);
+
+			await gazeInput.stop();
+			await gazeInput.disconnect();
+			state = 'disconnected';
+		}
+	};
+
 	onMount(() => {
 		gazeInput = createGazeInput({
 			tracker: 'opengaze',
@@ -57,15 +66,7 @@
 
 		gazeInput.on('data', onDataRecieve);
 
-		return async () => {
-			if (gazeInput) {
-				gazeInput.off('data', onDataRecieve);
-
-				await gazeInput.stop();
-				await gazeInput.disconnect();
-				state = 'disconnected';
-			}
-		};
+		return async () => await closeBridgeConnection();
 	});
 </script>
 
@@ -107,4 +108,5 @@
 <svelte:window
 	on:error|capture={handleError}
 	on:unhandledrejection|capture={(e) => handleError(e.reason)}
+	on:beforeunload|capture={closeBridgeConnection}
 />
