@@ -20,7 +20,7 @@ export class SurveyDatabase extends Dexie {
       clicks: '++id, userId, aoiId, x, y, value, timestamp',
       answers: '++id, userId, questionId, answer, timestamp',
       aois: '++id, userId, aoiId, leftBotPos.x, leftBotPos.y, rightTopPos.x, rightTopPos.y',
-      points: '++id, sessionId, timestamp, x, xL, xR, xLScreenRelative, xRScreenRelative, y, yL, yR, yLScreenRelative, yRScreenRelative, validityL, validityR, parseValidity, fixationDuration, fixationId',
+      points: '++id, userId, sessionId, timestamp, x, xL, xR, xLScreenRelative, xRScreenRelative, y, yL, yR, yLScreenRelative, yRScreenRelative, validityL, validityR, parseValidity, fixationDuration, fixationId',
     });
   }
 };
