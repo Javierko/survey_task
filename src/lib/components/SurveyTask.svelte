@@ -11,16 +11,16 @@
 	import SurveyTaskFinished from '$lib/components/SurveyTaskFinished.svelte';
 	import SurveyTaskStartButton from '$lib/components/SurveyTaskStartButton.svelte';
 	import SurveyTaskErrors from './SurveyTaskErrors.svelte';
+	import SurveyTaskIntro from './SurveyTaskIntro.svelte';
 
 	let gazeInput: GazeInput<GazeInputConfigGazePoint>;
 	let state: 'disconnected' | 'connecting' | 'connected' | 'error' = 'disconnected';
-	let errorMessages: string[];
-	$: errorMessages = [];
+	let errorMessages: string[] = [];
 
 	const handleError = (event: Event) => {
 		const error = event instanceof ErrorEvent ? event.error : event;
 		const message = error instanceof Error ? error.message : error.toString();
-		errorMessages.push(message);
+		errorMessages = [...errorMessages, message];
 		state = 'error';
 	};
 
@@ -71,32 +71,31 @@
 </script>
 
 {#if state != 'connected' || $surveyUserId === null}
-	<div class="flex h-screen w-full items-center justify-center gap-2">
-		<div
-			class="flex w-full max-w-2xl flex-col gap-4 rounded-md border border-gray-200 p-4 shadow-sm"
-		>
-			<SurveyTaskErrors {errorMessages} />
+	<div class="flex w-full max-w-2xl flex-col gap-4 rounded-md border border-gray-200 p-4 shadow-sm">
+		<SurveyTaskIntro />
 
-			<div>
-				<Button on:click={onClick} disabled={state == 'connecting' || state == 'connected'}>
-					{#if state == 'connecting'}
-						<Icon icon="lucide:loader-circle" class="mr-2 h-4 w-4 animate-spin" />
-						Připojuji
-					{:else if state == 'disconnected'}
-						<Icon icon="lucide:play" class="mr-2 h-4 w-4" />
-						Připojit eyetracker
-					{:else if state == 'error'}
-						<Icon icon="lucide:alert-circle" class="mr-2 h-4 w-4" />
-						Chyba
-					{:else}
-						Připojeno
-					{/if}
-				</Button>
+		<SurveyTaskErrors {errorMessages} />
 
-				{#if state == 'connected'}
-					<SurveyTaskStartButton />
+		<div class="flex items-center gap-2">
+			<Button on:click={onClick} disabled={state == 'connecting' || state == 'connected'}>
+				{#if state == 'connecting'}
+					<Icon icon="lucide:loader-circle" class="mr-2 h-4 w-4 animate-spin" />
+					Připojuji
+				{:else if state == 'disconnected'}
+					<Icon icon="lucide:play" class="mr-2 h-4 w-4" />
+					Připojit Eye-Tracker
+				{:else if state == 'error'}
+					<Icon icon="lucide:alert-circle" class="mr-2 h-4 w-4" />
+					Chyba
+				{:else}
+					<Icon icon="lucide:check" class="mr-2 h-4 w-4" />
+					Připojeno
 				{/if}
-			</div>
+			</Button>
+
+			{#if state == 'connected'}
+				<SurveyTaskStartButton />
+			{/if}
 		</div>
 	</div>
 {:else if $surveyFinished}
