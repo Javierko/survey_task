@@ -2,7 +2,11 @@
 	import Icon from '@iconify/svelte';
 	import { Button } from '$lib/shadcn/ui/button';
 	import { inputWindowFieldsConfig, setConfigWindowFields } from '$lib/stores/gazeInput';
-	import type { GazeDataPoint, GazeInputConfigGazePoint } from '@473783/develex-core';
+	import type {
+		GazeDataPoint,
+		GazeInputConfigDummy,
+		GazeInputConfigGazePoint
+	} from '@473783/develex-core';
 	import { createGazeInput, type GazeInput } from '@473783/develex-core';
 	import { onMount } from 'svelte';
 	import { surveyUserId, surveyFinished } from '$lib/stores/surveyTask';
@@ -12,8 +16,9 @@
 	import SurveyTaskStartButton from '$lib/components/SurveyTaskStartButton.svelte';
 	import SurveyTaskErrors from './SurveyTaskErrors.svelte';
 	import SurveyTaskIntro from './SurveyTaskIntro.svelte';
+	import SurveyTaskValidation from './SurveyTaskValidation.svelte';
 
-	let gazeInput: GazeInput<GazeInputConfigGazePoint>;
+	let gazeInput: GazeInput<GazeInputConfigDummy>;
 	let state: 'disconnected' | 'connecting' | 'connected' | 'error' = 'disconnected';
 	let errorMessages: string[] = [];
 
@@ -59,9 +64,12 @@
 
 	onMount(() => {
 		gazeInput = createGazeInput({
-			tracker: 'opengaze',
-			uri: 'ws://localhost:13892',
-			fixationDetection: 'none'
+			tracker: 'dummy',
+			fixationDetection: 'none',
+			frequency: 30,
+			precisionMinimalError: 0.5,
+			precisionMaximumError: 1.5, // todo fix
+			precisionDecayRate: 0.5
 		});
 
 		gazeInput.on('data', onDataRecieve);
@@ -98,10 +106,11 @@
 			{/if}
 		</div>
 	</div>
-{:else if $surveyFinished}
-	<SurveyTaskFinished />
+	<!-- {:else if $surveyFinished}
+	<SurveyTaskFinished /> -->
 {:else}
-	<SurveyTaskSlider />
+	<SurveyTaskValidation {gazeInput} />
+	<!-- <SurveyTaskSlider /> -->
 {/if}
 
 <svelte:window

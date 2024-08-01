@@ -1,0 +1,133 @@
+<script lang="ts">
+	import * as Alert from '$lib/shadcn/ui/alert/index.js';
+	import {
+		GazeInteractionObjectDwell,
+		GazeInteractionObjectValidation,
+		type GazeInput,
+		type GazeInputConfigDummy,
+		type GazeInteractionObjectValidationSettings
+	} from '@473783/develex-core';
+	import Icon from '@iconify/svelte';
+	import { onMount, SvelteComponent } from 'svelte';
+	import SurveyTaskValidationCircle from './SurveyTaskValidationCircle.svelte';
+	import { fade } from 'svelte/transition';
+	import { Button } from '$lib/shadcn/ui/button';
+
+	export let gazeInput: GazeInput<GazeInputConfigDummy>;
+	let dwell = new GazeInteractionObjectDwell();
+	let validator = new GazeInteractionObjectValidation();
+	let validating = false;
+	let element: HTMLElement;
+	let validationCircleElement: SvelteComponent | null;
+	const validationSettings: Partial<GazeInteractionObjectValidationSettings> & {
+		validationDuration: number;
+	} = {
+		validationDuration: 1000
+	};
+	let validationResult: {
+		isValid: boolean;
+		accuracy: number;
+		precision: number;
+	} | null;
+
+	const originalOnValidation = validationSettings.onValidation;
+	validationSettings.onValidation = (result) => {
+		if (originalOnValidation) {
+			originalOnValidation(result);
+		}
+
+		if (validationCircleElement) {
+			validationCircleElement.$destroy();
+		}
+
+		validationResult = result;
+	};
+
+	dwell.on('dwellFinish', (event) => {
+		if (validating) return;
+
+		validationCircleElement = new SurveyTaskValidationCircle({
+			target: document.body,
+			props: {
+				validator,
+				validationSettings,
+				centerCoordinates: {
+					x: event.gazeData.x,
+					y: event.gazeData.y
+				}
+			}
+		});
+
+		validating = true;
+	});
+
+	const handleTryAgain = () => {
+		validationResult = null;
+		validating = false;
+	};
+
+	onMount(() => {
+		dwell.connect(gazeInput);
+		dwell.register(element, {
+			bufferSize: 10,
+			dwellTime: 250
+		});
+		validator.connect(gazeInput);
+
+		return () => {
+			dwell.unregister(element);
+			dwell.disconnect(gazeInput);
+			validator.disconnect(gazeInput);
+		};
+	});
+</script>
+
+<div class="absolute left-8 top-8">
+	<div
+		id="test"
+		bind:this={element}
+		class="flex h-20 w-20 items-center justify-center rounded-full border border-gray-200"
+	>
+		<Icon icon="material-symbols:add-rounded" class="h-20 w-20 text-gray-600" />
+	</div>
+</div>
+
+<div class="flex w-full max-w-2xl flex-col gap-4 rounded-md border border-gray-200 p-4 shadow-sm">
+	<Alert.Root
+		variant={validationResult == null
+			? 'default'
+			: validationResult.isValid
+				? 'success'
+				: 'destructive'}
+	>
+		<Icon icon="lucide:info" class="mr-2 h-4 w-4" />
+		<Alert.Title>Validace</Alert.Title>
+		<Alert.Description>
+			Tohle je validační slajd. Pro začátek validace se dívejte na střed kříže a počkejte na signál.
+		</Alert.Description>
+	</Alert.Root>
+
+	{#if validationResult}
+		<div class="grid grid-cols-2 gap-4" transition:fade>
+			<div class="flex flex-col gap-1 rounded-md border border-gray-200 p-4 text-gray-700">
+				<h3>Accuraccy</h3>
+				<h2 class="text-xl font-semibold">{validationResult.accuracy}</h2>
+				<small>Průměrná vzdálenost bodů od středu šedého kruhu.</small>
+			</div>
+
+			<div class="flex flex-col gap-1 rounded-md border border-gray-200 p-4 text-gray-700">
+				<h3>Precision</h3>
+				<h2 class="text-xl font-semibold">{validationResult.precision}</h2>
+				<small>Standardní odchylka vzdáleností od jejich těžiště.</small>
+			</div>
+		</div>
+
+		{#if !validationResult.isValid}
+			<div class="flex justify-center gap-4">
+				<Button variant="secondary" on:click={handleTryAgain}>
+					<Icon icon="akar-icons:refresh" class="mr-2 h-4 w-4" />
+					Zkusit znovu
+				</Button>
+			</div>{/if}
+	{/if}
+</div>
