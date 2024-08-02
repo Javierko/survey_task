@@ -139,8 +139,8 @@
 
 	<div class="flex items-center justify-end space-x-4 py-4">
 		<div class="flex-1 text-sm text-muted-foreground">
-			{Object.keys($selectedDataIds).length} of{' '}
-			{$rows.length} row(s) selected.
+			{Object.keys($selectedDataIds).length} z{' '}
+			{$rows.length} řádků zaškrtnuto.
 		</div>
 
 		<Button
@@ -148,20 +148,20 @@
 			on:click={handleDownloadButton}
 			disabled={Object.keys($selectedDataIds).length <= 0}
 		>
-			Download
+			Stáhnout
 		</Button>
 
 		<Button
 			variant="outline"
 			size="sm"
 			on:click={() => ($pageIndex = $pageIndex - 1)}
-			disabled={!$hasPreviousPage}>Previous</Button
+			disabled={!$hasPreviousPage}>Předchozí</Button
 		>
 		<Button
 			variant="outline"
 			size="sm"
 			disabled={!$hasNextPage}
-			on:click={() => ($pageIndex = $pageIndex + 1)}>Next</Button
+			on:click={() => ($pageIndex = $pageIndex + 1)}>Další</Button
 		>
 	</div>
 </div>
