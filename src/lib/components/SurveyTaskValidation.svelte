@@ -3,8 +3,6 @@
 	import {
 		GazeInteractionObjectDwell,
 		GazeInteractionObjectValidation,
-		type GazeInput,
-		type GazeInputConfigDummy,
 		type GazeInteractionObjectValidationSettings
 	} from '@473783/develex-core';
 	import Icon from '@iconify/svelte';
@@ -12,8 +10,8 @@
 	import SurveyTaskValidationCircle from './SurveyTaskValidationCircle.svelte';
 	import { fade } from 'svelte/transition';
 	import { Button } from '$lib/shadcn/ui/button';
+	import { gazeInput, gazeValidation } from '$lib/stores/gazeInput';
 
-	export let gazeInput: GazeInput<GazeInputConfigDummy>;
 	let dwell = new GazeInteractionObjectDwell();
 	let validator = new GazeInteractionObjectValidation();
 	let validating = false;
@@ -41,6 +39,12 @@
 		}
 
 		validationResult = result;
+
+		if (result.isValid) {
+			setTimeout(() => {
+				gazeValidation.set(false);
+			}, 2000);
+		}
 	};
 
 	dwell.on('dwellFinish', (event) => {
@@ -67,17 +71,25 @@
 	};
 
 	onMount(() => {
-		dwell.connect(gazeInput);
+		if (!$gazeInput) {
+			return;
+		}
+
+		dwell.connect($gazeInput);
 		dwell.register(element, {
 			bufferSize: 10,
 			dwellTime: 250
 		});
-		validator.connect(gazeInput);
+		validator.connect($gazeInput);
 
 		return () => {
 			dwell.unregister(element);
-			dwell.disconnect(gazeInput);
-			validator.disconnect(gazeInput);
+			dwell.disconnect($gazeInput);
+			validator.disconnect($gazeInput);
+
+			if (validationCircleElement) {
+				validationCircleElement.$destroy();
+			}
 		};
 	});
 </script>
@@ -104,6 +116,7 @@
 		<Alert.Title>Validace</Alert.Title>
 		<Alert.Description>
 			Tohle je validační slajd. Pro začátek validace se dívejte na střed kříže a počkejte na signál.
+			Po úspěšně validaci budete automaticky přesměrování na dotazník (2 sekundy).
 		</Alert.Description>
 	</Alert.Root>
 
@@ -128,6 +141,7 @@
 					<Icon icon="akar-icons:refresh" class="mr-2 h-4 w-4" />
 					Zkusit znovu
 				</Button>
-			</div>{/if}
+			</div>
+		{/if}
 	{/if}
 </div>

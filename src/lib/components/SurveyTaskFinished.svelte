@@ -3,6 +3,8 @@
 	import { downloadData } from '$lib/utils/downloadSurveyData';
 	import { Button } from '$lib/shadcn/ui/button';
 	import Icon from '@iconify/svelte';
+	import * as Alert from '$lib/shadcn/ui/alert/index.js';
+	import { goto } from '$app/navigation';
 
 	const download = async () => {
 		await downloadData([$surveyUserId as string]);
@@ -12,11 +14,16 @@
 <div
 	class="m-auto flex w-full max-w-2xl flex-col items-center gap-4 rounded-md border border-gray-100 bg-white p-4 shadow"
 >
-	<div class="flex w-full items-center gap-4 rounded-md border border-green-600 bg-green-50 p-4">
-		<Icon icon="lucide:badge-check" class="h-6 w-6 flex-shrink-0 text-green-600" />
+	<Alert.Root variant="success">
+		<Icon icon="lucide:check" class="mr-2 h-4 w-4" />
+		<Alert.Title>Hotovo!</Alert.Title>
+		<Alert.Description>
+			Dotazník byl úspěšně vyřešen, nezapomeňte si stáhnout data.
+		</Alert.Description>
+	</Alert.Root>
 
-		<p class="text-gray-700">Dotazník byl úspěšně vyřešen, nezapomeňte si stáhnout data.</p>
+	<div class="flex w-full items-center justify-between">
+		<Button variant="secondary" on:click={() => goto('survey-data')}>Všechna data</Button>
+		<Button on:click={download}>Stáhnout data</Button>
 	</div>
-
-	<Button on:click={download}>Stáhnout data</Button>
 </div>

@@ -14,6 +14,7 @@
 	import clickRepository from '$lib/database/repositories/click.repository';
 	import { onMount } from 'svelte';
 	import { Button } from '$lib/shadcn/ui/button';
+	import { gazeValidation } from '$lib/stores/gazeInput';
 
 	export let headers: string[];
 	export let questions: {
@@ -87,6 +88,8 @@
 				timestamp: click?.timestamp || null
 			});
 		}
+
+		gazeValidation.set(true);
 
 		if (last) {
 			surveyFinished.set(true);
