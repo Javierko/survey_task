@@ -2,6 +2,7 @@
 image: node:lts
 # Functions that should be executed before the build script is run
 before_script:
+  - echo "//gitlab.ics.muni.cz/api/v4/projects/7015/packages/npm/:_authToken=${CI_JOB_TOKEN}" > ~/.npmrc
   - npm install
 pages:
   script:
