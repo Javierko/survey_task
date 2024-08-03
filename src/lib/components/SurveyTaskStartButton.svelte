@@ -9,7 +9,9 @@
 			id: v4(),
 			resolution: {
 				width: window.screen.width,
-				height: window.screen.height
+				height: window.screen.height,
+				innerWidth: window.innerWidth,
+				innerHeight: window.innerHeight
 			},
 			userAgent: navigator.userAgent,
 			timestamp: Date.now()

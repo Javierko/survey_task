@@ -3,6 +3,8 @@ export interface User {
   resolution: {
     width: number;
     height: number;
+    innerWidth: number;
+    innerHeight: number;
   };
   userAgent: string;
   timestamp: number;
