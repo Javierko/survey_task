@@ -6,6 +6,7 @@ import userRepository from '$lib/database/repositories/user.repository';
 import fileSaver from 'file-saver';
 import JSZip from 'jszip';
 import pointRepository from '$lib/database/repositories/point.repository';
+import pageLoadRepository from '$lib/database/repositories/page-load.repository';
 
 export const downloadData = async (userIds: string[]): Promise<boolean> => {
   const output: Record<string, string[]> = {
@@ -13,7 +14,8 @@ export const downloadData = async (userIds: string[]): Promise<boolean> => {
     clicks: [clickRepository.csvHeader()],
     aois: [aoiRepository.csvHeader()],
     answers: [answerRepository.csvReactionHeader()],
-    et: [pointRepository.csvHeader()]
+    et: [pointRepository.csvHeader()],
+    pageLoads: [pageLoadRepository.csvHeader()],
   };
 
   for (const id of userIds) {
@@ -30,8 +32,9 @@ export const downloadData = async (userIds: string[]): Promise<boolean> => {
     const aois = await aoiRepository.readMany(user.id);
     const answers = await answerRepository.readMany(user.id);
     const points = await pointRepository.readMany(user.id);
+    const pageLoads = await pageLoadRepository.readMany(user.id);
 
-    if (!clicks || !aois || !answers || !points) {
+    if (!clicks || !aois || !answers || !points || !pageLoads) {
       console.error('Data not found');
 
       return false;
@@ -51,6 +54,7 @@ export const downloadData = async (userIds: string[]): Promise<boolean> => {
       answersReaction.filter((answer) => answer.questionId !== -1 && answer.answer !== -1)
     ));
     output.et.push(await pointRepository.toCsv(points));
+    output.pageLoads.push(await pageLoadRepository.toCsv(pageLoads));
   }
 
   const zip = new JSZip();
@@ -60,6 +64,7 @@ export const downloadData = async (userIds: string[]): Promise<boolean> => {
   zip.file('aois.csv', output.aois.join('\n'));
   zip.file('answers.csv', output.answers.join('\n'));
   zip.file('et.csv', output.et.join('\n'));
+  zip.file('pageLoads.csv', output.pageLoads.join('\n'));
 
   const content = await zip.generateAsync({ type: 'blob' });
   fileSaver.saveAs(content, 'survey-output.zip');

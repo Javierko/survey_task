@@ -4,6 +4,7 @@ import type { Click } from './models/Click';
 import type { Answer } from './models/Answer';
 import type { Aoi } from './models/Aoi';
 import type { Point } from './models/Point';
+import type { PageLoad } from './models/PageLoad';
 
 export class SurveyDatabase extends Dexie {
   users!: Table<User>;
@@ -11,6 +12,7 @@ export class SurveyDatabase extends Dexie {
   answers!: Table<Answer>;
   aois!: Table<Aoi>;
   points!: Table<Point>;
+  pageLoads!: Table<PageLoad>;
 
   constructor() {
     super('SurveyTask');
@@ -21,6 +23,7 @@ export class SurveyDatabase extends Dexie {
       answers: '++id, userId, questionId, answer, timestamp',
       aois: '++id, userId, aoiId, leftBotPos.x, leftBotPos.y, rightTopPos.x, rightTopPos.y',
       points: '++id, userId, sessionId, timestamp, x, xL, xR, xLScreenRelative, xRScreenRelative, y, yL, yR, yLScreenRelative, yRScreenRelative, validityL, validityR, parseValidity, fixationDuration, fixationId',
+      pageLoads: '++id, userId, slide, timestamp'
     });
   }
 };
