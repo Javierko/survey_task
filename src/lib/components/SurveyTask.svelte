@@ -44,7 +44,7 @@
 					fixationDetection: 'none',
 					frequency: 30,
 					precisionMinimalError: 0.5,
-					precisionMaximumError: 1.5, // todo fix
+					precisionMaximumError: 1.5,
 					precisionDecayRate: 0.5
 				},
 				e,
@@ -64,6 +64,14 @@
 
 		if ($gazeInput) {
 			await $gazeInput.start();
+		}
+	};
+
+	const handleKeyDown = (e: KeyboardEvent) => {
+		if ($surveyUserId && !$surveyFinished) {
+			if (e.key === 'F5' || ((e.ctrlKey || e.metaKey) && e.key === 'r')) {
+				e.preventDefault();
+			}
 		}
 	};
 
@@ -143,6 +151,7 @@
 <svelte:window
 	on:error|capture={handleGazeError}
 	on:unhandledrejection|capture={(e) => handleGazeError(e.reason)}
+	on:keydown={handleKeyDown}
 	on:focus={() => {
 		if ($gazeStop) {
 			const timeout = setTimeout(() => {

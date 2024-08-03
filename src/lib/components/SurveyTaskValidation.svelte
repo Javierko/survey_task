@@ -11,6 +11,7 @@
 	import { fade } from 'svelte/transition';
 	import { Button } from '$lib/shadcn/ui/button';
 	import { gazeInput, gazeValidation } from '$lib/stores/gazeInput';
+	import type { Keyboard } from 'lucide-svelte';
 
 	let dwell = new GazeInteractionObjectDwell();
 	let validator = new GazeInteractionObjectValidation();
@@ -76,6 +77,12 @@
 		}
 	};
 
+	const onKeyPress = (e: KeyboardEvent) => {
+		if (e.code === 'Space') {
+			gazeValidation.set(false);
+		}
+	};
+
 	onMount(() => {
 		if (!$gazeInput) {
 			return;
@@ -87,8 +94,10 @@
 			dwellTime: 400
 		});
 		validator.connect($gazeInput);
+		window.addEventListener('keypress', onKeyPress);
 
 		return () => {
+			window.removeEventListener('keypress', onKeyPress);
 			dwell.unregister(element);
 			dwell.disconnect($gazeInput);
 			validator.disconnect($gazeInput);
