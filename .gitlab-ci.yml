@@ -2,7 +2,7 @@
 image: node:lts
 # Functions that should be executed before the build script is run
 before_script:
-  - npm config set -- //gitlab.ics.muni.cz/:_authToken=rC8PRSuyCxv3NX2mkJML
+  - npm config set -- //gitlab.ics.muni.cz/:_authToken=K4-A-s4eQboNbdG5iMiz
   - npm config set @473783:registry=https://gitlab.ics.muni.cz/api/v4/projects/7015/packages/npm/
   - npm install
 pages:
