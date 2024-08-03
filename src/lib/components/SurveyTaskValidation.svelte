@@ -70,6 +70,12 @@
 		validating = false;
 	};
 
+	const handleCalibrate = async () => {
+		if ($gazeInput) {
+			await $gazeInput.calibrate();
+		}
+	};
+
 	onMount(() => {
 		if (!$gazeInput) {
 			return;
@@ -78,7 +84,7 @@
 		dwell.connect($gazeInput);
 		dwell.register(element, {
 			bufferSize: 10,
-			dwellTime: 250
+			dwellTime: 400
 		});
 		validator.connect($gazeInput);
 
@@ -95,12 +101,8 @@
 </script>
 
 <div class="absolute left-8 top-8">
-	<div
-		id="test"
-		bind:this={element}
-		class="flex h-20 w-20 items-center justify-center rounded-full border border-gray-200"
-	>
-		<Icon icon="material-symbols:add-rounded" class="h-20 w-20 text-gray-600" />
+	<div id="test" bind:this={element} class="flex items-center justify-center">
+		<Icon icon="ph:plus" class="h-32 w-32 text-gray-600" />
 	</div>
 </div>
 
@@ -141,6 +143,8 @@
 					<Icon icon="akar-icons:refresh" class="mr-2 h-4 w-4" />
 					Zkusit znovu
 				</Button>
+
+				<Button variant="outline" on:click={handleCalibrate}>Kalibrace</Button>
 			</div>
 		{/if}
 	{/if}

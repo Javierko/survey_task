@@ -15,6 +15,7 @@
 	import { onMount } from 'svelte';
 	import { Button } from '$lib/shadcn/ui/button';
 	import { gazeValidation } from '$lib/stores/gazeInput';
+	import pageLoadRepository from '$lib/database/repositories/page-load.repository';
 
 	export let headers: string[];
 	export let questions: {
@@ -64,6 +65,12 @@
 		}
 
 		if (loadTime) {
+			await pageLoadRepository.create({
+				userId: $surveyUserId as string,
+				slide: $surveySlide,
+				timestamp: loadTime
+			});
+
 			await answerRepository.create({
 				userId: $surveyUserId as string,
 				questionId: -1,

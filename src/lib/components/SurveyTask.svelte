@@ -1,7 +1,7 @@
 <script lang="ts">
+	import * as Select from '$lib/shadcn/ui/select/index.js';
 	import Icon from '@iconify/svelte';
 	import { Button } from '$lib/shadcn/ui/button';
-	import { onMount } from 'svelte';
 	import { surveyUserId, surveyFinished } from '$lib/stores/surveyTask';
 	import SurveyTaskSlider from '$lib/components/SurveyTaskSlider.svelte';
 	import SurveyTaskFinished from '$lib/components/SurveyTaskFinished.svelte';
@@ -15,37 +15,65 @@
 		gazeInput,
 		GazeState,
 		gazeState,
+		gazeStop,
+		gazeStopTimeout,
 		gazeValidation,
 		setupGazeInput
 	} from '$lib/stores/gazeInput';
 	import { beforeNavigate, goto } from '$app/navigation';
 	import { fade } from 'svelte/transition';
 
+	const trackers = [
+		{ value: 'dummy', label: 'Myš' },
+		{ value: 'opengaze', label: 'GazePoint' }
+	];
+
+	$: selectedTrackerValue = '';
+	$: selectedTracker = selectedTrackerValue
+		? {
+				label: trackers.find((t) => t.value === selectedTrackerValue)?.label,
+				value: trackers.find((t) => t.value === selectedTrackerValue)?.label
+			}
+		: undefined;
+
 	const onClick = async (e: MouseEvent) => {
-		await setupGazeInput(
-			{
-				tracker: 'dummy',
-				fixationDetection: 'none',
-				frequency: 30,
-				precisionMinimalError: 0.5,
-				precisionMaximumError: 1.5, // todo fix
-				precisionDecayRate: 0.5
-			},
-			e,
-			window
-		);
+		if (selectedTrackerValue === 'dummy') {
+			await setupGazeInput(
+				{
+					tracker: 'dummy',
+					fixationDetection: 'none',
+					frequency: 30,
+					precisionMinimalError: 0.5,
+					precisionMaximumError: 1.5, // todo fix
+					precisionDecayRate: 0.5
+				},
+				e,
+				window
+			);
+		} else if (selectedTrackerValue === 'opengaze') {
+			await setupGazeInput(
+				{
+					tracker: 'opengaze',
+					fixationDetection: 'none',
+					uri: 'ws://localhost:13892'
+				},
+				e,
+				window
+			);
+		}
 
 		if ($gazeInput) {
 			await $gazeInput.start();
 		}
 	};
 
-	onMount(() => {
-		return async () => await closeGazeInput();
-	});
-
 	beforeNavigate(({ cancel }) => {
-		// cancel();
+		gazeStop.set(true);
+		$gazeInput?.stop();
+
+		if ($surveyUserId && !$surveyFinished) {
+			cancel();
+		}
 	});
 </script>
 
@@ -58,6 +86,22 @@
 		<SurveyTaskIntro />
 
 		<SurveyTaskErrors />
+
+		<Select.Root
+			selected={selectedTracker}
+			onSelectedChange={(v) => {
+				v && v.value != null && (selectedTrackerValue = v.value);
+			}}
+		>
+			<Select.Trigger class="w-[180px]">
+				<Select.Value placeholder="Vyberte eye-tracker" />
+			</Select.Trigger>
+			<Select.Content>
+				{#each trackers as tracker}
+					<Select.Item value={tracker.value} label={tracker.label}>{tracker.label}</Select.Item>
+				{/each}
+			</Select.Content>
+		</Select.Root>
 
 		<div class="flex items-center gap-2">
 			<Button
@@ -99,5 +143,19 @@
 <svelte:window
 	on:error|capture={handleGazeError}
 	on:unhandledrejection|capture={(e) => handleGazeError(e.reason)}
-	on:unload={closeGazeInput}
+	on:focus={() => {
+		if ($gazeStop) {
+			const timeout = setTimeout(() => {
+				$gazeInput?.start();
+			}, 5000);
+			gazeStopTimeout.set(timeout);
+			gazeStop.set(false);
+		}
+	}}
+	on:pagehide={() => {
+		if ($gazeStopTimeout) {
+			clearTimeout($gazeStopTimeout);
+		}
+		closeGazeInput();
+	}}
 />

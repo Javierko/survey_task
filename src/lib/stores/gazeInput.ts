@@ -1,7 +1,8 @@
 import { createGazeInput, type GazeDataPoint, type GazeInput, type GazeInputConfig } from '@473783/develex-core';
 import { get, writable } from 'svelte/store';
-import { surveyUserId } from './surveyTask';
+import { surveyFinished, surveyUserId } from './surveyTask';
 import pointRepository from '$lib/database/repositories/point.repository';
+import { Network } from 'lucide-svelte';
 
 export enum GazeState {
   DISCONNECTED,
@@ -13,6 +14,8 @@ export enum GazeState {
 export const gazeInput = writable<GazeInput<GazeInputConfig> | null>(null);
 export const gazeState = writable<GazeState>(GazeState.DISCONNECTED);
 export const gazeValidation = writable(true);
+export const gazeStopTimeout = writable<number | null>(null);
+export const gazeStop = writable(false);
 
 export const setupGazeInput = async (config: GazeInputConfig, mouseEvent: MouseEvent, window: Window) => {
   if (get(gazeInput)) {
@@ -48,8 +51,9 @@ export const closeGazeInput = async () => {
 
 const onDataRecieve = async (point: GazeDataPoint) => {
   const userId = get(surveyUserId);
+  const finished = get(surveyFinished);
 
-  if (!userId) {
+  if (!userId || finished) {
     return;
   }
 
