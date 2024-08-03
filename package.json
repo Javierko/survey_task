@@ -36,7 +36,7 @@
 	"type": "module",
 	"dependencies": {
 		"@473783/develex-core": "^0.0.9",
-		"bits-ui": "^0.21.12",
+		"bits-ui": "^0.21.13",
 		"clsx": "^2.1.1",
 		"dexie": "^4.0.8",
 		"file-saver": "^2.0.5",
