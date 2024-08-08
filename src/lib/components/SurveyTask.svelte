@@ -12,7 +12,9 @@
 	import { handleGazeError } from '$lib/stores/gazeError';
 	import {
 		closeGazeInput,
+		dummyConfig,
 		gazeInput,
+		gazePointConfig,
 		GazeState,
 		gazeState,
 		gazeStop,
@@ -22,45 +24,35 @@
 	} from '$lib/stores/gazeInput';
 	import { beforeNavigate, goto } from '$app/navigation';
 	import { fade } from 'svelte/transition';
+	import type { GazeInputConfig } from '@473783/develex-core';
 
-	const trackers = [
-		{ value: 'dummy', label: 'Myš' },
-		{ value: 'opengaze', label: 'GazePoint' }
-	];
+	const trackers: Record<string, string> = {
+		dummy: 'Dummy',
+		opengaze: 'GazePoint'
+	};
 
 	$: selectedTrackerValue = '';
 	$: selectedTracker = selectedTrackerValue
 		? {
-				label: trackers.find((t) => t.value === selectedTrackerValue)?.label,
-				value: trackers.find((t) => t.value === selectedTrackerValue)?.label
+				label: trackers[selectedTrackerValue],
+				value: trackers[selectedTrackerValue]
 			}
 		: undefined;
 
 	const onClick = async (e: MouseEvent) => {
+		let config: GazeInputConfig | undefined;
+
 		if (selectedTrackerValue === 'dummy') {
-			await setupGazeInput(
-				{
-					tracker: 'dummy',
-					fixationDetection: 'none',
-					frequency: 30,
-					precisionMinimalError: 0.5,
-					precisionMaximumError: 1.5,
-					precisionDecayRate: 0.5
-				},
-				e,
-				window
-			);
+			config = dummyConfig;
 		} else if (selectedTrackerValue === 'opengaze') {
-			await setupGazeInput(
-				{
-					tracker: 'opengaze',
-					fixationDetection: 'none',
-					uri: 'ws://localhost:13892'
-				},
-				e,
-				window
-			);
+			config = gazePointConfig;
 		}
+
+		if (!config) {
+			return;
+		}
+
+		await setupGazeInput(config, e, window);
 
 		if ($gazeInput) {
 			await $gazeInput.start();
@@ -73,6 +65,10 @@
 				e.preventDefault();
 			}
 		}
+	};
+
+	const handleDisconnect = async () => {
+		await closeGazeInput();
 	};
 
 	beforeNavigate(({ cancel }) => {
@@ -105,35 +101,41 @@
 				<Select.Value placeholder="Vyberte eye-tracker" />
 			</Select.Trigger>
 			<Select.Content>
-				{#each trackers as tracker}
-					<Select.Item value={tracker.value} label={tracker.label}>{tracker.label}</Select.Item>
+				{#each Object.keys(trackers) as trackerKey}
+					<Select.Item value={trackerKey} label={trackers[trackerKey]}
+						>{trackers[trackerKey]}</Select.Item
+					>
 				{/each}
 			</Select.Content>
 		</Select.Root>
 
-		<div class="flex items-center gap-2">
-			<Button
-				on:click={onClick}
-				disabled={$gazeState == GazeState.CONNECTING || $gazeState == GazeState.CONNECTED}
-			>
-				{#if $gazeState == GazeState.CONNECTING}
-					<Icon icon="lucide:loader-circle" class="mr-2 h-4 w-4 animate-spin" />
-					Připojuji
-				{:else if $gazeState == GazeState.DISCONNECTED}
-					<Icon icon="lucide:play" class="mr-2 h-4 w-4" />
-					Připojit Eye-Tracker
-				{:else if $gazeState == GazeState.ERROR}
-					<Icon icon="lucide:alert-circle" class="mr-2 h-4 w-4" />
-					Chyba
-				{:else}
-					<Icon icon="lucide:check" class="mr-2 h-4 w-4" />
-					Připojeno
-				{/if}
-			</Button>
+		<div class="flex items-center justify-between gap-2">
+			<div class="flex items-center gap-2">
+				<Button
+					on:click={onClick}
+					disabled={$gazeState == GazeState.CONNECTING || $gazeState == GazeState.CONNECTED}
+				>
+					{#if $gazeState == GazeState.CONNECTING}
+						<Icon icon="lucide:loader-circle" class="mr-2 h-4 w-4 animate-spin" />
+						Připojuji
+					{:else if $gazeState == GazeState.DISCONNECTED}
+						<Icon icon="lucide:play" class="mr-2 h-4 w-4" />
+						Připojit Eye-Tracker
+					{:else if $gazeState == GazeState.ERROR}
+						<Icon icon="lucide:alert-circle" class="mr-2 h-4 w-4" />
+						Chyba
+					{:else}
+						<Icon icon="lucide:check" class="mr-2 h-4 w-4" />
+						Připojeno
+					{/if}
+				</Button>
 
-			{#if $gazeState == GazeState.CONNECTED}
-				<SurveyTaskStartButton />
-			{/if}
+				{#if $gazeState == GazeState.CONNECTED}
+					<SurveyTaskStartButton />
+				{/if}
+			</div>
+
+			<Button variant="destructive" on:click={handleDisconnect}>Odpojit eye-tracker</Button>
 		</div>
 	</div>
 {:else if $surveyFinished}

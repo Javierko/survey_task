@@ -1,14 +1,28 @@
-import { createGazeInput, type GazeDataPoint, type GazeInput, type GazeInputConfig } from '@473783/develex-core';
+import { createGazeInput, type GazeDataPoint, type GazeInput, type GazeInputConfig, type GazeInputConfigDummy, type GazeInputConfigGazePoint } from '@473783/develex-core';
 import { get, writable } from 'svelte/store';
 import { surveyFinished, surveyUserId } from './surveyTask';
 import pointRepository from '$lib/database/repositories/point.repository';
-import { Network } from 'lucide-svelte';
 
 export enum GazeState {
   DISCONNECTED,
   CONNECTING,
   CONNECTED,
   ERROR
+};
+
+export const dummyConfig: GazeInputConfigDummy = {
+  tracker: 'dummy',
+  fixationDetection: 'none',
+  frequency: 30,
+  precisionMinimalError: 0.5,
+  precisionMaximumError: 1.5,
+  precisionDecayRate: 0.5
+};
+
+export const gazePointConfig: GazeInputConfigGazePoint = {
+  tracker: 'opengaze',
+  fixationDetection: 'none',
+  uri: 'ws://localhost:13892'
 };
 
 export const gazeInput = writable<GazeInput<GazeInputConfig> | null>(null);
