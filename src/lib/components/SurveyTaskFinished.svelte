@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { surveyUserId } from '$lib/stores/surveyTask';
+	import { surveyFinished, surveyUserId } from '$lib/stores/surveyTask';
 	import { downloadData } from '$lib/utils/downloadSurveyData';
 	import { Button } from '$lib/shadcn/ui/button';
 	import Icon from '@iconify/svelte';
@@ -8,6 +8,11 @@
 
 	const download = async () => {
 		await downloadData([$surveyUserId as string]);
+	};
+
+	const handleStartAgain = () => {
+		surveyUserId.set(null);
+		surveyFinished.set(false);
 	};
 </script>
 
@@ -23,7 +28,10 @@
 	</Alert.Root>
 
 	<div class="flex w-full items-center justify-between">
-		<Button variant="secondary" on:click={() => goto('survey-data')}>Všechna data</Button>
+		<div class="flex items-center gap-2">
+			<Button variant="secondary" on:click={() => goto('survey-data')}>Všechna data</Button>
+			<Button variant="secondary" on:click={handleStartAgain}>Začít znovu</Button>
+		</div>
 		<Button on:click={download}>Stáhnout data</Button>
 	</div>
 </div>
