@@ -11,7 +11,8 @@
 	import { fade } from 'svelte/transition';
 	import { Button } from '$lib/shadcn/ui/button';
 	import { gazeInput, gazeValidation } from '$lib/stores/gazeInput';
-	import type { Keyboard } from 'lucide-svelte';
+	import aoiRepository from '$lib/database/repositories/aoi.repository';
+	import { surveyUserId } from '$lib/stores/surveyTask';
 
 	let dwell = new GazeInteractionObjectDwell();
 	let validator = new GazeInteractionObjectValidation();
@@ -88,6 +89,27 @@
 			return;
 		}
 
+		async function createAoiCross() {
+			const elementPos = element.getBoundingClientRect();
+
+			await aoiRepository.create({
+				userId: $surveyUserId as string,
+				aoiId: element.id,
+				leftBotPos: {
+					x: elementPos.left,
+					y: elementPos.bottom
+				},
+				rightTopPos: {
+					x: elementPos.right,
+					y: elementPos.top
+				}
+			});
+		}
+
+		if (element) {
+			createAoiCross();
+		}
+
 		dwell.connect($gazeInput);
 		dwell.register(element, {
 			bufferSize: 10,
@@ -110,7 +132,7 @@
 </script>
 
 <div class="absolute left-8 top-8">
-	<div id="test" bind:this={element} class="flex items-center justify-center">
+	<div id="aoi-validation-cross" bind:this={element} class="flex items-center justify-center">
 		<Icon icon="ph:plus" class="h-32 w-32 text-gray-600" />
 	</div>
 </div>
