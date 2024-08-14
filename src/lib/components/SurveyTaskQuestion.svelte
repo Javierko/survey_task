@@ -59,7 +59,7 @@
 		{question}
 	</div>
 
-	<RadioGroup.Root data-orientation="horizontal" class="flex items-center" bind:value>
+	<RadioGroup.Root data-orientation="horizontal" class="flex items-center gap-0" bind:value>
 		{#each options as option, j}
 			<div id={getQuestionId($surveySlide, rowId, j + 1)} class="col-item" bind:this={aoi[j + 1]}>
 				<RadioGroup.Item
