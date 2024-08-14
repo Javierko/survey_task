@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { surveyFinished, surveyUserId } from '$lib/stores/surveyTask';
+	import { resetSurvey, surveyUserId } from '$lib/stores/surveyTask';
 	import { downloadData } from '$lib/utils/downloadSurveyData';
 	import { Button } from '$lib/shadcn/ui/button';
 	import Icon from '@iconify/svelte';
@@ -11,8 +11,7 @@
 	};
 
 	const handleStartAgain = () => {
-		surveyUserId.set(null);
-		surveyFinished.set(false);
+		resetSurvey();
 	};
 </script>
 
