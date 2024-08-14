@@ -2,7 +2,7 @@
 	import * as Select from '$lib/shadcn/ui/select/index.js';
 	import Icon from '@iconify/svelte';
 	import { Button } from '$lib/shadcn/ui/button';
-	import { surveyUserId, surveyFinished } from '$lib/stores/surveyTask';
+	import { surveyUserId, surveyFinished, surveyAllowValidations } from '$lib/stores/surveyTask';
 	import SurveyTaskSlider from '$lib/components/SurveyTaskSlider.svelte';
 	import SurveyTaskFinished from '$lib/components/SurveyTaskFinished.svelte';
 	import SurveyTaskStartButton from '$lib/components/SurveyTaskStartButton.svelte';
@@ -25,6 +25,7 @@
 	import { beforeNavigate, goto } from '$app/navigation';
 	import { fade } from 'svelte/transition';
 	import type { GazeInputConfig } from '@473783/develex-core';
+	import { Switch } from '$lib/shadcn/ui/switch';
 
 	const trackers: Record<string, string> = {
 		dummy: 'Dummy',
@@ -91,23 +92,31 @@
 
 		<SurveyTaskErrors />
 
-		<Select.Root
-			selected={selectedTracker}
-			onSelectedChange={(v) => {
-				v && v.value != null && (selectedTrackerValue = v.value);
-			}}
-		>
-			<Select.Trigger class="w-[180px]">
-				<Select.Value placeholder="Vyberte eye-tracker" />
-			</Select.Trigger>
-			<Select.Content>
-				{#each Object.keys(trackers) as trackerKey}
-					<Select.Item value={trackerKey} label={trackers[trackerKey]}
-						>{trackers[trackerKey]}</Select.Item
-					>
-				{/each}
-			</Select.Content>
-		</Select.Root>
+		<div class="flex items-center gap-4">
+			<Select.Root
+				selected={selectedTracker}
+				onSelectedChange={(v) => {
+					v && v.value != null && (selectedTrackerValue = v.value);
+				}}
+			>
+				<Select.Trigger class="w-[180px]">
+					<Select.Value placeholder="Vyberte eye-tracker" />
+				</Select.Trigger>
+				<Select.Content>
+					{#each Object.keys(trackers) as trackerKey}
+						<Select.Item value={trackerKey} label={trackers[trackerKey]}
+							>{trackers[trackerKey]}</Select.Item
+						>
+					{/each}
+				</Select.Content>
+			</Select.Root>
+
+			<div class="flex items-center gap-2">
+				<Switch id="allow-validations" bind:checked={$surveyAllowValidations} />
+
+				<label for="allow-validations" class="text-sm text-gray-800">Povolit validace</label>
+			</div>
+		</div>
 
 		<div class="flex items-center justify-between gap-2">
 			<div class="flex items-center gap-2">
@@ -135,7 +144,9 @@
 				{/if}
 			</div>
 
-			<Button variant="destructive" on:click={handleDisconnect}>Odpojit eye-tracker</Button>
+			{#if $gazeState != GazeState.DISCONNECTED}
+				<Button variant="destructive" on:click={handleDisconnect}>Odpojit eye-tracker</Button>
+			{/if}
 		</div>
 	</div>
 {:else if $surveyFinished}

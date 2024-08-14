@@ -27,7 +27,7 @@ export const gazePointConfig: GazeInputConfigGazePoint = {
 
 export const gazeInput = writable<GazeInput<GazeInputConfig> | null>(null);
 export const gazeState = writable<GazeState>(GazeState.DISCONNECTED);
-export const gazeValidation = writable(true);
+export const gazeValidation = writable(false);
 export const gazeStopTimeout = writable<number | null>(null);
 export const gazeStop = writable(false);
 

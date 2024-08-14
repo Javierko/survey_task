@@ -1,6 +1,7 @@
 <script lang="ts">
 	import QUESTIONS from '$lib/data/questions.json';
 	import {
+		surveyAllowValidations,
 		surveyFinished,
 		surveyQuestion,
 		surveySlide,
@@ -96,7 +97,9 @@
 			});
 		}
 
-		gazeValidation.set(true);
+		if ($surveyAllowValidations) {
+			gazeValidation.set(true);
+		}
 
 		if (last) {
 			surveyFinished.set(true);

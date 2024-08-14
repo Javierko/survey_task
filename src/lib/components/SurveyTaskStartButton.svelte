@@ -1,7 +1,8 @@
 <script lang="ts">
 	import userRepository from '$lib/database/repositories/user.repository';
 	import { Button } from '$lib/shadcn/ui/button';
-	import { surveyUserId } from '$lib/stores/surveyTask';
+	import { gazeValidation } from '$lib/stores/gazeInput';
+	import { surveyAllowValidations, surveyUserId } from '$lib/stores/surveyTask';
 	import { v4 } from 'uuid';
 
 	const handleStartSurvey = async () => {
@@ -18,6 +19,10 @@
 		});
 
 		surveyUserId.set(uId);
+
+		if ($surveyAllowValidations) {
+			gazeValidation.set(true);
+		}
 	};
 </script>
 
