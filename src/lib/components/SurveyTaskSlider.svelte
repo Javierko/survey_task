@@ -3,7 +3,8 @@
 	import { surveySlide, surveyUserId } from '$lib/stores/surveyTask';
 	import {
 		GazeInteractionScreenFixation,
-		GazeInteractionObjectFixation
+		GazeInteractionObjectFixation,
+		type GazeInteractionObjectFixationEvent
 	} from '@473783/develex-core';
 	import SurveyTaskQuestions from './SurveyTaskQuestions.svelte';
 	import { onMount } from 'svelte';
@@ -25,9 +26,12 @@
 
 	const fixationStore = new GazeInteractionScreenFixation();
 	const fixationObjectStore = new GazeInteractionObjectFixation();
+	const fixationObjectSettings = {
+		bufferSize: 10
+	};
 
 	const registerFixation = (element: HTMLElement) => {
-		fixationObjectStore.register(element);
+		fixationObjectStore.register(element, fixationObjectSettings);
 	};
 
 	const unregisterFixation = (element: HTMLElement) => {
@@ -37,7 +41,7 @@
 	fixationObjectStore.on('fixationObjectStart', (event) => addFixationEvent(event));
 	fixationObjectStore.on('fixationObjectEnd', (event) => addFixationEvent(event));
 
-	const addFixationEvent = (event) => {
+	const addFixationEvent = (event: GazeInteractionObjectFixationEvent) => {
 		const { type, timestamp, duration, gazeData, target, fixationId } = event;
 
 		const aois = Array.isArray(target) ? target.map((t) => t.id.toString()).join(';') : '';
