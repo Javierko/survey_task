@@ -12,7 +12,7 @@ export enum GazeState {
 
 export const dummyConfig: GazeInputConfigDummy = {
   tracker: 'dummy',
-  fixationDetection: 'none',
+  fixationDetection: 'idt',
   frequency: 30,
   precisionMinimalError: 0.5,
   precisionMaximumError: 1.5,
@@ -21,7 +21,7 @@ export const dummyConfig: GazeInputConfigDummy = {
 
 export const gazePointConfig: GazeInputConfigGazePoint = {
   tracker: 'opengaze',
-  fixationDetection: 'none',
+  fixationDetection: 'idt',
   uri: 'ws://localhost:13892'
 };
 

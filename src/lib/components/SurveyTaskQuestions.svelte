@@ -23,6 +23,8 @@
 		id: number;
 		question: string;
 	}[];
+	export let registerFn: (element: HTMLElement) => void;
+	export let unregisterFn: (element: HTMLElement) => void;
 
 	let loadTime: number | null = null;
 
@@ -110,6 +112,20 @@
 
 	onMount(() => {
 		loadTime = Date.now();
+
+		for (let i = 0; i < aois.length; i++) {
+			for (let j = 0; j < aois[i].length; j++) {
+				registerFn(aois[i][j]);
+			}
+		}
+
+		return () => {
+			for (let i = 0; i < aois.length; i++) {
+				for (let j = 0; j < aois[i].length; j++) {
+					unregisterFn(aois[i][j]);
+				}
+			}
+		};
 	});
 </script>
 
