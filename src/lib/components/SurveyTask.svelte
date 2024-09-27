@@ -2,7 +2,13 @@
 	import * as Select from '$lib/shadcn/ui/select/index.js';
 	import Icon from '@iconify/svelte';
 	import { Button } from '$lib/shadcn/ui/button';
-	import { surveyUserId, surveyFinished, surveyAllowValidations } from '$lib/stores/surveyTask';
+	import {
+		surveyUserId,
+		surveyAllowValidations,
+		surveyIdentifier,
+		surveyState,
+		SurveyState
+	} from '$lib/stores/surveyTask';
 	import SurveyTaskSlider from '$lib/components/SurveyTaskSlider.svelte';
 	import SurveyTaskFinished from '$lib/components/SurveyTaskFinished.svelte';
 	import SurveyTaskStartButton from '$lib/components/SurveyTaskStartButton.svelte';
@@ -26,6 +32,8 @@
 	import { fade } from 'svelte/transition';
 	import type { GazeInputConfig } from '@473783/develex-core';
 	import { Switch } from '$lib/shadcn/ui/switch';
+	import { Input } from '$lib/shadcn/ui/input';
+	import SurveyTaskPitStop from './SurveyTaskPitStop.svelte';
 
 	const trackers: Record<string, string> = {
 		dummy: 'Dummy',
@@ -61,7 +69,7 @@
 	};
 
 	const handleKeyDown = (e: KeyboardEvent) => {
-		if ($surveyUserId && !$surveyFinished) {
+		if ($surveyUserId && $surveyState !== SurveyState.Finished) {
 			if (e.key === 'F5' || ((e.ctrlKey || e.metaKey) && e.key === 'r')) {
 				e.preventDefault();
 			}
@@ -76,7 +84,7 @@
 		gazeStop.set(true);
 		$gazeInput?.stop();
 
-		if ($surveyUserId && !$surveyFinished) {
+		if ($surveyUserId && $surveyState !== SurveyState.Finished) {
 			cancel();
 		}
 	});
@@ -110,6 +118,13 @@
 					{/each}
 				</Select.Content>
 			</Select.Root>
+
+			<Input
+				type="text"
+				placeholder="Identifikátor"
+				class="max-w-[10rem]"
+				bind:value={$surveyIdentifier}
+			/>
 
 			<div class="flex items-center gap-2">
 				<Switch id="allow-validations" bind:checked={$surveyAllowValidations} />
@@ -149,11 +164,15 @@
 			{/if}
 		</div>
 	</div>
-{:else if $surveyFinished}
+{:else if $surveyState === SurveyState.Finished}
 	<SurveyTaskFinished />
 {:else if $gazeValidation}
 	<div in:fade>
 		<SurveyTaskValidation />
+	</div>
+{:else if $surveyState === SurveyState.PitStop}
+	<div in:fade>
+		<SurveyTaskPitStop />
 	</div>
 {:else}
 	<div in:fade>

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import QUESTIONS from '$lib/data/questions.json';
-	import { surveySlide, surveyUserId } from '$lib/stores/surveyTask';
+	import { surveyCurrentType, surveySlide, surveyUserId } from '$lib/stores/surveyTask';
 	import {
 		GazeInteractionScreenFixation,
 		GazeInteractionObjectFixation,
@@ -22,7 +22,7 @@
 		'Naprosto nesouhlasím'
 	];
 
-	$: questions = QUESTIONS[$surveySlide];
+	$: questions = QUESTIONS[$surveyCurrentType][$surveySlide];
 
 	const fixationStore = new GazeInteractionScreenFixation();
 	const fixationObjectStore = new GazeInteractionObjectFixation();

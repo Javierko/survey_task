@@ -1,6 +1,6 @@
 import { createGazeInput, type GazeDataPoint, type GazeInput, type GazeInputConfig, type GazeInputConfigDummy, type GazeInputConfigGazePoint } from '@473783/develex-core';
 import { get, writable } from 'svelte/store';
-import { surveyFinished, surveyUserId } from './surveyTask';
+import { SurveyState, surveyState, surveyUserId } from './surveyTask';
 import pointRepository from '$lib/database/repositories/point.repository';
 
 export enum GazeState {
@@ -65,9 +65,9 @@ export const closeGazeInput = async () => {
 
 const onDataRecieve = async (point: GazeDataPoint) => {
   const userId = get(surveyUserId);
-  const finished = get(surveyFinished);
+  const state = get(surveyState);
 
-  if (!userId || finished) {
+  if (!userId || state == SurveyState.Finished) {
     return;
   }
 

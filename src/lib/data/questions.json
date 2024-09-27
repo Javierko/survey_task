@@ -1,36 +1,28 @@
-[
-  [
-    {
-      "id": 1,
-      "question": "Policisté by měli věnovat zvláštní pozornost skupinám více zapojeným do zločinného jednání, i kdyby to znamenalo, že se budou více zaměřovat na členy určitých etnických skupin."
-    },
-    {
-      "id": 2,
-      "question": "How do you like this questionnaire?"
-    },
-    {
-      "id": 3,
-      "question": "How do you like this questionnaire?"
-    },
-    {
-      "id": 4,
-      "question": "How do you like this questionnaire?"
-    }
-  ],
-  [
-    {
-      "id": 100,
-      "question": "How do you like this questionnaire?"
-    }
-  ],
-  [
-    {
-      "id": 20,
-      "question": "How do you like this questionnaire?"
-    },
-    {
-      "id": 23,
-      "question": "How do you like this questionnaire?"
-    }
-  ]
-]
+{
+	"many": [
+		[
+			{
+				"id": 1,
+				"question": "If you want to make accurate predictions, you should use information about a person’s ethnic group when deciding if they will perform well."
+			},
+			{
+				"id": 2,
+				"question": "If your personal safety is at stake, it’s sensible to avoid members of ethnic groups known to behave more aggressively."
+			}
+		]
+	],
+	"one": [
+		[
+			{
+				"id": 100,
+				"question": "How do you like this questionnaire?"
+			}
+		],
+		[
+			{
+				"id": 101,
+				"question": "How do many asdasd like this questionnaire?"
+			}
+		]
+	]
+}

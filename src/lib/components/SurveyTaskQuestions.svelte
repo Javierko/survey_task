@@ -2,9 +2,11 @@
 	import QUESTIONS from '$lib/data/questions.json';
 	import {
 		surveyAllowValidations,
-		surveyFinished,
+		surveyCurrentType,
 		surveyQuestion,
 		surveySlide,
+		surveyState,
+		SurveyState,
 		surveyUserId
 	} from '$lib/stores/surveyTask';
 	import SurveyTaskQuestion from './SurveyTaskQuestion.svelte';
@@ -37,7 +39,7 @@
 	$: questions, reset();
 	$: questions.length === 1 &&
 		$surveyQuestion.has(questions.length) &&
-		onNextSlide($surveySlide === QUESTIONS.length - 1);
+		onNextSlide($surveySlide === QUESTIONS[$surveyCurrentType].length - 1);
 
 	function reset() {
 		values = initValues();
@@ -104,7 +106,13 @@
 		}
 
 		if (last) {
-			surveyFinished.set(true);
+			if ($surveyState === SurveyState.SecondPhase) {
+				surveyState.set(SurveyState.Finished);
+			} else if ($surveyState === SurveyState.FirstPhase) {
+				surveyState.set(SurveyState.PitStop);
+				surveySlide.set(0);
+				gazeValidation.set(false);
+			}
 		} else {
 			surveySlide.update((slide) => slide + 1);
 		}
@@ -165,12 +173,16 @@
 				</div>
 
 				<div class="mt-8 flex justify-end">
-					{#if $surveySlide === QUESTIONS.length - 1}
+					{#if $surveySlide === QUESTIONS[$surveyCurrentType].length - 1}
 						<Button
 							on:click={() => onNextSlide(true)}
 							disabled={!$surveyQuestion.has(questions.length)}
 						>
-							Dokončit
+							{#if $surveyState === SurveyState.SecondPhase}
+								Dokončit
+							{:else}
+								Další
+							{/if}
 						</Button>
 					{:else}
 						<Button
