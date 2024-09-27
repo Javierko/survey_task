@@ -19,8 +19,8 @@ export class SurveyDatabase extends Dexie {
   constructor() {
     super('SurveyTask');
 
-    this.version(2).stores({
-      users: '&id, resolution.width, resolution.height, userAgent, timestamp',
+    this.version(3).stores({
+      users: '&id, identifier, startedWith, resolution.width, resolution.height, userAgent, timestamp',
       clicks: '++id, userId, aoiId, x, y, value, timestamp',
       answers: '++id, userId, questionId, answer, timestamp',
       aois: '++id, userId, aoiId, leftBotPos.x, leftBotPos.y, rightTopPos.x, rightTopPos.y',
