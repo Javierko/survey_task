@@ -14,7 +14,6 @@ export const surveyUserId = writable<string | null>(null);
 export const surveyQuestion = writable(new Set([0]));
 export const surveyAllowValidations = writable(true);
 export const surveyIdentifier = writable<string>("");
-export const surveyStartWithOnes = writable<boolean>(false);
 export const surveyCurrentType = writable<SurveyStartType>("many");
 
 export const resetSurvey = () => {
@@ -23,8 +22,7 @@ export const resetSurvey = () => {
   surveyQuestion.set(new Set([0]));
   surveyAllowValidations.set(true);
   surveyIdentifier.set("");
-  surveyStartWithOnes.update((prev) => prev ? false : true);
-  surveyCurrentType.set(get(surveyStartWithOnes) ? "one" : "many");
+  surveyCurrentType.set("many");
   surveyState.set(SurveyState.FirstPhase);
 };
 

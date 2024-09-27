@@ -13,6 +13,17 @@ const userRepository = {
       return [];
     }
   },
+  async getLastUser(): Promise<User | null> {
+    try {
+      const user = await db.users.orderBy('timestamp').last();
+
+      return user ?? null;
+    } catch (e) {
+      console.error(e);
+
+      return null;
+    }
+  },
   async create(data: User): Promise<string | null> {
     try {
       const id = await db.users.add({

@@ -6,11 +6,19 @@
 		surveyAllowValidations,
 		surveyUserId,
 		surveyIdentifier,
-		surveyCurrentType
+		surveyCurrentType,
+		switchCurrentType
 	} from '$lib/stores/surveyTask';
 	import { v4 } from 'uuid';
 
 	const handleStartSurvey = async () => {
+		const lastUser = await userRepository.getLastUser();
+
+		if (lastUser) {
+			surveyCurrentType.set(lastUser.startedWith);
+			switchCurrentType();
+		}
+
 		const uId = await userRepository.create({
 			id: v4(),
 			identifier: $surveyIdentifier,
