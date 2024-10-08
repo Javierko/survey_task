@@ -5,9 +5,9 @@
 	import {
 		surveyAllowValidations,
 		surveyUserId,
-		surveyIdentifier,
 		surveyCurrentType,
-		switchCurrentType
+		switchCurrentType,
+		surveyUserData
 	} from '$lib/stores/surveyTask';
 	import { v4 } from 'uuid';
 
@@ -21,7 +21,10 @@
 
 		const uId = await userRepository.create({
 			id: v4(),
-			identifier: $surveyIdentifier,
+			identifier: $surveyUserData.identifier,
+			age: $surveyUserData.age,
+			experience: $surveyUserData.experience,
+			gender: $surveyUserData.gender,
 			startedWith: $surveyCurrentType,
 			resolution: {
 				width: window.screen.width,

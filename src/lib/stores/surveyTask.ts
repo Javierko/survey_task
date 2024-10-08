@@ -8,12 +8,24 @@ export enum SurveyState {
   Finished
 };
 
+export interface UserData {
+  identifier: string;
+  age: number;
+  gender: string;
+  experience: string;
+};
+
 export const surveyState = writable<SurveyState>(SurveyState.FirstPhase);
 export const surveySlide = writable(0);
 export const surveyUserId = writable<string | null>(null);
 export const surveyQuestion = writable(new Set([0]));
 export const surveyAllowValidations = writable(true);
-export const surveyIdentifier = writable<string>("");
+export const surveyUserData = writable<UserData>({
+  identifier: "",
+  age: 0,
+  gender: "",
+  experience: ""
+});
 export const surveyCurrentType = writable<SurveyStartType>("many");
 
 export const resetSurvey = () => {
@@ -21,9 +33,14 @@ export const resetSurvey = () => {
   surveyUserId.set(null);
   surveyQuestion.set(new Set([0]));
   surveyAllowValidations.set(true);
-  surveyIdentifier.set("");
   surveyCurrentType.set("many");
   surveyState.set(SurveyState.FirstPhase);
+  surveyUserData.set({
+    identifier: "",
+    age: 0,
+    gender: "",
+    experience: ""
+  });
 };
 
 export const switchCurrentType = (): SurveyStartType => {

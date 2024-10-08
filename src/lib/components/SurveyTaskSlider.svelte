@@ -1,5 +1,5 @@
 <script lang="ts">
-	import QUESTIONS from '$lib/data/questions.json';
+	import QUESTIONS from '$lib/data/questions_full.json';
 	import { surveyCurrentType, surveySlide, surveyUserId } from '$lib/stores/surveyTask';
 	import {
 		GazeInteractionScreenFixation,
