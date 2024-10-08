@@ -13,16 +13,16 @@
 	import type { Fixation } from '$lib/database/models/Fixation';
 
 	const headers = [
-		'Naprosto souhlasím',
-		'Souhlasím',
-		'Spíše souhlasím',
-		'Nevím',
-		'Spíše nesouhlasím',
+		'Rozhodně nesouhlasím',
 		'Nesouhlasím',
-		'Naprosto nesouhlasím'
+		'Spíše nesouhlasím',
+		'Nevím',
+		'Spíše souhlasím',
+		'Souhlasím',
+		'Rozhodně souhlasím'
 	];
 
-	$: questions = QUESTIONS[$surveyCurrentType][$surveySlide];
+	$: questions = QUESTIONS[$surveyCurrentType][$surveySlide].questions;
 
 	const fixationStore = new GazeInteractionScreenFixation();
 	const fixationObjectStore = new GazeInteractionObjectFixation();
