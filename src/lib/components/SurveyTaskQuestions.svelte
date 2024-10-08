@@ -1,5 +1,5 @@
 <script lang="ts">
-	import QUESTIONS from '$lib/data/questions.json';
+	import QUESTIONS from '$lib/data/questions_full.json';
 	import {
 		surveyAllowValidations,
 		surveyCurrentType,
@@ -144,9 +144,11 @@
 				<div class="flex items-center border-b border-gray-200">
 					<div
 						id={getQuestionId($surveySlide, 'header', 0)}
-						class="col-item col-item--title"
+						class="col-item col-item--title font-medium text-gray-700"
 						bind:this={aois[0][0]}
-					/>
+					>
+						{QUESTIONS[$surveyCurrentType][$surveySlide].title}
+					</div>
 
 					{#each headers as header, i}
 						<div

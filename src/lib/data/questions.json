@@ -1,28 +1,51 @@
 {
 	"many": [
-		[
-			{
-				"id": 1,
-				"question": "If you want to make accurate predictions, you should use information about a person’s ethnic group when deciding if they will perform well."
-			},
-			{
-				"id": 2,
-				"question": "If your personal safety is at stake, it’s sensible to avoid members of ethnic groups known to behave more aggressively."
-			}
-		]
+		{
+			"title": "Níže naleznete několik výroků týkajících se různých oblastí Vašeho studia a vztahů na univerzitě. Vaším úkolem je zhodnotit, jak moc souhlasíte s každým z následujících výroků.",
+			"questions": [
+				{
+					"id": 1,
+					"question": "Jsem spokojený/á se vztahy, které mám s učiteli."
+				}
+			]
+		},
+		{
+			"title": "Níže jsou uvedena tvrzení, která se týkají různých situací a názorů. Vaším úkolem je zhodnotit, do jaké míry s každým z těchto tvrzení souhlasíte nebo nesouhlasíte.",
+			"questions": [
+				{
+					"id": 9,
+					"question": "Když chcete někoho přesně odhadnout, měli byste při posuzování jejich/jeho budoucích výkonů zohlednit, odkud pochází (tj. její/jeho etnicitu, národnost)."
+				}
+			]
+		},
+		{
+			"title": "",
+			"questions": [
+				{
+					"id": 17,
+					"question": "Jak psychicky náročný byl tento úkol?"
+				}
+			]
+		}
 	],
 	"one": [
-		[
-			{
-				"id": 100,
-				"question": "How do you like this questionnaire?"
-			}
-		],
-		[
-			{
-				"id": 101,
-				"question": "How do many asdasd like this questionnaire?"
-			}
-		]
+		{
+			"title": "Níže jsou uvedena tvrzení, která se týkají různých situací a názorů. Vaším úkolem je zhodnotit, do jaké míry s každým z těchto tvrzení souhlasíte nebo nesouhlasíte.",
+			"questions": [
+				{
+					"id": 18,
+					"question": "Když chcete někoho přesně odhadnout, měli byste při posuzování jejich/jeho budoucích výkonů zohlednit, odkud pochází (tj. její/jeho etnicitu, národnost)."
+				}
+			]
+		},
+		{
+			"title": "Následující vlastnosti mohou nebo nemusí vystihovat vaši osobnost. Odpovězte prosím, do jaké míry s ním souhlasíte nebo nesouhlasíte.",
+			"questions": [
+				{
+					"id": 26,
+					"question": "... si hodně dělá starosti."
+				}
+			]
+		}
 	]
 }
