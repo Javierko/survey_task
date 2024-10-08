@@ -30,6 +30,7 @@ export const gazeState = writable<GazeState>(GazeState.DISCONNECTED);
 export const gazeValidation = writable(false);
 export const gazeStopTimeout = writable<number | null>(null);
 export const gazeStop = writable(false);
+export const gazeLatestConfig = writable<GazeInputConfig | null>(null);
 
 export const setupGazeInput = async (config: GazeInputConfig, mouseEvent: MouseEvent, window: Window) => {
   if (get(gazeInput)) {
@@ -37,6 +38,7 @@ export const setupGazeInput = async (config: GazeInputConfig, mouseEvent: MouseE
   }
 
   gazeState.set(GazeState.CONNECTING);
+  gazeLatestConfig.set(config);
 
   const newGazeInput = createGazeInput<GazeInputConfig>(config);
   newGazeInput.setWindowCalibration(mouseEvent, window);
@@ -55,7 +57,6 @@ export const closeGazeInput = async () => {
   if (currentGazeInput) {
     currentGazeInput.off("data", onDataRecieve);
 
-    await currentGazeInput.stop();
     await currentGazeInput.disconnect();
 
     gazeInput.set(null);
@@ -67,7 +68,7 @@ const onDataRecieve = async (point: GazeDataPoint) => {
   const userId = get(surveyUserId);
   const state = get(surveyState);
 
-  if (!userId || state == SurveyState.Finished) {
+  if (!userId || state == SurveyState.Finished || state == SurveyState.PitStop) {
     return;
   }
 
