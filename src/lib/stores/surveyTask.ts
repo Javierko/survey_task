@@ -2,6 +2,8 @@ import type { SurveyStartType } from '$lib/database/models/User';
 import { get, writable } from 'svelte/store';
 
 export enum SurveyState {
+  None,
+  Demographic,
   FirstPhase,
   PitStop,
   SecondPhase,
@@ -15,7 +17,7 @@ export interface UserData {
   experience: string;
 };
 
-export const surveyState = writable<SurveyState>(SurveyState.FirstPhase);
+export const surveyState = writable<SurveyState>(SurveyState.None);
 export const surveySlide = writable(0);
 export const surveyUserId = writable<string | null>(null);
 export const surveyQuestion = writable(new Set([0]));
@@ -34,7 +36,7 @@ export const resetSurvey = () => {
   surveyQuestion.set(new Set([0]));
   surveyAllowValidations.set(true);
   surveyCurrentType.set("many");
-  surveyState.set(SurveyState.FirstPhase);
+  surveyState.set(SurveyState.None);
   surveyUserData.set({
     identifier: "",
     age: 0,

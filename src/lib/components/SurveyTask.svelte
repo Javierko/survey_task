@@ -32,8 +32,8 @@
 	import { fade } from 'svelte/transition';
 	import type { GazeInputConfig } from '@473783/develex-core';
 	import { Switch } from '$lib/shadcn/ui/switch';
-	import { Input } from '$lib/shadcn/ui/input';
 	import SurveyTaskPitStop from './SurveyTaskPitStop.svelte';
+	import SurveyTaskDemographic from './SurveyTaskDemographic.svelte';
 
 	const trackers: Record<string, string> = {
 		dummy: 'Dummy',
@@ -76,30 +76,12 @@
 		}
 	};
 
+	const handleContinue = () => {
+		surveyState.set(SurveyState.Demographic);
+	};
+
 	const handleDisconnect = async () => {
 		await closeGazeInput();
-	};
-
-	const handleGenderSelect = (value: any) => {
-		if (!value || value.value == null) {
-			return;
-		}
-
-		surveyUserData.update((data) => {
-			data.gender = value.value as string;
-			return data;
-		});
-	};
-
-	const handleExpirienceSelect = (value: any) => {
-		if (!value || value.value == null) {
-			return;
-		}
-
-		surveyUserData.update((data) => {
-			data.experience = value.value as string;
-			return data;
-		});
 	};
 
 	beforeNavigate(({ cancel }) => {
@@ -116,6 +98,8 @@
 	<div in:fade>
 		<SurveyTaskPitStop />
 	</div>
+{:else if $surveyState === SurveyState.Demographic}
+	<SurveyTaskDemographic />
 {:else if $gazeState != GazeState.CONNECTED || $surveyUserId === null}
 	<div class="flex w-full max-w-2xl flex-col gap-4 rounded-md border border-gray-200 p-4 shadow-sm">
 		<div class="flex items-center justify-end">
@@ -145,62 +129,10 @@
 				</Select.Content>
 			</Select.Root>
 
-			<Input
-				type="text"
-				placeholder="Identifikátor"
-				class="max-w-[10rem]"
-				bind:value={$surveyUserData.identifier}
-			/>
-
 			<div class="flex items-center gap-2">
 				<Switch id="allow-validations" bind:checked={$surveyAllowValidations} />
 
 				<label for="allow-validations" class="text-sm text-gray-800">Povolit validace</label>
-			</div>
-		</div>
-
-		<div class="flex flex-col gap-2">
-			<div class="flex flex-col gap-1">
-				<small class="font-medium text-gray-700">Jaký je Vás věk?</small>
-				<Input type="number" placeholder="Věk" min="0" max="99" bind:value={$surveyUserData.age} />
-			</div>
-
-			<div class="flex flex-col gap-1">
-				<small class="font-medium text-gray-700">Jaký je Vaše pohlaví?</small>
-				<Select.Root onSelectedChange={handleGenderSelect}>
-					<Select.Trigger>
-						<Select.Value placeholder="Vyberte pohlaví" />
-					</Select.Trigger>
-					<Select.Content>
-						<Select.Item value="male" label="Muž">Muž</Select.Item>
-						<Select.Item value="female" label="Žena">Žena</Select.Item>
-					</Select.Content>
-				</Select.Root>
-			</div>
-
-			<div class="flex flex-col gap-1">
-				<small class="font-medium text-gray-700">Jaká je Vaše zkušenost s PC?</small>
-				<Select.Root onSelectedChange={handleExpirienceSelect}>
-					<Select.Trigger>
-						<Select.Value placeholder="Vyberte zkušenost s PC" />
-					</Select.Trigger>
-					<Select.Content>
-						<Select.Item value="Méně než jednou za měsíc" label="Méně než jednou za měsíc"
-							>Méně než jednou za měsíc</Select.Item
-						>
-						<Select.Item value="Několikrát za měsíc" label="Několikrát za měsíc"
-							>Několikrát za měsíc</Select.Item
-						>
-						<Select.Item value="Jednou týdně" label="Jednou týdně">Jednou týdně</Select.Item>
-						<Select.Item value="Několikrát za týden" label="Několikrát za týden"
-							>Několikrát za týden</Select.Item
-						>
-						<Select.Item value="Každý den" label="Každý den">Každý den</Select.Item>
-						<Select.Item value="Několikrát denně" label="Několikrát denně"
-							>Několikrát denně</Select.Item
-						>
-					</Select.Content>
-				</Select.Root>
 			</div>
 		</div>
 
@@ -226,7 +158,7 @@
 				</Button>
 
 				{#if $gazeState == GazeState.CONNECTED}
-					<SurveyTaskStartButton />
+					<Button on:click={handleContinue}>Pokračovat</Button>
 				{/if}
 			</div>
 
@@ -242,7 +174,7 @@
 		<SurveyTaskValidation />
 	</div>
 {:else}
-	<div in:fade>
+	<div in:fade class="w-full">
 		<SurveyTaskSlider />
 	</div>
 {/if}

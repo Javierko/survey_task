@@ -7,7 +7,9 @@
 		surveyUserId,
 		surveyCurrentType,
 		switchCurrentType,
-		surveyUserData
+		surveyUserData,
+		surveyState,
+		SurveyState
 	} from '$lib/stores/surveyTask';
 	import { v4 } from 'uuid';
 
@@ -37,6 +39,7 @@
 		});
 
 		surveyUserId.set(uId);
+		surveyState.set(SurveyState.FirstPhase);
 
 		if ($surveyAllowValidations) {
 			gazeValidation.set(true);

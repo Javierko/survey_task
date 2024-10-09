@@ -18,7 +18,7 @@
 		await closeGazeInput();
 	});
 
-	export const onContinueHandle = async (e: MouseEvent) => {
+	const onContinueHandle = async (e: MouseEvent) => {
 		if ($gazeLatestConfig != null) {
 			loading = true;
 
@@ -35,6 +35,12 @@
 		gazeValidation.set(true);
 		switchCurrentType();
 	};
+
+	const handleCalibrate = async () => {
+		if ($gazeInput) {
+			await $gazeInput.calibrate();
+		}
+	};
 </script>
 
 <div class="flex w-full max-w-2xl flex-col gap-4 rounded-md border border-gray-200 p-4 shadow-sm">
@@ -43,11 +49,13 @@
 		<Alert.Title>Pauza!</Alert.Title>
 		<Alert.Description>
 			Momentálně jste došli do fáze, kdy je nutné přejít na druhý úkol. Jakmile jej budete mít,
-			vraťte se zpět a klikněte na tlačítko "Pokračovat".
+			vraťte se zpět <strong>zkalibrujte zařízení</strong> a <strong>pokračujte</strong>.
 		</Alert.Description>
 	</Alert.Root>
 
-	<div class="flex items-center justify-end">
+	<div class="flex items-center justify-end gap-2">
+		<Button variant="outline" on:click={handleCalibrate}>Kalibrace</Button>
+
 		<Button on:click={onContinueHandle} disabled={loading}>
 			{#if loading}
 				<Icon icon="lucide:loader-circle" class="mr-2 h-4 w-4 animate-spin" />
