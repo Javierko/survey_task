@@ -88,14 +88,12 @@
 .col-item {
 	@apply inline-flex items-center justify-center text-center;
 
-	width: 120px;
-	height: 110px;
+	width: 140px;
+	height: 88px;
 }
 
 .col-item--title {
-	@apply mr-8 justify-start pl-2 text-left;
-
-	width: 445px;
+	@apply mr-8 w-full justify-start pl-2 text-left;
 }
 
 .question-row--disabled .col-item--title {
