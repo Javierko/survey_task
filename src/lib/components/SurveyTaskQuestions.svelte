@@ -137,28 +137,30 @@
 	});
 </script>
 
-<div class="flex h-screen items-center justify-center">
-	<div class="w-full max-w-[86rem] p-4 shadow">
+<div class="flex h-screen w-full items-center justify-center">
+	<div class="w-full max-w-[108rem] px-4 py-2.5 shadow">
 		{#key $surveySlide}
 			<div in:fade>
-				<div class="flex items-center border-b border-gray-200">
+				<div class="question-row flex items-center border-b border-gray-200">
 					<div
 						id={getQuestionId($surveySlide, 'header', 0)}
-						class="col-item col-item--title font-medium text-gray-700"
+						class="col-item col-item--title flex font-medium text-gray-700"
 						bind:this={aois[0][0]}
 					>
 						{QUESTIONS[$surveyCurrentType][$surveySlide].title}
 					</div>
 
-					{#each headers as header, i}
-						<div
-							id={getQuestionId($surveySlide, 'header', i + 1)}
-							class="col-item"
-							bind:this={aois[0][i + 1]}
-						>
-							{header}
-						</div>
-					{/each}
+					<div class="flex w-full items-center justify-end gap-0">
+						{#each headers as header, i}
+							<div
+								id={getQuestionId($surveySlide, 'header', i + 1)}
+								class="col-item"
+								bind:this={aois[0][i + 1]}
+							>
+								{header}
+							</div>
+						{/each}
+					</div>
 				</div>
 
 				<div class="flex flex-col divide-y divide-gray-200/60">
@@ -174,7 +176,7 @@
 					{/each}
 				</div>
 
-				<div class="mt-8 flex justify-end">
+				<div class="mt-4 flex justify-end">
 					{#if $surveySlide === QUESTIONS[$surveyCurrentType].length - 1}
 						<Button
 							on:click={() => onNextSlide(true)}
