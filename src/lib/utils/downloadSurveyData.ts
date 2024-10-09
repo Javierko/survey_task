@@ -20,6 +20,8 @@ export const downloadData = async (userIds: string[]): Promise<boolean> => {
     fixations: [fixationRepository.csvHeader()]
   };
 
+  let userIdentifier: string | null = null;
+
   for (const id of userIds) {
     const user = await userRepository.read(id);
 
@@ -27,6 +29,10 @@ export const downloadData = async (userIds: string[]): Promise<boolean> => {
       console.error('User not found');
 
       return false;
+    }
+
+    if (userIds.length === 1 && user.identifier != "") {
+      userIdentifier = user.identifier;
     }
 
     output.users.push(await userRepository.toCsv(user));
@@ -72,7 +78,7 @@ export const downloadData = async (userIds: string[]): Promise<boolean> => {
   zip.file('fixations.csv', output.fixations.join('\n'));
 
   const content = await zip.generateAsync({ type: 'blob' });
-  fileSaver.saveAs(content, 'survey-output.zip');
+  fileSaver.saveAs(content, `survey-output${userIdentifier == null ? "" : `-${userIdentifier}`}.zip`);
 
   return true;
 };

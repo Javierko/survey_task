@@ -62,6 +62,11 @@
 			}
 		}),
 		table.column({
+			id: 'identifier',
+			accessor: ({ identifier }) => identifier,
+			header: 'Identifikátor'
+		}),
+		table.column({
 			id: 'timestamp',
 			accessor: 'timestamp',
 			header: 'Vytvořen',
