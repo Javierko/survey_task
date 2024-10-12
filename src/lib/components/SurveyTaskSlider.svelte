@@ -11,6 +11,7 @@
 	import { gazeInput } from '$lib/stores/gazeInput';
 	import fixationRepository from '$lib/database/repositories/fixation.repository';
 	import type { Fixation } from '$lib/database/models/Fixation';
+	import Container from 'postcss/lib/container';
 
 	const headers = [
 		'Rozhodně nesouhlasím',
@@ -20,6 +21,16 @@
 		'Spíše souhlasím',
 		'Souhlasím',
 		'Rozhodně souhlasím'
+	];
+
+	const headersAlternative = [
+		'Velmi náročný',
+		'Náročný',
+		'Spíše náročný',
+		'Ani nenáročný, ani náročný',
+		'Spíše nenáročný',
+		'Nenáročný',
+		'Velmi nenáročný'
 	];
 
 	$: questions = QUESTIONS[$surveyCurrentType][$surveySlide].questions;
@@ -76,7 +87,9 @@
 
 <SurveyTaskQuestions
 	{questions}
-	{headers}
+	headers={questions.length === 1 && [17, 26].includes(questions[0].id)
+		? headersAlternative
+		: headers}
 	registerFn={registerFixation}
 	unregisterFn={unregisterFixation}
 />
