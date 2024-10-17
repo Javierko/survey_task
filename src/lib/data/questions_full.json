@@ -38,6 +38,10 @@
 			]
 		},
 		{
+			"title": "",
+			"questions": []
+		},
+		{
 			"title": "Níže jsou uvedena tvrzení, která se týkají různých situací a názorů. Vaším úkolem je zhodnotit, do jaké míry s každým z těchto tvrzení souhlasíte nebo nesouhlasíte.",
 			"questions": [
 				{
@@ -147,6 +151,10 @@
 					"question": "Jsem spokojený/á s výukou, které jsem se doposud účastnil/a."
 				}
 			]
+		},
+		{
+			"title": "",
+			"questions": []
 		},
 		{
 			"title": "Níže jsou uvedena tvrzení, která se týkají různých situací a názorů. Vaším úkolem je zhodnotit, do jaké míry s každým z těchto tvrzení souhlasíte nebo nesouhlasíte.",

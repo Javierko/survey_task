@@ -141,27 +141,29 @@
 	<div class="w-full max-w-[108rem] px-4 py-2.5 shadow">
 		{#key $surveySlide}
 			<div in:fade>
-				<div class="question-row flex items-center border-b border-gray-200">
-					<div
-						id={getQuestionId($surveySlide, 'header', 0)}
-						class="col-item col-item--title flex font-medium text-gray-700"
-						bind:this={aois[0][0]}
-					>
-						{QUESTIONS[$surveyCurrentType][$surveySlide].title}
-					</div>
+				{#if questions.length > 0}
+					<div class="question-row flex items-center border-b border-gray-200">
+						<div
+							id={getQuestionId($surveySlide, 'header', 0)}
+							class="col-item col-item--title flex font-medium text-gray-700"
+							bind:this={aois[0][0]}
+						>
+							{QUESTIONS[$surveyCurrentType][$surveySlide].title}
+						</div>
 
-					<div class="flex w-full items-center justify-end gap-0">
-						{#each headers as header, i}
-							<div
-								id={getQuestionId($surveySlide, 'header', i + 1)}
-								class="col-item"
-								bind:this={aois[0][i + 1]}
-							>
-								{header}
-							</div>
-						{/each}
+						<div class="flex w-full items-center justify-end gap-0">
+							{#each headers as header, i}
+								<div
+									id={getQuestionId($surveySlide, 'header', i + 1)}
+									class="col-item"
+									bind:this={aois[0][i + 1]}
+								>
+									{header}
+								</div>
+							{/each}
+						</div>
 					</div>
-				</div>
+				{/if}
 
 				<div class="flex flex-col divide-y divide-gray-200/60">
 					{#each questions as question, i}
@@ -176,26 +178,34 @@
 					{/each}
 				</div>
 
-				<div class="mt-4 flex justify-end">
-					{#if $surveySlide === QUESTIONS[$surveyCurrentType].length - 1}
-						<Button
-							on:click={() => onNextSlide(true)}
-							disabled={!$surveyQuestion.has(questions.length)}
-						>
-							{#if $surveyState === SurveyState.SecondPhase}
-								Dokončit
-							{:else}
-								Další
-							{/if}
-						</Button>
-					{:else}
-						<Button
-							on:click={() => onNextSlide(false)}
-							disabled={!$surveyQuestion.has(questions.length)}
-						>
-							Další
-						</Button>
+				<div
+					class={`mt-4 flex ${questions.length > 0 ? 'justify-end' : 'flex-col items-center justify-center gap-4'}`}
+				>
+					{#if questions.length === 0}
+						<span>Pro pokračování klikněte na tlačítko <strong>Další</strong></span>
 					{/if}
+
+					<div>
+						{#if $surveySlide === QUESTIONS[$surveyCurrentType].length - 1}
+							<Button
+								on:click={() => onNextSlide(true)}
+								disabled={!$surveyQuestion.has(questions.length)}
+							>
+								{#if $surveyState === SurveyState.SecondPhase}
+									Dokončit
+								{:else}
+									Další
+								{/if}
+							</Button>
+						{:else}
+							<Button
+								on:click={() => onNextSlide(false)}
+								disabled={!$surveyQuestion.has(questions.length)}
+							>
+								Další
+							</Button>
+						{/if}
+					</div>
 				</div>
 			</div>
 		{/key}
