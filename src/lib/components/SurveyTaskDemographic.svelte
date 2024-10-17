@@ -1,6 +1,5 @@
 <script lang="ts">
 	import * as Select from '$lib/shadcn/ui/select/index.js';
-	import Icon from '@iconify/svelte';
 	import { Input } from '$lib/shadcn/ui/input';
 	import { surveyUserData } from '$lib/stores/surveyTask';
 	import SurveyTaskStartButton from './SurveyTaskStartButton.svelte';
@@ -42,14 +41,18 @@
 		</div>
 
 		<div class="flex flex-col gap-1">
-			<small class="font-medium text-gray-700">Jaký je Vaše pohlaví?</small>
+			<small class="font-medium text-gray-700">Jaký je Váš gender?</small>
 			<Select.Root onSelectedChange={handleGenderSelect}>
 				<Select.Trigger>
-					<Select.Value placeholder="Vyberte pohlaví" />
+					<Select.Value placeholder="Vyberte gender" />
 				</Select.Trigger>
+
 				<Select.Content>
 					<Select.Item value="male" label="Muž">Muž</Select.Item>
 					<Select.Item value="female" label="Žena">Žena</Select.Item>
+					<Select.Item value="other" label="Jiné / Nechci odpovídat">
+						Jiné / Nechci odpovídat
+					</Select.Item>
 				</Select.Content>
 			</Select.Root>
 		</div>
@@ -60,6 +63,7 @@
 				<Select.Trigger>
 					<Select.Value placeholder="Vyberte zkušenost s PC" />
 				</Select.Trigger>
+
 				<Select.Content>
 					<Select.Item value="Méně než jednou za měsíc" label="Méně než jednou za měsíc"
 						>Méně než jednou za měsíc</Select.Item
