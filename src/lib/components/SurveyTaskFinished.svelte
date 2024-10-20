@@ -12,6 +12,7 @@
 
 	const handleStartAgain = () => {
 		resetSurvey();
+		goto('/stage/1');
 	};
 </script>
 

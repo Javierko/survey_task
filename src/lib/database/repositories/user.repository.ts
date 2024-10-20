@@ -48,6 +48,17 @@ const userRepository = {
       return null;
     }
   },
+  async getByIdentifier(identifier: string): Promise<User | null> {
+    try {
+      const user = await db.users.where('identifier').equals(identifier).first();
+
+      return user ?? null;
+    } catch (e) {
+      console.error(e);
+
+      return null
+    }
+  },
   csvHeader(): string {
     return 'id,identifier,age,gender,experience,startedWith,resolution.width,resolution.height,resolution.innerWidth,resolution.innerHeight,userAgent,timestamp';
   },
