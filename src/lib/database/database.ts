@@ -17,13 +17,13 @@ export class SurveyDatabase extends Dexie {
   constructor() {
     super('SurveyTask');
 
-    this.version(4).stores({
+    this.version(5).stores({
       users: '&id, identifier, startedWith, resolution.width, resolution.height, userAgent, timestamp',
       clicks: '++id, userId, aoiId, x, y, value, timestamp',
       answers: '++id, userId, questionId, answer, timestamp',
       aois: '++id, userId, aoiId, leftBotPos.x, leftBotPos.y, rightTopPos.x, rightTopPos.y',
-      points: '++id, userId, sessionId, timestamp, x, xL, xR, xLScreenRelative, xRScreenRelative, y, yL, yR, yLScreenRelative, yRScreenRelative, validityL, validityR, parseValidity, fixationDuration, fixationId',
-      pageLoads: '++id, userId, slide, timestamp',
+      points: '++id, userId, sessionId, timestamp, x, xL, xR, xLScreenRelative, xRScreenRelative, y, yL, yR, yLScreenRelative, yRScreenRelative, validityL, validityR, parseValidity, pupilDiameterL, pupilDiameterR, fixationDuration, fixationId',
+      pageLoads: '++id, userId, stage, slide, timestamp',
     });
   }
 };

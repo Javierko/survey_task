@@ -49,10 +49,10 @@ const pointRepository = {
     }
   },
   csvHeader(): string {
-    return 'id,userId,sessionId,timestamp,x,xL,xR,xLScreenRelative,xRScreenRelative,y,yL,yR,yLScreenRelative,yRScreenRelative,validityL,validityR,parseValidity';
+    return 'id,userId,sessionId,timestamp,x,xL,xR,xLScreenRelative,xRScreenRelative,y,yL,yR,yLScreenRelative,yRScreenRelative,validityL,validityR,parseValidity,pupilDiameterL,pupilDiameterR';
   },
   async toCsv(data: Point[]): Promise<string> {
-    return data.map(x => `${x.id},${x.userId},${x.sessionId},${x.timestamp},${x.x},${x.xL},${x.xR},${x.xLScreenRelative},${x.xRScreenRelative},${x.y},${x.yL},${x.yR},${x.yLScreenRelative},${x.yRScreenRelative},${x.validityL},${x.validityR},${x.parseValidity}`).join("\n");
+    return data.map(x => `${x.id},${x.userId},${x.sessionId},${x.timestamp},${x.x},${x.xL},${x.xR},${x.xLScreenRelative},${x.xRScreenRelative},${x.y},${x.yL},${x.yR},${x.yLScreenRelative},${x.yRScreenRelative},${x.validityL},${x.validityR},${x.parseValidity},${x.pupilDiameterL},${x.pupilDiameterR}`).join("\n");
   },
 };
 
