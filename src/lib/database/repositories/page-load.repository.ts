@@ -27,10 +27,10 @@ const pageLoadRepository = {
     }
   },
   csvHeader(): string {
-    return 'id,userId,slide,timestamp';
+    return 'id,userId,stage,slide,timestamp';
   },
   async toCsv(data: PageLoad[]): Promise<string> {
-    return data.map(x => `${x.id},${x.userId},${x.slide},${x.timestamp}`).join("\n");
+    return data.map(x => `${x.id},${x.userId},${x.stage},${x.slide},${x.timestamp}`).join("\n");
   }
 };
 

@@ -10,12 +10,6 @@
 	onMount(async () => {
 		await closeGazeInput();
 	});
-
-	const handleCalibrate = async () => {
-		if ($gazeInput) {
-			await $gazeInput.calibrate();
-		}
-	};
 </script>
 
 <div class="flex w-full max-w-2xl flex-col gap-4 rounded-md border border-gray-200 p-4 shadow-sm">
@@ -29,8 +23,6 @@
 	</Alert.Root>
 
 	<div class="flex items-center justify-end gap-2">
-		<Button variant="outline" on:click={handleCalibrate}>Kalibrace</Button>
-
 		<a href="/stage/2" target="_blank">
 			<Button disabled={loading}>
 				{#if loading}

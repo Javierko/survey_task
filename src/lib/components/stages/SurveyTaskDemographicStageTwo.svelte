@@ -17,7 +17,6 @@
 	import Icon from '@iconify/svelte';
 
 	let identifier: string = '';
-	let userFound = true;
 
 	const genders: { [key in 'male' | 'female' | 'other']: string } = {
 		male: 'Muž',
@@ -29,17 +28,16 @@
 
 	const handleIdentifierChange = async (identifier: string) => {
 		if (identifier.length < 4) {
+			surveyUserId.set(null);
 			return;
 		}
 
 		var user = await userRepository.getByIdentifier(identifier);
 
 		if (user == null) {
-			userFound = false;
+			surveyUserId.set(null);
 			return;
 		}
-
-		userFound = true;
 
 		surveyUserId.set(user.id);
 		surveyUserData.set({
@@ -75,7 +73,7 @@
 			<Input type="text" placeholder="Identifikátor" bind:value={identifier} />
 		</div>
 
-		{#if $surveyUserId == null && !userFound && identifier.length >= 4}
+		{#if $surveyUserId == null && identifier.length > 0}
 			<Alert.Root variant="destructive">
 				<Icon icon="ic:round-warning-amber" class="mr-2 h-4 w-4" />
 				<Alert.Title>Uživatel nebyl nalezen!</Alert.Title>

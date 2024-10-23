@@ -6,7 +6,8 @@
 		surveyUserId,
 		surveyAllowValidations,
 		surveyState,
-		SurveyState
+		SurveyState,
+		surveyStage
 	} from '$lib/stores/surveyTask';
 	import SurveyTaskSlider from '$lib/components/SurveyTaskSlider.svelte';
 	import SurveyTaskFinished from '$lib/components/SurveyTaskFinished.svelte';
@@ -75,6 +76,7 @@
 
 	const handleContinue = () => {
 		surveyState.set(SurveyState.Demographic);
+		surveyStage.set(2);
 	};
 
 	const handleDisconnect = async () => {

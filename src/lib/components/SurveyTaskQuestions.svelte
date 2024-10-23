@@ -5,6 +5,7 @@
 		surveyCurrentType,
 		surveyQuestion,
 		surveySlide,
+		surveyStage,
 		surveyState,
 		SurveyState,
 		surveyUserId
@@ -70,6 +71,7 @@
 		if (loadTime) {
 			await pageLoadRepository.create({
 				userId: $surveyUserId as string,
+				stage: $surveyStage,
 				slide: $surveySlide,
 				timestamp: loadTime
 			});
@@ -88,7 +90,7 @@
 
 			const click = await clickRepository.read(
 				$surveyUserId as string,
-				getQuestionId($surveySlide, i, answer)
+				getQuestionId($surveyStage, $surveySlide, i, answer)
 			);
 
 			await answerRepository.create({
@@ -128,7 +130,7 @@
 				{#if questions.length > 0}
 					<div class="question-row flex items-center border-b border-gray-200">
 						<div
-							id={getQuestionId($surveySlide, 'header', 0)}
+							id={getQuestionId($surveyStage, $surveySlide, 'header', 0)}
 							class="col-item col-item--title flex font-medium text-gray-700"
 							bind:this={aois[0][0]}
 						>
@@ -138,7 +140,7 @@
 						<div class="flex w-full items-center justify-end gap-0">
 							{#each headers as header, i}
 								<div
-									id={getQuestionId($surveySlide, 'header', i + 1)}
+									id={getQuestionId($surveyStage, $surveySlide, 'header', i + 1)}
 									class="col-item"
 									bind:this={aois[0][i + 1]}
 								>

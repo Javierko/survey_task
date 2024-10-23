@@ -29,6 +29,7 @@ export const surveyUserData = writable<UserData>({
   experience: ""
 });
 export const surveyCurrentType = writable<SurveyStartType>("many");
+export const surveyStage = writable(0);
 
 export const resetSurvey = () => {
   surveySlide.set(0);

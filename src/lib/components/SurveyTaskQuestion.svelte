@@ -1,6 +1,6 @@
 <script lang="ts">
 	import clickRepository from '$lib/database/repositories/click.repository';
-	import { surveyQuestion, surveySlide, surveyUserId } from '$lib/stores/surveyTask';
+	import { surveyQuestion, surveySlide, surveyStage, surveyUserId } from '$lib/stores/surveyTask';
 	import { getQuestionId } from '$lib/utils/questions';
 	import * as RadioGroup from '$lib/shadcn/ui/radio-group';
 
@@ -52,7 +52,7 @@
 
 <div class="question-row" class:question-row--disabled={disabled}>
 	<div
-		id={getQuestionId($surveySlide, rowId, 0)}
+		id={getQuestionId($surveyStage, $surveySlide, rowId, 0)}
 		class="col-item col-item--title"
 		bind:this={aoi[0]}
 	>
@@ -61,7 +61,11 @@
 
 	<RadioGroup.Root data-orientation="horizontal" class="flex items-center gap-0" bind:value>
 		{#each options as option, j}
-			<div id={getQuestionId($surveySlide, rowId, j + 1)} class="col-item" bind:this={aoi[j + 1]}>
+			<div
+				id={getQuestionId($surveyStage, $surveySlide, rowId, j + 1)}
+				class="col-item"
+				bind:this={aoi[j + 1]}
+			>
 				<RadioGroup.Item
 					value={option.toString()}
 					on:click={(e) => handleOptionClick(e, option)}
