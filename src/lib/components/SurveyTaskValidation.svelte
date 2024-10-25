@@ -48,16 +48,19 @@
 		}
 	};
 
-	const handleTryAgain = () => {
+	const handleTryAgain = async () => {
+		if ($gazeInput && !$gazeInput.isEmitting) {
+			await $gazeInput.start();
+		}
+
 		validationResult = null;
 		validating = false;
 	};
 
 	const handleCalibrate = async () => {
 		if ($gazeInput) {
-			await $gazeInput?.stop();
+			await $gazeInput.stop();
 			await $gazeInput.calibrate();
-			await $gazeInput.start();
 		}
 	};
 
