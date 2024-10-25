@@ -20,7 +20,8 @@
 	const validationSettings: Partial<GazeInteractionObjectValidationSettings> & {
 		validationDuration: number;
 	} = {
-		validationDuration: 1000
+		validationDuration: 1000,
+		accuracyTolerance: 100
 	};
 	let validationResult: {
 		isValid: boolean;
