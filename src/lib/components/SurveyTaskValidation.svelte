@@ -55,7 +55,9 @@
 
 	const handleCalibrate = async () => {
 		if ($gazeInput) {
+			await $gazeInput?.stop();
 			await $gazeInput.calibrate();
+			await $gazeInput.start();
 		}
 	};
 
@@ -145,7 +147,7 @@
 		<Icon icon="lucide:info" class="mr-2 h-4 w-4" />
 		<Alert.Title>Validace</Alert.Title>
 		<Alert.Description>
-			Tohle je validační slajd. Pro začátek validace se dívejte na střed kříže a počkejte na signál.
+			Tohle je validační slajd. Pro začátek validace klikněte na střed kříže a počkejte na signál.
 			Po úspěšně validaci budete automaticky přesměrování na dotazník (2 sekundy).
 		</Alert.Description>
 	</Alert.Root>
