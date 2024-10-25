@@ -1,7 +1,6 @@
 <script lang="ts">
 	import * as Alert from '$lib/shadcn/ui/alert/index.js';
 	import {
-		GazeInteractionObjectDwell,
 		GazeInteractionObjectValidation,
 		type GazeInteractionObjectValidationSettings
 	} from '@473783/develex-core';
@@ -14,7 +13,6 @@
 	import aoiRepository from '$lib/database/repositories/aoi.repository';
 	import { surveyUserId } from '$lib/stores/surveyTask';
 
-	let dwell = new GazeInteractionObjectDwell();
 	let validator = new GazeInteractionObjectValidation();
 	let validating = false;
 	let element: HTMLElement;
@@ -48,24 +46,6 @@
 			}, 2000);
 		}
 	};
-
-	dwell.on('dwellFinish', (event) => {
-		if (validating) return;
-
-		validationCircleElement = new SurveyTaskValidationCircle({
-			target: document.body,
-			props: {
-				validator,
-				validationSettings,
-				centerCoordinates: {
-					x: event.gazeData.x,
-					y: event.gazeData.y
-				}
-			}
-		});
-
-		validating = true;
-	});
 
 	const handleTryAgain = () => {
 		validationResult = null;
@@ -110,18 +90,11 @@
 			createAoiCross();
 		}
 
-		dwell.connect($gazeInput);
-		dwell.register(element, {
-			bufferSize: 10,
-			dwellTime: 400
-		});
 		validator.connect($gazeInput);
 		window.addEventListener('keypress', onKeyPress);
 
 		return () => {
 			window.removeEventListener('keypress', onKeyPress);
-			dwell.unregister(element);
-			dwell.disconnect($gazeInput);
 			validator.disconnect($gazeInput);
 
 			if (validationCircleElement) {
@@ -129,12 +102,35 @@
 			}
 		};
 	});
+
+	const handleValidationClick = (e: MouseEvent) => {
+		if (validating) return;
+
+		validationCircleElement = new SurveyTaskValidationCircle({
+			target: document.body,
+			props: {
+				validator,
+				validationSettings,
+				centerCoordinates: {
+					x: e.x,
+					y: e.y
+				}
+			}
+		});
+
+		validating = true;
+	};
 </script>
 
 <div class="absolute left-8 top-8">
-	<div id="aoi-validation-cross" bind:this={element} class="flex items-center justify-center">
+	<button
+		id="aoi-validation-cross"
+		bind:this={element}
+		class="flex items-center justify-center"
+		on:click={handleValidationClick}
+	>
 		<Icon icon="ph:plus" class="h-32 w-32 text-gray-600" />
-	</div>
+	</button>
 </div>
 
 <div class="flex w-full max-w-2xl flex-col gap-4 rounded-md border border-gray-200 p-4 shadow-sm">
