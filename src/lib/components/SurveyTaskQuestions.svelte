@@ -20,6 +20,7 @@
 	import { Button } from '$lib/shadcn/ui/button';
 	import { gazeValidation } from '$lib/stores/gazeInput';
 	import pageLoadRepository from '$lib/database/repositories/page-load.repository';
+	import SurveyTaskStageTwoWaitButton from './SurveyTaskStageTwoWaitButton.svelte';
 
 	export let headers: string[];
 	export let questions: {
@@ -168,7 +169,14 @@
 					class={`mt-4 flex ${questions.length > 0 ? 'justify-end' : 'flex-col items-center justify-center gap-4'}`}
 				>
 					{#if questions.length === 0}
-						<span>Pro pokračování klikněte na tlačítko <strong>Další</strong></span>
+						{#if $surveyStage === 2}
+							<span
+								>Nyní prosím jednu minutu odpočívejte, poté bude možné pokračovat kliknutím na
+								tlačítko <strong>Další</strong>.</span
+							>
+						{:else}
+							<span>Pro pokračování klikněte na tlačítko <strong>Další</strong>.</span>
+						{/if}
 					{/if}
 
 					<div>
@@ -183,6 +191,8 @@
 									Další
 								{/if}
 							</Button>
+						{:else if questions.length === 0 && $surveyStage == 2}
+							<SurveyTaskStageTwoWaitButton on:click={() => onNextSlide(false)} />
 						{:else}
 							<Button
 								on:click={() => onNextSlide(false)}
