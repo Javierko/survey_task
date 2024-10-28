@@ -20,7 +20,7 @@
 	class="m-auto flex w-full max-w-2xl flex-col items-center gap-4 rounded-md border border-gray-100 bg-white p-4 shadow"
 >
 	<Alert.Root variant="success">
-		<Icon icon="lucide:check" class="mr-2 h-4 w-4" />
+		<Icon icon="material-symbols:check-circle-outline-rounded" class="mr-2 h-4 w-4" />
 		<Alert.Title>Hotovo!</Alert.Title>
 		<Alert.Description>
 			Dotazník byl úspěšně vyřešen, nezapomeňte si stáhnout data.
