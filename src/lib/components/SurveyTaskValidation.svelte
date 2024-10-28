@@ -64,8 +64,12 @@
 		}
 	};
 
-	const onKeyPress = (e: KeyboardEvent) => {
+	const onKeyPress = async (e: KeyboardEvent) => {
 		if (e.code === 'Space') {
+			if ($gazeInput && !$gazeInput.isEmitting) {
+				await $gazeInput.start();
+			}
+
 			gazeValidation.set(false);
 		}
 	};
