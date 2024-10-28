@@ -1,9 +1,6 @@
 export interface User {
   id: string;
   identifier: string;
-  age: number;
-  gender: string;
-  experience: string;
   startedWith: SurveyStartType;
   resolution: {
     width: number;

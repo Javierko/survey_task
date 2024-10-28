@@ -24,9 +24,6 @@
 		const uId = await userRepository.create({
 			id: v4(),
 			identifier: $surveyUserData.identifier,
-			age: $surveyUserData.age,
-			experience: $surveyUserData.experience,
-			gender: $surveyUserData.gender,
 			startedWith: $surveyCurrentType,
 			resolution: {
 				width: window.screen.width,

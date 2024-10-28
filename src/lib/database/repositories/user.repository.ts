@@ -60,10 +60,10 @@ const userRepository = {
     }
   },
   csvHeader(): string {
-    return 'id,identifier,age,gender,experience,startedWith,resolution.width,resolution.height,resolution.innerWidth,resolution.innerHeight,userAgent,timestamp';
+    return 'id,identifier,startedWith,resolution.width,resolution.height,resolution.innerWidth,resolution.innerHeight,userAgent,timestamp';
   },
   async toCsv(data: User): Promise<string> {
-    return `${data.id},${data.identifier},${data.age},${data.gender},${data.experience},${data.startedWith},${data.resolution.width},${data.resolution.height},${data.resolution.innerWidth},${data.resolution.innerHeight},"${data.userAgent}",${data.timestamp}`;
+    return `${data.id},${data.identifier},${data.startedWith},${data.resolution.width},${data.resolution.height},${data.resolution.innerWidth},${data.resolution.innerHeight},"${data.userAgent}",${data.timestamp}`;
   },
 };
 

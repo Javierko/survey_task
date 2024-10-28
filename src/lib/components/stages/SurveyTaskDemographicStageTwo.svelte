@@ -1,5 +1,4 @@
 <script lang="ts">
-	import * as Select from '$lib/shadcn/ui/select/index.js';
 	import { Input } from '$lib/shadcn/ui/input';
 	import {
 		surveyAllowValidations,
@@ -18,12 +17,6 @@
 
 	let identifier: string = '';
 
-	const genders: { [key in 'male' | 'female' | 'other']: string } = {
-		male: 'Muž',
-		female: 'Žena',
-		other: 'Jiné / Nechci odpovídat'
-	};
-
 	$: handleIdentifierChange(identifier);
 
 	const handleIdentifierChange = async (identifier: string) => {
@@ -41,10 +34,7 @@
 
 		surveyUserId.set(user.id);
 		surveyUserData.set({
-			identifier: user.identifier,
-			age: user.age,
-			experience: user.experience,
-			gender: user.gender
+			identifier: user.identifier
 		});
 		surveyCurrentType.set(user.startedWith);
 	};
@@ -57,17 +47,19 @@
 			gazeValidation.set(true);
 		}
 	};
-
-	$: selectedGender = $surveyUserData.identifier
-		? {
-				value: $surveyUserData.gender,
-				label: genders[$surveyUserData.gender as 'male' | 'female' | 'other']
-			}
-		: undefined;
 </script>
 
 <div class="flex w-full max-w-2xl flex-col gap-4 rounded-md border border-gray-200 p-4 shadow-sm">
 	<div class="flex flex-col gap-2">
+		<Alert.Root>
+			<Icon icon="mdi:information-variant-circle-outline" class="mr-2 h-4 w-4" />
+			<Alert.Description>
+				V následujících otázkách se bude kromě vašich odpovědí měřit i váš reakční čas. Z toho
+				důvodu není možné při odpovídání přeskakovat ani se vracet zpět, ale je nutné odpovídat na
+				otázky postupně.
+			</Alert.Description>
+		</Alert.Root>
+
 		<div class="flex flex-col gap-1">
 			<small class="font-medium text-gray-700">Váš identifikátor</small>
 			<Input type="text" placeholder="Identifikátor" bind:value={identifier} />
@@ -85,61 +77,13 @@
 		{/if}
 
 		{#if $surveyUserId != null}
-			<div class="flex flex-col gap-1">
-				<small class="font-medium text-gray-700">Jaký je Vás věk?</small>
-				<Input
-					disabled
-					type="number"
-					placeholder="Věk"
-					min="0"
-					max="99"
-					bind:value={$surveyUserData.age}
-				/>
-			</div>
-
-			<div class="flex flex-col gap-1">
-				<small class="font-medium text-gray-700">Jaký je Váš gender?</small>
-				<Select.Root disabled selected={selectedGender}>
-					<Select.Trigger>
-						<Select.Value placeholder="Vyberte gender" />
-					</Select.Trigger>
-
-					<Select.Content>
-						{#each Object.entries(genders) as [key, value]}
-							<Select.Item value={key} label={value}>{value}</Select.Item>
-						{/each}
-					</Select.Content>
-				</Select.Root>
-			</div>
-
-			<div class="flex flex-col gap-1">
-				<small class="font-medium text-gray-700">Jaká je Vaše zkušenost s PC?</small>
-				<Select.Root
-					disabled
-					selected={{ value: $surveyUserData.experience, label: $surveyUserData.experience }}
-				>
-					<Select.Trigger>
-						<Select.Value placeholder="Vyberte zkušenost s PC" />
-					</Select.Trigger>
-
-					<Select.Content>
-						<Select.Item value="Méně než jednou za měsíc" label="Méně než jednou za měsíc"
-							>Méně než jednou za měsíc</Select.Item
-						>
-						<Select.Item value="Několikrát za měsíc" label="Několikrát za měsíc"
-							>Několikrát za měsíc</Select.Item
-						>
-						<Select.Item value="Jednou týdně" label="Jednou týdně">Jednou týdně</Select.Item>
-						<Select.Item value="Několikrát za týden" label="Několikrát za týden"
-							>Několikrát za týden</Select.Item
-						>
-						<Select.Item value="Každý den" label="Každý den">Každý den</Select.Item>
-						<Select.Item value="Několikrát denně" label="Několikrát denně"
-							>Několikrát denně</Select.Item
-						>
-					</Select.Content>
-				</Select.Root>
-			</div>
+			<Alert.Root variant="success">
+				<Icon icon="material-symbols:check-circle-outline-rounded" class="mr-2 h-4 w-4" />
+				<Alert.Title>Uživatel úspěšně nalezen!</Alert.Title>
+				<Alert.Description>
+					K zadanému identifikátoru byl nalezen uživatel. Pokračujte stisknutím tlačítka níže.
+				</Alert.Description>
+			</Alert.Root>
 		{/if}
 	</div>
 
