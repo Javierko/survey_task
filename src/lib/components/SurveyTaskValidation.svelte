@@ -12,9 +12,11 @@
 	import { gazeInput, gazeValidation } from '$lib/stores/gazeInput';
 	import aoiRepository from '$lib/database/repositories/aoi.repository';
 	import { surveyUserId } from '$lib/stores/surveyTask';
+	import { gazeErrors } from '$lib/stores/gazeError';
 
 	let validator = new GazeInteractionObjectValidation();
 	let validating = false;
+	let loading = false;
 	let element: HTMLElement;
 	let validationCircleElement: SvelteComponent | null;
 	const validationSettings: Partial<GazeInteractionObjectValidationSettings> & {
@@ -50,7 +52,9 @@
 
 	const handleTryAgain = async () => {
 		if ($gazeInput && !$gazeInput.isEmitting) {
+			loading = true;
 			await $gazeInput.start();
+			loading = false;
 		}
 
 		validationResult = null;
@@ -59,20 +63,31 @@
 
 	const handleCalibrate = async () => {
 		if ($gazeInput) {
+			loading = true;
 			await $gazeInput.stop();
 			await $gazeInput.calibrate();
+			loading = false;
 		}
 	};
 
 	const onKeyPress = async (e: KeyboardEvent) => {
 		if (e.code === 'Space') {
 			if ($gazeInput && !$gazeInput.isEmitting) {
+				loading = true;
 				await $gazeInput.start();
+				loading = false;
 			}
 
 			gazeValidation.set(false);
 		}
 	};
+
+	$: if (
+		$gazeErrors.length > 0 &&
+		$gazeErrors[$gazeErrors.length - 1].includes('Calibration timeout')
+	) {
+		loading = false;
+	}
 
 	onMount(() => {
 		if (!$gazeInput) {
@@ -182,6 +197,13 @@
 				</Button>
 
 				<Button variant="outline" on:click={handleCalibrate}>Kalibrace</Button>
+
+				{#if loading}
+					<Button disabled={true}>
+						<Icon icon="lucide:loader-circle" class="mr-2 h-4 w-4 animate-spin" />
+						<span>Počkejte</span>
+					</Button>
+				{/if}
 			</div>
 		{/if}
 	{/if}
