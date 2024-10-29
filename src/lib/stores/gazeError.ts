@@ -1,4 +1,4 @@
-import { writable } from 'svelte/store';
+import { get, writable } from 'svelte/store';
 import { toast } from 'svelte-sonner';
 import { gazeState, GazeState } from './gazeInput';
 
@@ -12,7 +12,7 @@ export const handleGazeError = (event: Event) => {
 
   gazeErrors.update((errorMessages) => [...errorMessages, message]);
 
-  if (GazeState.CONNECTING) {
+  if (get(gazeState) == GazeState.CONNECTING) {
     gazeState.set(GazeState.DISCONNECTED);
   }
 };
