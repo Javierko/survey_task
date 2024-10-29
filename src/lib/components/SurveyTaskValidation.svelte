@@ -64,6 +64,9 @@
 	const handleCalibrate = async () => {
 		if ($gazeInput) {
 			loading = true;
+			if ($gazeInput && !$gazeInput.isEmitting) {
+				await $gazeInput.start();
+			}
 			await $gazeInput.stop();
 			await $gazeInput.calibrate();
 			loading = false;
