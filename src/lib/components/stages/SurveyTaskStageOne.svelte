@@ -10,7 +10,6 @@
 		surveyStage
 	} from '$lib/stores/surveyTask';
 	import SurveyTaskSlider from '$lib/components/SurveyTaskSlider.svelte';
-	import SurveyTaskErrors from '../SurveyTaskErrors.svelte';
 	import SurveyTaskIntro from '../SurveyTaskIntro.svelte';
 	import SurveyTaskValidation from '../SurveyTaskValidation.svelte';
 	import { handleGazeError } from '$lib/stores/gazeError';
@@ -112,8 +111,6 @@
 
 		<SurveyTaskIntro />
 
-		<SurveyTaskErrors />
-
 		<div class="flex items-center gap-4">
 			<Select.Root
 				selected={selectedTracker}
@@ -166,7 +163,7 @@
 				{/if}
 			</div>
 
-			{#if $gazeState != GazeState.DISCONNECTED}
+			{#if $gazeState == GazeState.CONNECTED}
 				<Button variant="destructive" on:click={handleDisconnect}>Odpojit eye-tracker</Button>
 			{/if}
 		</div>
