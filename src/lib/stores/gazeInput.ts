@@ -21,7 +21,7 @@ export const dummyConfig: GazeInputConfigDummy = {
 
 export const gazePointConfig: GazeInputConfigGazePoint = {
   tracker: 'opengaze',
-  fixationDetection: 'idt',
+  fixationDetection: 'device',
   uri: 'ws://localhost:13892'
 };
 
