@@ -3,6 +3,9 @@
 	import { surveyCurrentType, surveySlide } from '$lib/stores/surveyTask';
 	import SurveyTaskQuestions from './SurveyTaskQuestions.svelte';
 
+	export let registerFixation: (element: HTMLElement) => void;
+	export let unregisterFixation: (element: HTMLElement) => void;
+
 	const headers = [
 		'Rozhodně nesouhlasím',
 		'Nesouhlasím',
@@ -31,4 +34,6 @@
 	headers={questions.length === 1 && [17, 26].includes(questions[0].id)
 		? headersAlternative
 		: headers}
+	{registerFixation}
+	{unregisterFixation}
 />

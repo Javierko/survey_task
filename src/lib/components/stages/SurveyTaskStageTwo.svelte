@@ -32,6 +32,7 @@
 	import { Switch } from '$lib/shadcn/ui/switch';
 	import SurveyTaskDemographicStageTwo from './SurveyTaskDemographicStageTwo.svelte';
 	import SurveyTaskIntroStageTwo from './SurveyTaskIntroStageTwo.svelte';
+	import SurveyTaskFixationsLayer from '../SurveyTaskFixationsLayer.svelte';
 
 	const trackers: Record<string, string> = {
 		dummy: 'Dummy',
@@ -166,11 +167,15 @@
 	<SurveyTaskFinished />
 {:else if $gazeValidation}
 	<div in:fade>
-		<SurveyTaskValidation />
+		<SurveyTaskFixationsLayer let:registerFixation let:unregisterFixation>
+			<SurveyTaskValidation {registerFixation} {unregisterFixation} />
+		</SurveyTaskFixationsLayer>
 	</div>
 {:else}
 	<div in:fade class="w-full">
-		<SurveyTaskSlider />
+		<SurveyTaskFixationsLayer let:registerFixation let:unregisterFixation>
+			<SurveyTaskSlider {registerFixation} {unregisterFixation} />
+		</SurveyTaskFixationsLayer>
 	</div>
 {/if}
 

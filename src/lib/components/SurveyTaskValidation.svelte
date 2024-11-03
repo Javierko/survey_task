@@ -13,6 +13,9 @@
 	import aoiRepository from '$lib/database/repositories/aoi.repository';
 	import { surveyUserId } from '$lib/stores/surveyTask';
 
+	export let registerFixation: (element: HTMLElement) => void;
+	export let unregisterFixation: (element: HTMLElement) => void;
+
 	let validator = new GazeInteractionObjectValidation();
 	let validating = false;
 	let element: HTMLElement;
@@ -98,6 +101,7 @@
 
 		if (element) {
 			createAoiCross();
+			registerFixation(element);
 		}
 
 		validator.connect($gazeInput);
@@ -106,6 +110,10 @@
 		return () => {
 			window.removeEventListener('keypress', onKeyPress);
 			validator.disconnect($gazeInput);
+
+			if (element) {
+				unregisterFixation(element);
+			}
 
 			if (validationCircleElement) {
 				validationCircleElement.$destroy();

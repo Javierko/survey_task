@@ -27,6 +27,8 @@
 		id: number;
 		question: string;
 	}[];
+	export let registerFixation: (element: HTMLElement) => void;
+	export let unregisterFixation: (element: HTMLElement) => void;
 
 	let loadTime: number | null = null;
 
@@ -121,6 +123,20 @@
 
 	onMount(() => {
 		loadTime = Date.now();
+
+		for (let i = 0; i < aois.length; i++) {
+			for (let j = 0; j < aois[i].length; j++) {
+				registerFixation(aois[i][j]);
+			}
+		}
+
+		return () => {
+			for (let i = 0; i < aois.length; i++) {
+				for (let j = 0; j < aois[i].length; j++) {
+					unregisterFixation(aois[i][j]);
+				}
+			}
+		};
 	});
 </script>
 
