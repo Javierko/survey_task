@@ -87,7 +87,11 @@
 		gazeStop.set(true);
 		$gazeInput?.stop();
 
-		if ($surveyUserId && $surveyState !== SurveyState.Finished) {
+		if (
+			$surveyUserId &&
+			$surveyState !== SurveyState.Finished &&
+			$surveyState !== SurveyState.PitStop
+		) {
 			cancel();
 		}
 	});
