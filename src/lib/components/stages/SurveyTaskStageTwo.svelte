@@ -67,7 +67,11 @@
 	};
 
 	const handleKeyDown = (e: KeyboardEvent) => {
-		if ($surveyUserId && $surveyState !== SurveyState.Finished) {
+		if (
+			$surveyUserId &&
+			$surveyState !== SurveyState.Finished &&
+			$surveyState !== SurveyState.PitStop
+		) {
 			if (e.key === 'F5' || ((e.ctrlKey || e.metaKey) && e.key === 'r')) {
 				e.preventDefault();
 			}
