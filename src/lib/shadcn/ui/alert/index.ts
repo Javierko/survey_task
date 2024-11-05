@@ -13,6 +13,7 @@ export const alertVariants = tv({
 			destructive:
 				"border-destructive/50 text-destructive dark:border-destructive [&>svg]:text-destructive",
 			success: "border-green-600/50 text-green-700 [&>svg]:text-green-700",
+			warning: "border-orange-600/50 text-orange-700 [&>svg]:text-orange-700",
 		},
 	},
 	defaultVariants: {

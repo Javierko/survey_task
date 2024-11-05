@@ -32,6 +32,7 @@
 	import SurveyTaskDemographic from '../SurveyTaskDemographic.svelte';
 	import SurveyTaskPitStop from './SurveyTaskPitStop.svelte';
 	import SurveyTaskFixationsLayer from '../SurveyTaskFixationsLayer.svelte';
+	import SurveyTaskFullscreen from '../SurveyTaskFullscreen.svelte';
 
 	const trackers: Record<string, string> = {
 		dummy: 'Dummy',
@@ -114,6 +115,8 @@
 		</div>
 
 		<SurveyTaskIntro />
+
+		<SurveyTaskFullscreen />
 
 		<div class="flex items-center gap-4">
 			<Select.Root
