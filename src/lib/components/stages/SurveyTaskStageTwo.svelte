@@ -104,6 +104,8 @@
 
 {#if $surveyState === SurveyState.Demographic}
 	<SurveyTaskDemographicStageTwo />
+{:else if $surveyState === SurveyState.PitStop}
+	<SurveyTaskFinished />
 {:else if $gazeState != GazeState.CONNECTED || $surveyUserId === null}
 	<div class="flex w-full max-w-2xl flex-col gap-4 rounded-md border border-gray-200 p-4 shadow-sm">
 		<div class="flex items-center justify-end">
@@ -171,8 +173,6 @@
 			{/if}
 		</div>
 	</div>
-{:else if $surveyState === SurveyState.PitStop}
-	<SurveyTaskFinished />
 {:else if $gazeValidation}
 	<div in:fade>
 		<SurveyTaskFixationsLayer let:registerFixation let:unregisterFixation>

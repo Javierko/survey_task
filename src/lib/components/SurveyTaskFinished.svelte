@@ -5,6 +5,8 @@
 	import Icon from '@iconify/svelte';
 	import * as Alert from '$lib/shadcn/ui/alert/index.js';
 	import { goto } from '$app/navigation';
+	import { onMount } from 'svelte';
+	import { closeGazeInput } from '$lib/stores/gazeInput';
 
 	const download = async () => {
 		await downloadData([$surveyUserId as string]);
@@ -14,6 +16,10 @@
 		resetSurvey();
 		goto('/stage/1');
 	};
+
+	onMount(async () => {
+		await closeGazeInput();
+	});
 </script>
 
 <div
