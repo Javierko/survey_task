@@ -1,23 +1,24 @@
 <script lang="ts">
-	import clickRepository from '$lib/database/repositories/click.repository';
-	import { surveyQuestion, surveySlide, surveyStage, surveyUserId } from '$lib/stores/surveyTask';
-	import { getQuestionId } from '$lib/utils/questions';
+	import { surveyQuestion, surveySlide, surveyStage, type SurveyOptionClick } from '$lib/stores/surveyTask';
+	import { getQuestionId } from '$lib/utils';
 	import * as RadioGroup from '$lib/shadcn/ui/radio-group';
 
-	export let question: string;
-	export let totalOptions: number;
-	export let aoi: HTMLDivElement[];
-	export let value: string;
-	export let rowId: number;
-	export let disabled: boolean;
+    interface Props {
+        question: string;
+        totalOptions: number;
+        value: string;
+        rowId: number;
+        disabled: boolean;
+        optionClick: (rowId: number, click: SurveyOptionClick) => void;
+    };
+
+    let { question, totalOptions, value = $bindable(), rowId, disabled, optionClick }: Props = $props();
 
 	const options = Array(totalOptions)
 		.fill(0)
 		.map((_, i) => i + 1);
 
-	const handleOptionClick = (e: CustomEvent, option: number) => {
-		const mouseEvent = e.detail.originalEvent as PointerEvent;
-
+	const handleOptionClick = (e: MouseEvent, option: number) => {
 		if ($surveyQuestion.has(rowId - 1)) {
 			surveyQuestion.update((prev) => {
 				prev.delete(rowId - 1);
@@ -32,21 +33,20 @@
 			});
 		}
 
-		const aoiElement = (mouseEvent.target as HTMLElement)?.parentElement;
+		const aoiElement = (e.target as HTMLElement)?.parentElement;
 
 		if (!aoiElement) {
 			console.warn('Unable to get AOI element from click!');
 			return;
 		}
 
-		clickRepository.create({
-			userId: $surveyUserId as string,
-			aoiId: aoiElement.id,
-			x: mouseEvent.clientX,
-			y: mouseEvent.clientY,
-			value: option,
-			timestamp: Date.now()
-		});
+        optionClick(rowId, {
+            aoiId: aoiElement.id,
+            x: e.clientX,
+            y: e.clientY,
+            value: option,
+            timestamp: Date.now()
+        });
 	};
 </script>
 
@@ -54,7 +54,6 @@
 	<div
 		id={getQuestionId($surveyStage, $surveySlide, rowId, 0)}
 		class="col-item col-item--title"
-		bind:this={aoi[0]}
 	>
 		{question}
 	</div>
@@ -64,11 +63,10 @@
 			<div
 				id={getQuestionId($surveyStage, $surveySlide, rowId, j + 1)}
 				class="col-item"
-				bind:this={aoi[j + 1]}
 			>
 				<RadioGroup.Item
 					value={option.toString()}
-					on:click={(e) => handleOptionClick(e, option)}
+					onclick={(e) => handleOptionClick(e, option)}
 					{disabled}
 				/>
 			</div>

@@ -1,13 +1,17 @@
-# survey-task
+# sv
 
-## Developing
+Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
 
-The project uses a private npm package develex-core, so you need to configure npm to use the GitLab registry. You can do this by running the following commands:
+## Creating a project
+
+If you're seeing this, you've probably already done this step. Congrats!
 
 ```bash
-npm config set -- //gitlab.ics.muni.cz/:_authToken=YOUR_AUTH_TOKEN
+# create a new project in the current directory
+npx sv create
 
-npm config set @473783:registry=https://gitlab.ics.muni.cz/api/v4/projects/7015/packages/npm/
+# create a new project in my-app
+npx sv create my-app
 ```
 
 ## Developing
@@ -31,4 +35,4 @@ npm run build
 
 You can preview the production build with `npm run preview`.
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.

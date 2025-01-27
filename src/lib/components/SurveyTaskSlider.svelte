@@ -1,10 +1,8 @@
 <script lang="ts">
-	import QUESTIONS from '$lib/data/questions_full.json';
+	import QUESTIONS from '$lib/data/questions.json';
 	import { surveyCurrentType, surveySlide } from '$lib/stores/surveyTask';
+	import { derived } from 'svelte/store';
 	import SurveyTaskQuestions from './SurveyTaskQuestions.svelte';
-
-	export let registerFixation: (element: HTMLElement) => void;
-	export let unregisterFixation: (element: HTMLElement) => void;
 
 	const headers = [
 		'Rozhodně nesouhlasím',
@@ -26,14 +24,14 @@
 		'Velmi nenáročný'
 	];
 
-	$: questions = QUESTIONS[$surveyCurrentType][$surveySlide].questions;
+	const questions = derived([surveyCurrentType, surveySlide], ([$surveyCurrentType, $surveySlide]) => {
+		return QUESTIONS[$surveyCurrentType][$surveySlide].questions || [];
+	});
 </script>
 
 <SurveyTaskQuestions
-	{questions}
-	headers={questions.length === 1 && [17, 26].includes(questions[0].id)
+	questions={$questions}
+	headers={$questions.length === 1 && [17, 26].includes($questions[0].id)
 		? headersAlternative
 		: headers}
-	{registerFixation}
-	{unregisterFixation}
 />

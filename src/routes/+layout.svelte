@@ -1,10 +1,21 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import '../app.css';
-	import { Toaster } from '$lib/shadcn/ui/sonner';
+	import { getFromLocalStorage } from '@/services/localStorageService';
+
+	let { children } = $props();
+
+	onMount(async () => {
+		const user = getFromLocalStorage("user");
+
+		if (user == null) {
+			
+		}
+	});
 </script>
 
-<Toaster position="top-right" richColors duration={10000} />
-
-<div class="flex h-screen w-full items-center justify-center">
-	<slot></slot>
+<div class="flex h-screen w-full items-center justify-center" id="app">
+	<main>
+		{@render children()}
+	</main>
 </div>

@@ -1,142 +1,108 @@
 <script lang="ts">
-	import QUESTIONS from '$lib/data/questions_full.json';
+	import QUESTIONS from '$lib/data/questions.json';
 	import {
-		surveyAllowValidations,
 		surveyCurrentType,
 		surveyQuestion,
 		surveySlide,
 		surveyStage,
 		surveyState,
 		SurveyState,
-		surveyUserId
+		type SurveyOptionClick
 	} from '$lib/stores/surveyTask';
-	import SurveyTaskQuestion from './SurveyTaskQuestion.svelte';
-	import { getQuestionId } from '$lib/utils/questions';
-	import answerRepository from '$lib/database/repositories/answer.repository';
-	import aoiRepository from '$lib/database/repositories/aoi.repository';
+	import { getQuestionId } from '$lib/utils';
 	import { fade } from 'svelte/transition';
-	import clickRepository from '$lib/database/repositories/click.repository';
 	import { onMount } from 'svelte';
 	import { Button } from '$lib/shadcn/ui/button';
-	import { gazeValidation } from '$lib/stores/gazeInput';
-	import pageLoadRepository from '$lib/database/repositories/page-load.repository';
-	import SurveyTaskStageTwoWaitButton from './SurveyTaskStageTwoWaitButton.svelte';
+	// import SurveyTaskStageTwoWaitButton from './SurveyTaskStageTwoWaitButton.svelte';
+	import SurveyTaskQuestion from './SurveyTaskQuestion.svelte';
 
-	export let headers: string[];
-	export let questions: {
-		id: number;
-		question: string;
-	}[];
-	export let registerFixation: (element: HTMLElement) => void;
-	export let unregisterFixation: (element: HTMLElement) => void;
+	interface Props {
+		headers: string[];
+		questions: {
+			id: number;
+			question: string;
+		}[];
+	}
+
+	let { headers, questions }: Props = $props();
 
 	let loadTime: number | null = null;
 
-	const initValues = () => new Array(questions.length);
-	const initAois = () => new Array(questions.length + 1).fill(0).map(() => []);
+	const initValues = () => new Array(questions.length).fill('');
+	const initClicks = () => Array.from({ length: questions.length }, () => new Array());
 
-	let values: string[] = initValues();
-	let aois: HTMLDivElement[][] = initAois();
+	let values = $state<string[]>(initValues());
+	let clicks = $state<SurveyOptionClick[][]>(initClicks());
 
-	$: questions, reset();
-	$: questions.length === 1 &&
-		$surveyQuestion.has(questions.length) &&
-		onNextSlide($surveySlide === QUESTIONS[$surveyCurrentType].length - 1);
-
-	function reset() {
-		values = initValues();
-		aois = initAois();
-		loadTime = Date.now();
-
-		surveyQuestion.set(new Set([0]));
-	}
-
-	async function onNextSlide(last = false) {
-		for (let aoiRow of aois) {
-			for (let aoi of aoiRow) {
-				const aoiRect = aoi.getBoundingClientRect();
-
-				await aoiRepository.create({
-					userId: $surveyUserId as string,
-					aoiId: aoi.id,
-					leftBotPos: {
-						x: aoiRect.left,
-						y: aoiRect.bottom
-					},
-					rightTopPos: {
-						x: aoiRect.right,
-						y: aoiRect.top
-					}
-				});
-			}
-		}
-
+	const handleNextSlide = (last = false) => {
 		if (loadTime) {
-			await pageLoadRepository.create({
-				userId: $surveyUserId as string,
-				stage: $surveyStage,
-				slide: $surveySlide,
-				timestamp: loadTime
-			});
-
-			await answerRepository.create({
-				userId: $surveyUserId as string,
-				questionId: -1,
-				answer: -1,
-				timestamp: loadTime
-			});
+			// await pageLoadRepository.create({
+			// 	userId: $surveyUserId as string,
+			// 	stage: $surveyStage,
+			// 	slide: $surveySlide,
+			// 	timestamp: loadTime
+			// });
+			// await answerRepository.create({
+			// 	userId: $surveyUserId as string,
+			// 	questionId: -1,
+			// 	answer: -1,
+			// 	timestamp: loadTime
+			// });
 		}
 
-		for (let i = 0; i < questions.length; i++) {
+		for (let i = 0; i < clicks.length; i++) {
 			const question = questions[i];
 			const answer = +values[i];
+			const questionClicks = clicks[i];
 
-			const click = await clickRepository.read(
-				$surveyUserId as string,
-				getQuestionId($surveyStage, $surveySlide, i, answer)
-			);
+			// const click = await clickRepository.read(
+			// 	$surveyUserId as string,
+			// 	getQuestionId($surveyStage, $surveySlide, i, answer)
+			// );
 
-			await answerRepository.create({
-				userId: $surveyUserId as string,
-				questionId: question.id,
-				answer: answer || -1,
-				timestamp: click?.timestamp || null
-			});
-		}
-
-		if ($surveyAllowValidations) {
-			gazeValidation.set(true);
+			// await answerRepository.create({
+			// 	userId: $surveyUserId as string,
+			// 	questionId: question.id,
+			// 	answer: answer || -1,
+			// 	timestamp: click?.timestamp || null
+			// });
 		}
 
 		if (last) {
-			if ($surveyState === SurveyState.SecondPhase) {
-				surveyState.set(SurveyState.Finished);
-			} else if ($surveyState === SurveyState.FirstPhase) {
-				surveyState.set(SurveyState.PitStop);
-				surveySlide.set(0);
-				gazeValidation.set(false);
-			}
+			// if ($surveyState === SurveyState.SecondPhase) {
+			// 	surveyState.set(SurveyState.Finished);
+			// } else if ($surveyState === SurveyState.FirstPhase) {
+			// 	surveyState.set(SurveyState.PitStop);
+			// 	surveySlide.set(0);
+			// }
 		} else {
 			surveySlide.update((slide) => slide + 1);
 		}
-	}
+	};
+
+	const handleOptionClick = (rowId: number, click: SurveyOptionClick) => {
+		clicks[rowId].push(click);
+
+		if (questions.length === 1 && $surveyQuestion.has(questions.length)) {
+			handleNextSlide($surveySlide === QUESTIONS[$surveyCurrentType].length - 1);
+		}
+	};
+
+	const reset = () => {
+		values = initValues();
+		clicks = initClicks();
+		loadTime = Date.now();
+		surveyQuestion.set(new Set([0]));
+	};
+
+	$effect.pre(() => {
+		if (questions) {
+			reset();
+		}
+	});
 
 	onMount(() => {
 		loadTime = Date.now();
-
-		for (let i = 0; i < aois.length; i++) {
-			for (let j = 0; j < aois[i].length; j++) {
-				registerFixation(aois[i][j]);
-			}
-		}
-
-		return () => {
-			for (let i = 0; i < aois.length; i++) {
-				for (let j = 0; j < aois[i].length; j++) {
-					unregisterFixation(aois[i][j]);
-				}
-			}
-		};
 	});
 </script>
 
@@ -149,7 +115,6 @@
 						<div
 							id={getQuestionId($surveyStage, $surveySlide, 'header', 0)}
 							class="col-item col-item--title flex font-medium text-gray-700"
-							bind:this={aois[0][0]}
 						>
 							{QUESTIONS[$surveyCurrentType][$surveySlide].title}
 						</div>
@@ -159,7 +124,6 @@
 								<div
 									id={getQuestionId($surveyStage, $surveySlide, 'header', i + 1)}
 									class="col-item"
-									bind:this={aois[0][i + 1]}
 								>
 									{header}
 								</div>
@@ -174,9 +138,9 @@
 							question={question.question}
 							rowId={i}
 							totalOptions={headers.length}
-							aoi={aois[i + 1]}
 							bind:value={values[i]}
 							disabled={!$surveyQuestion.has(i)}
+							optionClick={handleOptionClick}
 						/>
 					{/each}
 				</div>
@@ -198,20 +162,21 @@
 					<div>
 						{#if $surveySlide === QUESTIONS[$surveyCurrentType].length - 1}
 							<Button
-								on:click={() => onNextSlide(true)}
+								onclick={() => handleNextSlide(true)}
 								disabled={!$surveyQuestion.has(questions.length)}
 							>
-								{#if $surveyState === SurveyState.SecondPhase}
+								<!-- {#if $surveyState === SurveyState.SecondPhase}
 									Dokončit
 								{:else}
 									Další
-								{/if}
+								{/if} -->
+								asd
 							</Button>
 						{:else if questions.length === 0 && $surveyStage == 2}
-							<SurveyTaskStageTwoWaitButton on:click={() => onNextSlide(false)} />
+							<!-- <SurveyTaskStageTwoWaitButton on:click={() => onNextSlide(false)} /> -->
 						{:else}
 							<Button
-								on:click={() => onNextSlide(false)}
+								onclick={() => handleNextSlide(false)}
 								disabled={!$surveyQuestion.has(questions.length)}
 							>
 								Další

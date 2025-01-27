@@ -6,8 +6,40 @@
 				{
 					"id": 1,
 					"question": "Jsem spokojený/á se vztahy, které mám s učiteli."
+				},
+				{
+					"id": 2,
+					"question": "Jsem spokojený/á se svými studijními výsledky."
+				},
+				{
+					"id": 3,
+					"question": "Jsem spokojený/á se svou angažovaností ve výuce."
+				},
+				{
+					"id": 4,
+					"question": "Jsem spokojený/á se vztahy, který mám se svými spolužáky na univerzitě."
+				},
+				{
+					"id": 5,
+					"question": "Jsem spokojený/á s podmínkami pro studium na univerzitě."
+				},
+				{
+					"id": 6,
+					"question": "Jsem spokojený/á s vysokou školou, kterou navštěvuji."
+				},
+				{
+					"id": 7,
+					"question": "Jsem spokojený/á s mimouniverzitními aktivitami instituce, kterou navštěvuji."
+				},
+				{
+					"id": 8,
+					"question": "Jsem spokojený/á s výukou, které jsem se doposud účastnil/a."
 				}
 			]
+		},
+		{
+			"title": "",
+			"questions": []
 		},
 		{
 			"title": "Níže jsou uvedena tvrzení, která se týkají různých situací a názorů. Vaším úkolem je zhodnotit, do jaké míry s každým z těchto tvrzení souhlasíte nebo nesouhlasíte.",
@@ -15,6 +47,34 @@
 				{
 					"id": 9,
 					"question": "Když chcete někoho přesně odhadnout, měli byste při posuzování jejich/jeho budoucích výkonů zohlednit, odkud pochází (tj. její/jeho etnicitu, národnost)."
+				},
+				{
+					"id": 10,
+					"question": "Když se cítíte ohrožení, je rozumné se vyhnout lidem ze skupin známých svojí zvýšenou agresivitou."
+				},
+				{
+					"id": 11,
+					"question": "Když u někoho znáte pouze její/jeho etnickou příslušnost, je jasné, že svoje znalosti o dané etnické skupině využijete při vytváření dojmu o této osobě."
+				},
+				{
+					"id": 12,
+					"question": "Policisté by měli věnovat vyšší pozornost skupinám, které se ve vyšší míře podílejí na trestné činnosti, i když to znamená zaměřit se na příslušníky určitých etnických skupin."
+				},
+				{
+					"id": 13,
+					"question": "Policisté by se měli chovat tak, jako by příslušníci všech rasových skupin měli stejnou pravděpodobnost spáchat trestný čin."
+				},
+				{
+					"id": 14,
+					"question": "Je vždy špatné vyhýbat se někomu kvůli tomu, že příslušníci její/jeho etnické skupiny mají větší pravděpodobnost spáchat násilné trestné činy."
+				},
+				{
+					"id": 15,
+					"question": "Při posuzování potenciálu uchazeček a uchazečů o vedoucí pozice by zaměstnavatelé měli  zohledňovat jejich etnický původ."
+				},
+				{
+					"id": 16,
+					"question": "Je špatně hodnotit kvalitu života v určité čtvrti na základě toho, zda v ní žijí lidé z jiných etnických skupin."
 				}
 			]
 		},
@@ -30,6 +90,73 @@
 	],
 	"one": [
 		{
+			"title": "Níže naleznete několik výroků týkajících se různých oblastí Vašeho studia a vztahů na univerzitě. Vaším úkolem je zhodnotit, jak moc souhlasíte s každým z následujících výroků.",
+			"questions": [
+				{
+					"id": 27,
+					"question": "Jsem spokojený/á se vztahy, které mám s učiteli."
+				}
+			]
+		},
+		{
+			"title": "Níže naleznete několik výroků týkajících se různých oblastí Vašeho studia a vztahů na univerzitě. Vaším úkolem je zhodnotit, jak moc souhlasíte s každým z následujících výroků.",
+			"questions": [
+				{
+					"id": 28,
+					"question": "Jsem spokojený/á se svými studijními výsledky."
+				}
+			]
+		},
+		{
+			"title": "Níže naleznete několik výroků týkajících se různých oblastí Vašeho studia a vztahů na univerzitě. Vaším úkolem je zhodnotit, jak moc souhlasíte s každým z následujících výroků.",
+			"questions": [
+				{
+					"id": 29,
+					"question": "Jsem spokojený/á se svou angažovaností ve výuce."
+				}
+			]
+		},
+		{
+			"title": "Níže naleznete několik výroků týkajících se různých oblastí Vašeho studia a vztahů na univerzitě. Vaším úkolem je zhodnotit, jak moc souhlasíte s každým z následujících výroků.",
+			"questions": [
+				{
+					"id": 30,
+					"question": "Jsem spokojený/á se vztahy, který mám se svými spolužáky na univerzitě."
+				}
+			]
+		},
+		{
+			"title": "Níže naleznete několik výroků týkajících se různých oblastí Vašeho studia a vztahů na univerzitě. Vaším úkolem je zhodnotit, jak moc souhlasíte s každým z následujících výroků.",
+			"questions": [
+				{
+					"id": 31,
+					"question": "Jsem spokojený/á s podmínkami pro studium na univerzitě."
+				}
+			]
+		},
+		{
+			"title": "Níže naleznete několik výroků týkajících se různých oblastí Vašeho studia a vztahů na univerzitě. Vaším úkolem je zhodnotit, jak moc souhlasíte s každým z následujících výroků.",
+			"questions": [
+				{
+					"id": 32,
+					"question": "Jsem spokojený/á s mimouniverzitními aktivitami instituce, kterou navštěvuji."
+				}
+			]
+		},
+		{
+			"title": "Níže naleznete několik výroků týkajících se různých oblastí Vašeho studia a vztahů na univerzitě. Vaším úkolem je zhodnotit, jak moc souhlasíte s každým z následujících výroků.",
+			"questions": [
+				{
+					"id": 33,
+					"question": "Jsem spokojený/á s výukou, které jsem se doposud účastnil/a."
+				}
+			]
+		},
+		{
+			"title": "",
+			"questions": []
+		},
+		{
 			"title": "Níže jsou uvedena tvrzení, která se týkají různých situací a názorů. Vaším úkolem je zhodnotit, do jaké míry s každým z těchto tvrzení souhlasíte nebo nesouhlasíte.",
 			"questions": [
 				{
@@ -39,11 +166,74 @@
 			]
 		},
 		{
-			"title": "Následující vlastnosti mohou nebo nemusí vystihovat vaši osobnost. Odpovězte prosím, do jaké míry s ním souhlasíte nebo nesouhlasíte.",
+			"title": "Níže jsou uvedena tvrzení, která se týkají různých situací a názorů. Vaším úkolem je zhodnotit, do jaké míry s každým z těchto tvrzení souhlasíte nebo nesouhlasíte.",
+			"questions": [
+				{
+					"id": 19,
+					"question": "Když se cítíte ohrožení, je rozumné se vyhnout lidem ze skupin známých svojí zvýšenou agresivitou."
+				}
+			]
+		},
+		{
+			"title": "Níže jsou uvedena tvrzení, která se týkají různých situací a názorů. Vaším úkolem je zhodnotit, do jaké míry s každým z těchto tvrzení souhlasíte nebo nesouhlasíte.",
+			"questions": [
+				{
+					"id": 20,
+					"question": "Když u někoho znáte pouze její/jeho etnickou příslušnost, je jasné, že svoje znalosti o dané etnické skupině využijete při vytváření dojmu o této osobě."
+				}
+			]
+		},
+		{
+			"title": "Níže jsou uvedena tvrzení, která se týkají různých situací a názorů. Vaším úkolem je zhodnotit, do jaké míry s každým z těchto tvrzení souhlasíte nebo nesouhlasíte.",
+			"questions": [
+				{
+					"id": 21,
+					"question": "Policisté by měli věnovat vyšší pozornost skupinám, které se ve vyšší míře podílejí na trestné činnosti, i když to znamená zaměřit se na příslušníky určitých etnických skupin."
+				}
+			]
+		},
+		{
+			"title": "Níže jsou uvedena tvrzení, která se týkají různých situací a názorů. Vaším úkolem je zhodnotit, do jaké míry s každým z těchto tvrzení souhlasíte nebo nesouhlasíte.",
+			"questions": [
+				{
+					"id": 22,
+					"question": "Policisté by se měli chovat tak, jako by příslušníci všech rasových skupin měli stejnou pravděpodobnost spáchat trestný čin."
+				}
+			]
+		},
+		{
+			"title": "Níže jsou uvedena tvrzení, která se týkají různých situací a názorů. Vaším úkolem je zhodnotit, do jaké míry s každým z těchto tvrzení souhlasíte nebo nesouhlasíte.",
+			"questions": [
+				{
+					"id": 23,
+					"question": "Je vždy špatné vyhýbat se někomu kvůli tomu, že příslušníci její/jeho etnické skupiny mají větší pravděpodobnost spáchat násilné trestné činy."
+				}
+			]
+		},
+		{
+			"title": "Níže jsou uvedena tvrzení, která se týkají různých situací a názorů. Vaším úkolem je zhodnotit, do jaké míry s každým z těchto tvrzení souhlasíte nebo nesouhlasíte.",
+			"questions": [
+				{
+					"id": 24,
+					"question": "Při posuzování potenciálu uchazeček a uchazečů o vedoucí pozice by zaměstnavatelé měli  zohledňovat jejich etnický původ."
+				}
+			]
+		},
+		{
+			"title": "Níže jsou uvedena tvrzení, která se týkají různých situací a názorů. Vaším úkolem je zhodnotit, do jaké míry s každým z těchto tvrzení souhlasíte nebo nesouhlasíte.",
+			"questions": [
+				{
+					"id": 25,
+					"question": "Je špatně hodnotit kvalitu života v určité čtvrti na základě toho, zda v ní žijí lidé z jiných etnických skupin."
+				}
+			]
+		},
+		{
+			"title": "",
 			"questions": [
 				{
 					"id": 26,
-					"question": "... si hodně dělá starosti."
+					"question": "Jak psychicky náročný byl tento úkol?"
 				}
 			]
 		}
