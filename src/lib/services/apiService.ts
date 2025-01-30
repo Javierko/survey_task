@@ -1,20 +1,33 @@
+import { API_URL } from "@/constants";
 import type { ApiResponse } from "@/models/ApiResponse";
 
-export const get = async <T>(url: string): Promise<ApiResponse<T>> => {
-    return fetch(url, {
+export const apiGet = async <T>(url: string, token: string | null = null): Promise<ApiResponse<T>> => {
+    const headers: Record<string, string> = {
+        "Content-Type": "application/json",
+    };
+
+    if (token != null) {
+        headers["Authorization"] = `Bearer ${token}`;
+    }
+
+    return fetch(`${API_URL}/${url}`, {
         method: "GET",
-        headers: {
-            "Content-Type": "application/json"
-        }
+        headers: headers
     }).then(response => response.json());
 };
 
-export const post = async <T>(url: string, data: T): Promise<ApiResponse<T>> => {
-    return fetch(url, {
+export const apiPost = async <T>(url: string, data: unknown, token: string | null = null): Promise<ApiResponse<T>> => {
+    const headers: Record<string, string> = {
+        "Content-Type": "application/json",
+    };
+
+    if (token != null) {
+        headers["Authorization"] = `Bearer ${token}`;
+    }
+
+    return fetch(`${API_URL}/${url}`, {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
+        headers: headers,
         body: JSON.stringify(data)
     }).then(response => response.json());
 };
