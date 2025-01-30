@@ -3,7 +3,7 @@ export const saveToLocalStorage = (key: string, value: unknown, ttl: number): vo
 
     const item = {
         value,
-        expiry: now + ttl
+        expiry: now + (ttl * 1000)
     };
 
     localStorage.setItem(key, JSON.stringify(item));
@@ -24,4 +24,8 @@ export const getFromLocalStorage = <T>(key: string): T | null => {
     }
 
     return item.value;
+};
+
+export const removeFromLocalStorage = (key: string) => {
+    localStorage.removeItem(key);
 };
