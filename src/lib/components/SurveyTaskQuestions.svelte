@@ -7,6 +7,8 @@
 		surveyStage,
 		surveyState,
 		SurveyState,
+		surveyUserToken,
+		switchCurrentType,
 		type SurveyOptionClick
 	} from '$lib/stores/surveyTask';
 	import { getQuestionId } from '$lib/utils';
@@ -15,6 +17,9 @@
 	import { Button } from '$lib/shadcn/ui/button';
 	// import SurveyTaskStageTwoWaitButton from './SurveyTaskStageTwoWaitButton.svelte';
 	import SurveyTaskQuestion from './SurveyTaskQuestion.svelte';
+	import { apiPost } from '@/services/apiService';
+	import Icon from '@iconify/svelte';
+	import { removeFromLocalStorage } from '@/services/localStorageService';
 
 	interface Props {
 		headers: string[];
@@ -33,48 +38,75 @@
 
 	let values = $state<string[]>(initValues());
 	let clicks = $state<SurveyOptionClick[][]>(initClicks());
+	let loading = $state(false);
 
-	const handleNextSlide = (last = false) => {
+	const handleNextSlide = async (last = false) => {
+		loading = true;
+
 		if (loadTime) {
-			// await pageLoadRepository.create({
-			// 	userId: $surveyUserId as string,
-			// 	stage: $surveyStage,
-			// 	slide: $surveySlide,
-			// 	timestamp: loadTime
-			// });
-			// await answerRepository.create({
-			// 	userId: $surveyUserId as string,
-			// 	questionId: -1,
-			// 	answer: -1,
-			// 	timestamp: loadTime
-			// });
+			const loadTimeRes = await apiPost('pageLoads', {
+				slide: $surveySlide,
+				stage: $surveyStage,
+				page_loaded_at: new Date(loadTime).toISOString()
+			}, $surveyUserToken);
+
+			if (loadTimeRes.Status != 200) {
+				// TODO: throw toast error
+			}
 		}
+
+		const answers = [];
 
 		for (let i = 0; i < clicks.length; i++) {
 			const question = questions[i];
-			const answer = +values[i];
 			const questionClicks = clicks[i];
 
-			// const click = await clickRepository.read(
-			// 	$surveyUserId as string,
-			// 	getQuestionId($surveyStage, $surveySlide, i, answer)
-			// );
+			const clicksData = questionClicks.map((click) => ({
+				aoi: click.aoiId,
+				x: click.x,
+				y: click.y,
+				value: click.value,
+				clicked_at: new Date(click.timestamp).toISOString()
+			}));
 
-			// await answerRepository.create({
-			// 	userId: $surveyUserId as string,
-			// 	questionId: question.id,
-			// 	answer: answer || -1,
-			// 	timestamp: click?.timestamp || null
-			// });
+			const clicksRes = await apiPost('clicks', clicksData, $surveyUserToken);
+
+			if (clicksRes.Status != 200) {
+				//TODO: throw error
+			}
+			const lastClick = questionClicks.slice(-1)[0];
+
+			if (lastClick != undefined && loadTime != null) {
+				const answersData = {
+					question: question.id,
+					answer: lastClick?.value || -1,
+					reaction: i == 0 ? lastClick.timestamp - loadTime : lastClick.timestamp - clicks[i-1][clicks[i-1].length - 1].timestamp,
+					answered_at: new Date(lastClick.timestamp).toISOString,
+				};
+
+				answers.push(answersData);
+			}
 		}
 
+		if (answers.length > 0) {
+			const answersRes = await apiPost('answers', answers, $surveyUserToken);
+
+			if (answersRes.Status != 200) {
+				//TODO: throw error
+			}
+		}
+
+		loading = false;
+
 		if (last) {
-			// if ($surveyState === SurveyState.SecondPhase) {
-			// 	surveyState.set(SurveyState.Finished);
-			// } else if ($surveyState === SurveyState.FirstPhase) {
-			// 	surveyState.set(SurveyState.PitStop);
-			// 	surveySlide.set(0);
-			// }
+			if ($surveyState == SurveyState.TypeSwitched) {
+				surveyState.set(SurveyState.Finished);
+				removeFromLocalStorage("user");
+			} else if ($surveyState == SurveyState.Started) {
+				surveyState.set(SurveyState.TypeSwitched);
+				surveySlide.set(0);
+				switchCurrentType();
+			}
 		} else {
 			surveySlide.update((slide) => slide + 1);
 		}
@@ -160,28 +192,20 @@
 					{/if}
 
 					<div>
-						{#if $surveySlide === QUESTIONS[$surveyCurrentType].length - 1}
-							<Button
-								onclick={() => handleNextSlide(true)}
-								disabled={!$surveyQuestion.has(questions.length)}
-							>
-								<!-- {#if $surveyState === SurveyState.SecondPhase}
-									Dokončit
-								{:else}
-									Další
-								{/if} -->
-								asd
-							</Button>
-						{:else if questions.length === 0 && $surveyStage == 2}
-							<!-- <SurveyTaskStageTwoWaitButton on:click={() => onNextSlide(false)} /> -->
-						{:else}
-							<Button
-								onclick={() => handleNextSlide(false)}
-								disabled={!$surveyQuestion.has(questions.length)}
-							>
+						<Button
+							onclick={() => handleNextSlide($surveySlide === QUESTIONS[$surveyCurrentType].length - 1)}
+							disabled={!$surveyQuestion.has(questions.length) || loading}
+						>
+							{#if loading}
+								<Icon icon="line-md:loading-twotone-loop" class="!h-5 !w-5 text-gray-50" />
+							{/if}
+
+							{#if $surveyState === SurveyState.TypeSwitched && $surveySlide === QUESTIONS[$surveyCurrentType].length - 1}
+								Dokončit
+							{:else}
 								Další
-							</Button>
-						{/if}
+							{/if}
+						</Button>
 					</div>
 				</div>
 			</div>

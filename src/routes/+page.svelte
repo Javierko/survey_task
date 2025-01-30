@@ -1,9 +1,53 @@
 <script lang="ts">
 	import { goto } from "$app/navigation";
+	import type { Participant } from "@/models/Participant";
+	import { apiPost } from "@/services/apiService";
+	import { getFromLocalStorage, saveToLocalStorage } from "@/services/localStorageService";
+	import * as Alert from "@/shadcn/ui/alert/index";
 	import Button from "@/shadcn/ui/button/button.svelte";
+	import { surveyCurrentType, SurveyState, surveyState, surveyUserToken, type SurveyStartedWithType } from "@/stores/surveyTask";
+	import Icon from "@iconify/svelte";
 
-	const handleContinue = () => {
-		goto("/survey");
+	let loading = $state(false);
+	let error = $state("");
+
+	const handleContinue = async () => {
+		loading = true;
+		error = "";
+
+		const user = getFromLocalStorage<Participant>("user");
+
+		if (user == null) {
+			const res = await apiPost<{Token: string, StartedWith: SurveyStartedWithType}>("participants", {
+				"resolution_width": window.screen.width,
+				"resolution_height": window.screen.height,
+				"resolution_inner_width": window.innerWidth,
+				"resolution_inner_height": window.innerHeight,
+				"user_agent": navigator.userAgent,
+			});
+
+			if (res.Status == 200) {
+				surveyUserToken.set(res.Data.Token);
+				surveyCurrentType.set(res.Data.StartedWith);
+
+				saveToLocalStorage("user", {
+					Token: res.Data.Token,
+					StartedWith: res.Data.StartedWith,
+				}, 3600);
+			} else {
+				error = res.Message;
+			}
+		} else {
+			surveyUserToken.set(user.Token);
+			surveyCurrentType.set(user.StartedWith);
+		}
+
+		loading = false;
+
+		if (error == "" && $surveyUserToken != null) {
+			surveyState.set(SurveyState.Started);
+			goto("/survey");
+		}
 	}
 </script>
 
@@ -13,5 +57,28 @@
 </svelte:head>
 
 <section class="card">
-	<Button onclick={handleContinue}>Pokračovat</Button>
+	<Alert.Root>
+		<Icon icon="lucide:info" class="mr-2 h-4 w-4" />
+		<Alert.Title>Vítejte v dotazníku!</Alert.Title>
+		<Alert.Description>
+			Kliknutím na tlačítko pokračovat aplikaci spustíte!
+		</Alert.Description>
+	</Alert.Root>
+
+	{#if error !== ""}
+		<Alert.Root variant="destructive">
+			<Alert.Title>Nastala chyba!</Alert.Title>
+			<Alert.Description>
+				Nebylo možné vytvořit participanta.
+			</Alert.Description>
+		</Alert.Root>
+	{/if}
+
+	<Button onclick={handleContinue}>
+		{#if loading}
+			<Icon icon="line-md:loading-twotone-loop" class="!h-5 !w-5 text-gray-50" />
+		{/if}
+
+		Pokračovat
+	</Button>
 </section>

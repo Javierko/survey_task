@@ -1,8 +1,10 @@
-import { writable } from "svelte/store";
+import { get, writable } from "svelte/store";
 
 export enum SurveyState {
     None,
-    Started
+    Started,
+    TypeSwitched,
+    Finished
 };
 
 export interface SurveyOptionClick {
@@ -13,8 +15,18 @@ export interface SurveyOptionClick {
     timestamp: number;
 };
 
+export type SurveyStartedWithType = "many" | "one";
+
+export const surveyUserToken = writable<string | null>(null);
 export const surveyState = writable<SurveyState>(SurveyState.None);
 export const surveySlide = writable(0);
 export const surveyQuestion = writable(new Set([0]));
 export const surveyStage = writable(0);
-export const surveyCurrentType = writable<"many" | "one">("many");
+export const surveyCurrentType = writable<SurveyStartedWithType>("many");
+
+export const switchCurrentType = (): SurveyStartedWithType => {
+    surveyCurrentType.update((prev) => prev === "many" ? "one" : "many");
+    
+    return get(surveyCurrentType);
+  };
+  
