@@ -6,13 +6,12 @@
     interface Props {
         question: string;
         totalOptions: number;
-        value: string;
         rowId: number;
         disabled: boolean;
         optionClick: (rowId: number, click: SurveyOptionClick) => void;
     };
 
-    let { question, totalOptions, value = $bindable(), rowId, disabled, optionClick }: Props = $props();
+    let { question, totalOptions, rowId, disabled, optionClick }: Props = $props();
 
 	const options = Array(totalOptions)
 		.fill(0)
@@ -58,7 +57,7 @@
 		{question}
 	</div>
 
-	<RadioGroup.Root data-orientation="horizontal" class="flex items-center gap-0" bind:value>
+	<RadioGroup.Root data-orientation="horizontal" class="flex items-center gap-0">
 		{#each options as option, j}
 			<div
 				id={getQuestionId($surveyStage, $surveySlide, rowId, j + 1)}

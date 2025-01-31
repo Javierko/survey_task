@@ -15,11 +15,11 @@
 	import { fade } from 'svelte/transition';
 	import { onMount } from 'svelte';
 	import { Button } from '$lib/shadcn/ui/button';
-	// import SurveyTaskStageTwoWaitButton from './SurveyTaskStageTwoWaitButton.svelte';
 	import SurveyTaskQuestion from './SurveyTaskQuestion.svelte';
 	import { apiPost } from '@/services/apiService';
 	import Icon from '@iconify/svelte';
 	import { removeFromLocalStorage } from '@/services/localStorageService';
+	import {toast} from "svelte-sonner";
 
 	interface Props {
 		headers: string[];
@@ -33,10 +33,8 @@
 
 	let loadTime: number | null = null;
 
-	const initValues = () => new Array(questions.length).fill('');
 	const initClicks = () => Array.from({ length: questions.length }, () => new Array());
 
-	let values = $state<string[]>(initValues());
 	let clicks = $state<SurveyOptionClick[][]>(initClicks());
 	let loading = $state(false);
 
@@ -51,7 +49,7 @@
 			}, $surveyUserToken);
 
 			if (loadTimeRes.Status != 200) {
-				// TODO: throw toast error
+				errorToast("Chyba při ukládání dat", "Nepodařilo se uložit data o načtení stránky. Kontaktujte admina.");
 			}
 		}
 
@@ -72,7 +70,7 @@
 			const clicksRes = await apiPost('clicks', clicksData, $surveyUserToken);
 
 			if (clicksRes.Status != 200) {
-				//TODO: throw error
+				errorToast("Chyba při ukládání dat", "Nepodařilo se uložit data o kliknutí. Kontaktujte admina.");
 			}
 			const lastClick = questionClicks.slice(-1)[0];
 
@@ -80,8 +78,8 @@
 				const answersData = {
 					question: question.id,
 					answer: lastClick?.value || -1,
-					reaction: i == 0 ? lastClick.timestamp - loadTime : lastClick.timestamp - clicks[i-1][clicks[i-1].length - 1].timestamp,
-					answered_at: new Date(lastClick.timestamp).toISOString,
+					reaction: (i == 0 ? lastClick.timestamp - loadTime : lastClick.timestamp - clicks[i-1].slice(-1)[0].timestamp) / 1000,
+					answered_at: new Date(lastClick.timestamp).toISOString(),
 				};
 
 				answers.push(answersData);
@@ -92,7 +90,7 @@
 			const answersRes = await apiPost('answers', answers, $surveyUserToken);
 
 			if (answersRes.Status != 200) {
-				//TODO: throw error
+				errorToast("Chyba při ukládání dat", "Nepodařilo se uložit data o odpovědích. Kontaktujte admina.");
 			}
 		}
 
@@ -102,6 +100,10 @@
 			if ($surveyState == SurveyState.TypeSwitched) {
 				surveyState.set(SurveyState.Finished);
 				removeFromLocalStorage("user");
+
+				await apiPost('participants/complete', {
+					completed_at: new Date().toISOString()
+				}, $surveyUserToken);
 			} else if ($surveyState == SurveyState.Started) {
 				surveyState.set(SurveyState.TypeSwitched);
 				surveySlide.set(0);
@@ -121,11 +123,16 @@
 	};
 
 	const reset = () => {
-		values = initValues();
 		clicks = initClicks();
 		loadTime = Date.now();
 		surveyQuestion.set(new Set([0]));
 	};
+
+	const errorToast = (message: string, description: string) => {
+		toast.error(message, {
+			description: description,
+		});
+	}
 
 	$effect.pre(() => {
 		if (questions) {
@@ -170,7 +177,6 @@
 							question={question.question}
 							rowId={i}
 							totalOptions={headers.length}
-							bind:value={values[i]}
 							disabled={!$surveyQuestion.has(i)}
 							optionClick={handleOptionClick}
 						/>
@@ -180,17 +186,6 @@
 				<div
 					class={`mt-4 flex ${questions.length > 0 ? 'justify-end' : 'flex-col items-center justify-center gap-4'}`}
 				>
-					{#if questions.length === 0}
-						{#if $surveyStage === 2}
-							<span
-								>Nyní prosím jednu minutu odpočívejte, poté bude možné pokračovat kliknutím na
-								tlačítko <strong>Další</strong>.</span
-							>
-						{:else}
-							<span>Pro pokračování klikněte na tlačítko <strong>Další</strong>.</span>
-						{/if}
-					{/if}
-
 					<div>
 						<Button
 							onclick={() => handleNextSlide($surveySlide === QUESTIONS[$surveyCurrentType].length - 1)}
