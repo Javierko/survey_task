@@ -1,11 +1,12 @@
 <script lang="ts">
 	import '../app.css';
+	import { Toaster } from "$lib/shadcn/ui/sonner/index.js";
 
 	let { children } = $props();
 </script>
 
-<div class="flex h-screen w-full items-center justify-center" id="app">
-	<main>
-		{@render children()}
-	</main>
-</div>
+<Toaster />
+
+<main class="flex h-screen w-full items-center justify-center" id="app">
+	{@render children()}
+</main>
