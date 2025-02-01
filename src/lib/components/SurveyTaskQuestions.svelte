@@ -1,14 +1,10 @@
 <script lang="ts">
 	import QUESTIONS from '$lib/data/questions.json';
 	import {
-		surveyCurrentType,
+		surveyManager,
 		surveyQuestion,
-		surveySlide,
-		surveyStage,
-		surveyState,
 		SurveyState,
 		surveyUserToken,
-		switchCurrentType,
 		type SurveyOptionClick
 	} from '$lib/stores/surveyTask';
 	import { getQuestionId } from '$lib/utils';
@@ -45,8 +41,7 @@
 			const loadTimeRes = await apiPost(
 				'pageLoads',
 				{
-					slide: $surveySlide,
-					stage: $surveyStage,
+					slide: $surveyManager.slide,
 					page_loaded_at: new Date(loadTime).toISOString()
 				},
 				$surveyUserToken
@@ -60,7 +55,14 @@
 			}
 		}
 
-		const answers = [];
+		const finalAnswers = [];
+		let finalClicks: {
+			aoi: string;
+			x: number;
+			y: number;
+			value: number;
+			clicked_at: string;
+		}[] = [];
 
 		for (let i = 0; i < clicks.length; i++) {
 			const question = questions[i];
@@ -74,14 +76,8 @@
 				clicked_at: new Date(click.timestamp).toISOString()
 			}));
 
-			const clicksRes = await apiPost('clicks', clicksData, $surveyUserToken);
+			finalClicks = finalClicks.concat(clicksData);
 
-			if (clicksRes.Status != 200) {
-				errorToast(
-					'Chyba při ukládání dat',
-					'Nepodařilo se uložit data o kliknutí. Kontaktujte admina.'
-				);
-			}
 			const lastClick = questionClicks.slice(-1)[0];
 
 			if (lastClick != undefined && loadTime != null) {
@@ -95,12 +91,23 @@
 					answered_at: new Date(lastClick.timestamp).toISOString()
 				};
 
-				answers.push(answersData);
+				finalAnswers.push(answersData);
 			}
 		}
 
-		if (answers.length > 0) {
-			const answersRes = await apiPost('answers', answers, $surveyUserToken);
+		if (finalClicks.length > 0) {
+			const clicksRes = await apiPost('clicks', finalClicks, $surveyUserToken);
+
+			if (clicksRes.Status != 200) {
+				errorToast(
+					'Chyba při ukládání dat',
+					'Nepodařilo se uložit data o kliknutí. Kontaktujte admina.'
+				);
+			}
+		}
+
+		if (finalAnswers.length > 0) {
+			const answersRes = await apiPost('answers', finalAnswers, $surveyUserToken);
 
 			if (answersRes.Status != 200) {
 				errorToast(
@@ -113,8 +120,8 @@
 		loading = false;
 
 		if (last) {
-			if ($surveyState == SurveyState.TypeSwitched) {
-				surveyState.set(SurveyState.Finished);
+			if ($surveyManager.state == SurveyState.TypeSwitched) {
+				surveyManager.setState(SurveyState.Finished);
 				removeFromLocalStorage('user');
 
 				await apiPost(
@@ -124,13 +131,13 @@
 					},
 					$surveyUserToken
 				);
-			} else if ($surveyState == SurveyState.Started) {
-				surveyState.set(SurveyState.TypeSwitched);
-				surveySlide.set(0);
-				switchCurrentType();
+			} else if ($surveyManager.state == SurveyState.Started) {
+				surveyManager.setState(SurveyState.TypeSwitched);
+				surveyManager.setSlide(0);
+				surveyManager.switchType();
 			}
 		} else {
-			surveySlide.update((slide) => slide + 1);
+			surveyManager.setSlide($surveyManager.slide + 1);
 		}
 	};
 
@@ -138,7 +145,7 @@
 		clicks[rowId].push(click);
 
 		if (questions.length === 1 && $surveyQuestion.has(questions.length)) {
-			handleNextSlide($surveySlide === QUESTIONS[$surveyCurrentType].length - 1);
+			handleNextSlide($surveyManager.slide === QUESTIONS[$surveyManager.type].length - 1);
 		}
 	};
 
@@ -167,23 +174,20 @@
 
 <div class="flex h-screen w-full items-center justify-center">
 	<div class="w-full max-w-[108rem] px-4 py-2.5 shadow">
-		{#key $surveySlide}
+		{#key $surveyManager.slide}
 			<div in:fade>
 				{#if questions.length > 0}
 					<div class="question-row flex items-center border-b border-gray-200">
 						<div
-							id={getQuestionId($surveyStage, $surveySlide, 'header', 0)}
+							id={getQuestionId($surveyManager.slide, 'header', 0)}
 							class="col-item col-item--title flex font-medium text-gray-700"
 						>
-							{QUESTIONS[$surveyCurrentType][$surveySlide].title}
+							{QUESTIONS[$surveyManager.type][$surveyManager.slide].title}
 						</div>
 
 						<div class="flex w-full items-center justify-end gap-0">
 							{#each headers as header, i}
-								<div
-									id={getQuestionId($surveyStage, $surveySlide, 'header', i + 1)}
-									class="col-item"
-								>
+								<div id={getQuestionId($surveyManager.slide, 'header', i + 1)} class="col-item">
 									{header}
 								</div>
 							{/each}
@@ -209,14 +213,14 @@
 					<div>
 						<Button
 							onclick={() =>
-								handleNextSlide($surveySlide === QUESTIONS[$surveyCurrentType].length - 1)}
+								handleNextSlide($surveyManager.slide === QUESTIONS[$surveyManager.type].length - 1)}
 							disabled={!$surveyQuestion.has(questions.length) || loading}
 						>
 							{#if loading}
 								<Icon icon="line-md:loading-twotone-loop" class="!h-5 !w-5 text-gray-50" />
 							{/if}
 
-							{#if $surveyState === SurveyState.TypeSwitched && $surveySlide === QUESTIONS[$surveyCurrentType].length - 1}
+							{#if $surveyManager.state === SurveyState.TypeSwitched && $surveyManager.slide === QUESTIONS[$surveyManager.type].length - 1}
 								Dokončit
 							{:else}
 								Další

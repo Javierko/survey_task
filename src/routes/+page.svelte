@@ -2,13 +2,16 @@
 	import { goto } from '$app/navigation';
 	import type { Participant } from '@/models/Participant';
 	import { apiPost } from '@/services/apiService';
-	import { getFromLocalStorage, saveToLocalStorage } from '@/services/localStorageService';
+	import {
+		getFromLocalStorage,
+		removeFromLocalStorage,
+		saveToLocalStorage
+	} from '@/services/localStorageService';
 	import * as Alert from '@/shadcn/ui/alert/index';
 	import Button from '@/shadcn/ui/button/button.svelte';
 	import {
-		surveyCurrentType,
+		surveyManager,
 		SurveyState,
-		surveyState,
 		surveyUserToken,
 		type SurveyStartedWithType
 	} from '@/stores/surveyTask';
@@ -30,16 +33,17 @@
 		const user = getFromLocalStorage<Participant>('user');
 
 		if (user == null || createNew) {
+			removeFromLocalStorage('surveyManager');
 			await createParticipant();
 		} else if (user != null) {
 			surveyUserToken.set(user.Token);
-			surveyCurrentType.set(user.StartedWith);
+			surveyManager.setType(user.StartedWith);
 		}
 
 		loading = false;
 
 		if ($surveyUserToken != null) {
-			surveyState.set(SurveyState.Started);
+			surveyManager.setState(SurveyState.Started);
 			goto('/survey');
 		}
 	};
@@ -58,7 +62,7 @@
 
 		if (res.Status == 200) {
 			surveyUserToken.set(res.Data.Token);
-			surveyCurrentType.set(res.Data.StartedWith);
+			surveyManager.setType(res.Data.StartedWith);
 
 			saveToLocalStorage(
 				'user',

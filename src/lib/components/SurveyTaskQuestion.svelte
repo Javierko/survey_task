@@ -1,10 +1,5 @@
 <script lang="ts">
-	import {
-		surveyQuestion,
-		surveySlide,
-		surveyStage,
-		type SurveyOptionClick
-	} from '$lib/stores/surveyTask';
+	import { surveyManager, surveyQuestion, type SurveyOptionClick } from '$lib/stores/surveyTask';
 	import { getQuestionId } from '$lib/utils';
 	import * as RadioGroup from '$lib/shadcn/ui/radio-group';
 
@@ -55,13 +50,13 @@
 </script>
 
 <div class="question-row" class:question-row--disabled={disabled}>
-	<div id={getQuestionId($surveyStage, $surveySlide, rowId, 0)} class="col-item col-item--title">
+	<div id={getQuestionId($surveyManager.slide, rowId, 0)} class="col-item col-item--title">
 		{question}
 	</div>
 
 	<RadioGroup.Root data-orientation="horizontal" class="flex items-center gap-0">
 		{#each options as option, j}
-			<div id={getQuestionId($surveyStage, $surveySlide, rowId, j + 1)} class="col-item">
+			<div id={getQuestionId($surveyManager.slide, rowId, j + 1)} class="col-item">
 				<RadioGroup.Item
 					value={option.toString()}
 					onclick={(e) => handleOptionClick(e, option)}

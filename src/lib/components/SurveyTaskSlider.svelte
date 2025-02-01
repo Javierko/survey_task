@@ -1,6 +1,6 @@
 <script lang="ts">
 	import QUESTIONS from '$lib/data/questions.json';
-	import { surveyCurrentType, surveySlide } from '$lib/stores/surveyTask';
+	import { surveyManager } from '$lib/stores/surveyTask';
 	import { derived } from 'svelte/store';
 	import SurveyTaskQuestions from './SurveyTaskQuestions.svelte';
 
@@ -24,12 +24,9 @@
 		'Velmi nenáročný'
 	];
 
-	const questions = derived(
-		[surveyCurrentType, surveySlide],
-		([$surveyCurrentType, $surveySlide]) => {
-			return QUESTIONS[$surveyCurrentType][$surveySlide].questions || [];
-		}
-	);
+	const questions = derived(surveyManager, ($surveyManager) => {
+		return QUESTIONS[$surveyManager.type][$surveyManager.slide].questions || [];
+	});
 </script>
 
 <SurveyTaskQuestions

@@ -1,15 +1,45 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import SurveyTaskFinished from '@/components/SurveyTaskFinished.svelte';
 	import SurveyTaskSlider from '@/components/SurveyTaskSlider.svelte';
-	import { SurveyState, surveyState } from '@/stores/surveyTask';
+	import type { Participant } from '@/models/Participant';
+	import { getFromLocalStorage, removeFromLocalStorage } from '@/services/localStorageService';
+	import {
+		surveyManager,
+		SurveyState,
+		surveyUserToken,
+		type SurveyManager
+	} from '@/stores/surveyTask';
 	import { onMount } from 'svelte';
 
 	onMount(() => {
-		console.log('asd');
+		const getLocalParticipant = getFromLocalStorage<Participant>('user');
+
+		if (getLocalParticipant != null) {
+			surveyUserToken.set(getLocalParticipant.Token);
+		} else {
+			goto('/');
+		}
+
+		const getLocalManager = getFromLocalStorage<SurveyManager>('surveyManager');
+
+		if (getLocalManager != null) {
+			surveyManager.set(getLocalManager);
+		}
+
+		const unsubscribe = surveyManager.subscribe((value) => {
+			if (value.state === SurveyState.Finished) {
+				removeFromLocalStorage('surveyManager');
+			} else {
+				surveyManager.save();
+			}
+		});
+
+		return () => unsubscribe();
 	});
 </script>
 
-{#if $surveyState == SurveyState.Finished}
+{#if $surveyManager.state == SurveyState.Finished}
 	<SurveyTaskFinished />
 {:else}
 	<SurveyTaskSlider />
