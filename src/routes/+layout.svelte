@@ -7,6 +7,6 @@
 
 <Toaster />
 
-<main class="flex h-screen w-full items-center justify-center" id="app">
+<main class="flex w-full items-center justify-center py-6" id="app">
 	{@render children()}
 </main>

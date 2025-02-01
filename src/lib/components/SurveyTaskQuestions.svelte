@@ -172,7 +172,7 @@
 	});
 </script>
 
-<div class="flex h-screen w-full items-center justify-center">
+<div class="flex h-full w-full items-center justify-center">
 	<div class="w-full max-w-[108rem] px-4 py-2.5 shadow">
 		{#key $surveyManager.slide}
 			<div in:fade>

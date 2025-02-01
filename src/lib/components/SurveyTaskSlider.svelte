@@ -1,37 +1,17 @@
 <script lang="ts">
 	import QUESTIONS from '$lib/data/questions.json';
+	import HEADERS from '$lib/data/headers.json';
 	import { surveyManager } from '$lib/stores/surveyTask';
 	import { derived } from 'svelte/store';
 	import SurveyTaskQuestions from './SurveyTaskQuestions.svelte';
 
-	const headers = [
-		'Rozhodně nesouhlasím',
-		'Nesouhlasím',
-		'Spíše nesouhlasím',
-		'Nevím',
-		'Spíše souhlasím',
-		'Souhlasím',
-		'Rozhodně souhlasím'
-	];
-
-	const headersAlternative = [
-		'Velmi náročný',
-		'Náročný',
-		'Spíše náročný',
-		'Ani nenáročný, ani náročný',
-		'Spíše nenáročný',
-		'Nenáročný',
-		'Velmi nenáročný'
-	];
+	const headers = derived(surveyManager, ($surveyManager) => {
+		return HEADERS[QUESTIONS[$surveyManager.type][$surveyManager.slide].header_id] || [];
+	});
 
 	const questions = derived(surveyManager, ($surveyManager) => {
 		return QUESTIONS[$surveyManager.type][$surveyManager.slide].questions || [];
 	});
 </script>
 
-<SurveyTaskQuestions
-	questions={$questions}
-	headers={$questions.length === 1 && [17, 26].includes($questions[0].id)
-		? headersAlternative
-		: headers}
-/>
+<SurveyTaskQuestions questions={$questions} headers={$headers} />

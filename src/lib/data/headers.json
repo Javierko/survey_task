@@ -1,0 +1,53 @@
+[
+	[
+		"Rozhodně nesouhlasím",
+		"Nesouhlasím",
+		"Spíše nesouhlasím",
+		"Nevím",
+		"Spíše souhlasím",
+		"Souhlasím",
+		"Rozhodně souhlasím"
+	],
+	[
+		"Velmi náročný",
+		"Náročný",
+		"Spíše náročný",
+		"Ani nenáročný, ani náročný",
+		"Spíše nenáročný",
+		"Nenáročný",
+		"Velmi nenáročný"
+	],
+	[
+		"Zcela nesouhlasím",
+		"Nesouhlasím",
+		"Spíše nesouhlasím",
+		"Spíše souhlasím",
+		"Souhlasím",
+		"Zcela souhlasím"
+	],
+	[
+		"Zcela nesouhlasím",
+		"Nesouhlasím",
+		"Spíše nesouhlasím",
+		"Ani nesouhlasím ani souhlasím",
+		"Spíše souhlasím",
+		"Souhlasím",
+		"Zcela souhlasím"
+	],
+	[
+		"Vůbec mě nevystihuje",
+		"Nevystihuje mě",
+		"Spíše mě nevystihuje",
+		"Vystihuje mě tak napůl",
+		"Spíše mě vystihuje",
+		"Vystihujeme mě",
+		"Zcela mě vystihuje"
+	],
+	[
+		"Vůbec mě nevystihuje",
+		"Spíše mě nevystihuje",
+		"Vystihuje mě tak napůl",
+		"Spíše mě vystihuje",
+		"Zcela mě vystihuje"
+	]
+]
