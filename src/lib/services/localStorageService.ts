@@ -1,31 +1,31 @@
 export const saveToLocalStorage = (key: string, value: unknown, ttl: number): void => {
-    const now = Date.now();
+	const now = Date.now();
 
-    const item = {
-        value,
-        expiry: now + (ttl * 1000)
-    };
+	const item = {
+		value,
+		expiry: now + ttl * 1000
+	};
 
-    localStorage.setItem(key, JSON.stringify(item));
+	localStorage.setItem(key, JSON.stringify(item));
 };
 
 export const getFromLocalStorage = <T>(key: string): T | null => {
-    const itemStr = localStorage.getItem(key);
+	const itemStr = localStorage.getItem(key);
 
-    if (!itemStr) {
-        return null;
-    }
+	if (!itemStr) {
+		return null;
+	}
 
-    const item = JSON.parse(itemStr);
+	const item = JSON.parse(itemStr);
 
-    if (Date.now() > item.expiry) {
-        localStorage.removeItem(key);
-        return null;
-    }
+	if (Date.now() > item.expiry) {
+		localStorage.removeItem(key);
+		return null;
+	}
 
-    return item.value;
+	return item.value;
 };
 
 export const removeFromLocalStorage = (key: string) => {
-    localStorage.removeItem(key);
+	localStorage.removeItem(key);
 };

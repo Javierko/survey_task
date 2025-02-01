@@ -1,17 +1,22 @@
 <script lang="ts">
-	import { surveyQuestion, surveySlide, surveyStage, type SurveyOptionClick } from '$lib/stores/surveyTask';
+	import {
+		surveyQuestion,
+		surveySlide,
+		surveyStage,
+		type SurveyOptionClick
+	} from '$lib/stores/surveyTask';
 	import { getQuestionId } from '$lib/utils';
 	import * as RadioGroup from '$lib/shadcn/ui/radio-group';
 
-    interface Props {
-        question: string;
-        totalOptions: number;
-        rowId: number;
-        disabled: boolean;
-        optionClick: (rowId: number, click: SurveyOptionClick) => void;
-    };
+	interface Props {
+		question: string;
+		totalOptions: number;
+		rowId: number;
+		disabled: boolean;
+		optionClick: (rowId: number, click: SurveyOptionClick) => void;
+	}
 
-    let { question, totalOptions, rowId, disabled, optionClick }: Props = $props();
+	let { question, totalOptions, rowId, disabled, optionClick }: Props = $props();
 
 	const options = Array(totalOptions)
 		.fill(0)
@@ -39,30 +44,24 @@
 			return;
 		}
 
-        optionClick(rowId, {
-            aoiId: aoiElement.id,
-            x: e.clientX,
-            y: e.clientY,
-            value: option,
-            timestamp: Date.now()
-        });
+		optionClick(rowId, {
+			aoiId: aoiElement.id,
+			x: e.clientX,
+			y: e.clientY,
+			value: option,
+			timestamp: Date.now()
+		});
 	};
 </script>
 
 <div class="question-row" class:question-row--disabled={disabled}>
-	<div
-		id={getQuestionId($surveyStage, $surveySlide, rowId, 0)}
-		class="col-item col-item--title"
-	>
+	<div id={getQuestionId($surveyStage, $surveySlide, rowId, 0)} class="col-item col-item--title">
 		{question}
 	</div>
 
 	<RadioGroup.Root data-orientation="horizontal" class="flex items-center gap-0">
 		{#each options as option, j}
-			<div
-				id={getQuestionId($surveyStage, $surveySlide, rowId, j + 1)}
-				class="col-item"
-			>
+			<div id={getQuestionId($surveyStage, $surveySlide, rowId, j + 1)} class="col-item">
 				<RadioGroup.Item
 					value={option.toString()}
 					onclick={(e) => handleOptionClick(e, option)}

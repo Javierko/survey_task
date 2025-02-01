@@ -24,9 +24,12 @@
 		'Velmi nenáročný'
 	];
 
-	const questions = derived([surveyCurrentType, surveySlide], ([$surveyCurrentType, $surveySlide]) => {
-		return QUESTIONS[$surveyCurrentType][$surveySlide].questions || [];
-	});
+	const questions = derived(
+		[surveyCurrentType, surveySlide],
+		([$surveyCurrentType, $surveySlide]) => {
+			return QUESTIONS[$surveyCurrentType][$surveySlide].questions || [];
+		}
+	);
 </script>
 
 <SurveyTaskQuestions

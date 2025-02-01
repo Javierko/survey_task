@@ -1,6 +1,6 @@
-import type { SurveyStartedWithType } from "@/stores/surveyTask";
+import type { SurveyStartedWithType } from '@/stores/surveyTask';
 
 export interface Participant {
-    Token: string;
-    StartedWith: SurveyStartedWithType;
-};
+	Token: string;
+	StartedWith: SurveyStartedWithType;
+}
