@@ -1,4 +1,4 @@
-import { API_URL } from '@/constants';
+import { PUBLIC_API_URL } from '$env/static/public';
 import type { ApiResponse } from '@/models/ApiResponse';
 
 export const apiGet = async <T>(
@@ -14,7 +14,7 @@ export const apiGet = async <T>(
 		headers['Authorization'] = `Bearer ${token}`;
 	}
 
-	return fetch(`${API_URL}/${url}`, {
+	return fetch(`${PUBLIC_API_URL}/${url}`, {
 		method: 'GET',
 		headers: headers,
 		credentials: 'include'
@@ -35,7 +35,7 @@ export const apiPost = async <T>(
 		headers['Authorization'] = `Bearer ${token}`;
 	}
 
-	return fetch(`${API_URL}/${url}`, {
+	return fetch(`${PUBLIC_API_URL}/${url}`, {
 		method: 'POST',
 		headers: headers,
 		body: JSON.stringify(data),
