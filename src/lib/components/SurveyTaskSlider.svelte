@@ -1,17 +1,34 @@
 <script lang="ts">
 	import QUESTIONS from '$lib/data/questions.json';
 	import HEADERS from '$lib/data/headers.json';
-	import { surveyManager } from '$lib/stores/surveyTask';
+	import { surveyManager, SurveyState } from '$lib/stores/surveyTask';
 	import { derived } from 'svelte/store';
 	import SurveyTaskQuestions from './SurveyTaskQuestions.svelte';
 
-	const headers = derived(surveyManager, ($surveyManager) => {
-		return HEADERS[QUESTIONS[$surveyManager.type][$surveyManager.slide].header_id] || [];
+	const questionsList = derived(surveyManager, ($surveyManager) => {
+		return $surveyManager.state == SurveyState.Middle
+			? QUESTIONS['middle'][$surveyManager.slide]
+			: QUESTIONS[$surveyManager.type][$surveyManager.slide] || [];
 	});
 
-	const questions = derived(surveyManager, ($surveyManager) => {
-		return QUESTIONS[$surveyManager.type][$surveyManager.slide].questions || [];
+	const headers = derived(questionsList, ($questionsList) => {
+		return HEADERS[$questionsList.header_id] || [];
+	});
+
+	const questions = derived(questionsList, ($questionsList) => {
+		return $questionsList.questions || [];
+	});
+
+	const slides = derived(surveyManager, ($surveyManager) => {
+		return $surveyManager.state == SurveyState.Middle
+			? QUESTIONS['middle'].length
+			: QUESTIONS[$surveyManager.type].length;
 	});
 </script>
 
-<SurveyTaskQuestions questions={$questions} headers={$headers} />
+<SurveyTaskQuestions
+	questions={$questions}
+	headers={$headers}
+	slides={$slides}
+	title={$questionsList.title}
+/>

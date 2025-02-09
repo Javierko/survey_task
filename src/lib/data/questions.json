@@ -82,6 +82,18 @@
 			]
 		},
 		{
+			"title": "",
+			"header_id": 1,
+			"questions": [
+				{
+					"id": 17,
+					"question": "Jak psychicky náročný byl tento úkol?"
+				}
+			]
+		}
+	],
+	"middle": [
+		{
 			"title": "Následující vlastnosti mohou nebo nemusí vystihovat vaši osobnost. Odpovězte prosím, do jaké míry s ním souhlasíte nebo nesouhlasíte.",
 			"header_id": 0,
 			"questions": [
@@ -348,16 +360,6 @@
 				{
 					"id": 93,
 					"question": "Nemám rád(a) otázky, na které nelze odpovědět mnoha různými způsoby."
-				}
-			]
-		},
-		{
-			"title": "",
-			"header_id": 1,
-			"questions": [
-				{
-					"id": 17,
-					"question": "Jak psychicky náročný byl tento úkol?"
 				}
 			]
 		}

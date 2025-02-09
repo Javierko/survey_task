@@ -23,9 +23,11 @@
 			id: number;
 			question: string;
 		}[];
+		slides: number;
+		title: string;
 	}
 
-	let { headers, questions }: Props = $props();
+	let { headers, questions, slides, title }: Props = $props();
 
 	let loadTime: number | null = null;
 
@@ -132,6 +134,9 @@
 					$surveyUserToken
 				);
 			} else if ($surveyManager.state == SurveyState.Started) {
+				surveyManager.setSlide(0);
+				surveyManager.setState(SurveyState.Middle);
+			} else if ($surveyManager.state == SurveyState.Middle) {
 				surveyManager.setState(SurveyState.TypeSwitched);
 				surveyManager.setSlide(0);
 				surveyManager.switchType();
@@ -145,7 +150,7 @@
 		clicks[rowId].push(click);
 
 		if (questions.length === 1 && $surveyQuestion.has(questions.length)) {
-			handleNextSlide($surveyManager.slide === QUESTIONS[$surveyManager.type].length - 1);
+			handleNextSlide($surveyManager.slide === slides - 1);
 		}
 	};
 
@@ -182,7 +187,7 @@
 							id={getQuestionId($surveyManager.slide, 'header', 0)}
 							class="col-item col-item--title flex font-medium text-gray-700"
 						>
-							{QUESTIONS[$surveyManager.type][$surveyManager.slide].title}
+							{title}
 						</div>
 
 						<div class="flex w-full items-center justify-end gap-0">
@@ -212,15 +217,14 @@
 				>
 					<div>
 						<Button
-							onclick={() =>
-								handleNextSlide($surveyManager.slide === QUESTIONS[$surveyManager.type].length - 1)}
+							onclick={() => handleNextSlide($surveyManager.slide === slides - 1)}
 							disabled={!$surveyQuestion.has(questions.length) || loading}
 						>
 							{#if loading}
 								<Icon icon="line-md:loading-twotone-loop" class="!h-5 !w-5 text-gray-50" />
 							{/if}
 
-							{#if $surveyManager.state === SurveyState.TypeSwitched && $surveyManager.slide === QUESTIONS[$surveyManager.type].length - 1}
+							{#if $surveyManager.state === SurveyState.TypeSwitched && $surveyManager.slide === slides - 1}
 								Dokončit
 							{:else}
 								Další

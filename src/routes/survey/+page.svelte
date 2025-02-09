@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import SurveyTaskDemographic from '@/components/SurveyTaskDemographic.svelte';
 	import SurveyTaskFinished from '@/components/SurveyTaskFinished.svelte';
 	import SurveyTaskSlider from '@/components/SurveyTaskSlider.svelte';
 	import type { Participant } from '@/models/Participant';
@@ -41,6 +42,8 @@
 
 {#if $surveyManager.state == SurveyState.Finished}
 	<SurveyTaskFinished />
+{:else if $surveyManager.state == SurveyState.Demographic}
+	<SurveyTaskDemographic />
 {:else}
 	<SurveyTaskSlider />
 {/if}

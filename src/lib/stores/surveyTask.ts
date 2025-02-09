@@ -3,7 +3,9 @@ import { get, writable } from 'svelte/store';
 
 export enum SurveyState {
 	None,
+	Demographic,
 	Started,
+	Middle,
 	TypeSwitched,
 	Finished
 }
