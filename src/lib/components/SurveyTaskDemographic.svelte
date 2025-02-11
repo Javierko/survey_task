@@ -110,7 +110,7 @@
 		</div>
 
 		<div class="5 flex w-full flex-col gap-1">
-			<Label for="number">Jak často pracujete na počítači?</Label>
+			<Label for="pc_experience">Jak často pracujete na počítači?</Label>
 			<Select.Root type="single" name="pc_experience" bind:value={pcExperience} required>
 				<Select.Trigger>
 					{pcExperienceContent}
