@@ -7,7 +7,6 @@
 		removeFromLocalStorage,
 		saveToLocalStorage
 	} from '@/services/localStorageService';
-	import * as Alert from '@/shadcn/ui/alert/index';
 	import Button from '@/shadcn/ui/button/button.svelte';
 	import {
 		surveyManager,
@@ -18,6 +17,7 @@
 	import Icon from '@iconify/svelte';
 	import { onMount } from 'svelte';
 	import { toast } from 'svelte-sonner';
+	import * as Alert from '$lib/shadcn/ui/alert/index.js';
 
 	let loading = $state(false);
 	let userFound = $state(false);
@@ -129,14 +129,25 @@
 </script>
 
 <svelte:head>
-	<title>Home</title>
-	<meta name="description" content="Svelte demo app" />
+	<title>Dotazník</title>
+	<meta
+		name="description"
+		content="Studie se zaměřuje na zpřesnění psychologického měření při zohlednění reakčních časů odpovídání na postojové škály."
+	/>
 </svelte:head>
 
 <section class="card card--lg">
 	<h3 class="text-lg font-semibold text-gray-800">
 		Souhlas s účastí ve výzkumu a zpracováním osobních údajů
 	</h3>
+
+	<div class="flex lg:hidden">
+		<Alert.Root variant="destructive">
+			<Icon icon="material-symbols:warning-outline-rounded" class="h-5 w-5" />
+			<Alert.Title>Mobilní zařízení detekováno!</Alert.Title>
+			<Alert.Description>Tenhle dotazník je určen pouze pro PC zařízení s myší.</Alert.Description>
+		</Alert.Root>
+	</div>
 
 	{#each consent as item}
 		<div class="flex flex-col gap-1">
@@ -147,22 +158,12 @@
 		</div>
 	{/each}
 
-	<div class="mt-2 flex w-full justify-end space-x-2">
-		{#if userFound}
-			<Button onclick={() => handleContinue(true)} variant="secondary">
-				{#if loading}
-					<Icon icon="line-md:loading-twotone-loop" class="!h-5 !w-5 text-gray-800" />
-				{/if}
-
-				Pokračovat jako nový participant
-			</Button>
-		{/if}
-
+	<div class="mt-2 hidden w-full justify-end space-x-2 lg:flex">
 		<Button onclick={() => goto('completed')} variant="destructive">
 			Ne, nesouhlasím s účástí
 		</Button>
 
-		<Button onclick={() => handleContinue(false)}>
+		<Button onclick={() => handleContinue(userFound)}>
 			{#if loading}
 				<Icon icon="line-md:loading-twotone-loop" class="!h-5 !w-5 text-gray-50" />
 			{/if}
