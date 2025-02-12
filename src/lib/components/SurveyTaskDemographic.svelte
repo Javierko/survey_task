@@ -11,9 +11,9 @@
 	import { goto } from '$app/navigation';
 
 	const genders = [
-		{ value: 'male', label: 'Man' },
-		{ value: 'female', label: 'Woman' },
-		{ value: 'other', label: 'Other' }
+		{ value: 'male', label: 'Muž' },
+		{ value: 'female', label: 'Žena' },
+		{ value: 'other', label: 'Jiné' }
 	];
 
 	const pcExperiences = [
