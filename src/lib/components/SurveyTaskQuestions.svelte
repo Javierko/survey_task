@@ -71,6 +71,7 @@
 			const questionClicks = clicks[i];
 
 			const clicksData = questionClicks.map((click) => ({
+				question: question.id,
 				aoi: click.aoiId,
 				x: click.x,
 				y: click.y,
