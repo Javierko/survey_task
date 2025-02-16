@@ -72,7 +72,7 @@
 
 			const clicksData = questionClicks.map((click) => ({
 				question: question.id,
-				aoi: click.aoiId,
+				aoi: click.aoiId == '' ? 'unknown' : click.aoiId,
 				x: click.x,
 				y: click.y,
 				value: click.value,
