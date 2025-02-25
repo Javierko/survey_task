@@ -95,10 +95,7 @@
 }
 
 .col-item {
-	@apply inline-flex items-center justify-center text-center;
-
-	width: 140px;
-	height: 88px;
+	@apply inline-flex h-[88px] w-[95px] items-center justify-center text-center text-sm min-[1380px]:w-[110px] min-[1380px]:text-base 2xl:h-[88px] 2xl:w-[140px];
 }
 
 .col-item--title {
@@ -107,4 +104,12 @@
 
 .question-row--disabled .col-item--title {
 	@apply text-gray-600;
+}
+
+.radio-button-item {
+	@apply h-6 w-6;
+}
+
+.radio-button-item-circle {
+	@apply h-3 w-3;
 }

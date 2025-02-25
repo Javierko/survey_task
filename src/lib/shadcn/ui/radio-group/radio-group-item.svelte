@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { RadioGroup as RadioGroupPrimitive, type WithoutChildrenOrChild } from "bits-ui";
-	import Circle from "lucide-svelte/icons/circle";
-	import { cn } from "$lib/utils.js";
-	import { fade } from "svelte/transition";
+	import { RadioGroup as RadioGroupPrimitive, type WithoutChildrenOrChild } from 'bits-ui';
+	import Circle from 'lucide-svelte/icons/circle';
+	import { cn } from '$lib/utils.js';
+	import { fade } from 'svelte/transition';
 
 	let {
 		ref = $bindable(null),
@@ -14,7 +14,7 @@
 <RadioGroupPrimitive.Item
 	bind:ref
 	class={cn(
-		'aspect-square h-6 w-6 rounded-full border border-primary/80 text-primary ring-offset-background focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
+		'radio-button-item aspect-square rounded-full border border-primary/80 text-primary ring-offset-background focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
 		className
 	)}
 	{...restProps}
@@ -23,7 +23,7 @@
 		<div class="flex items-center justify-center">
 			{#if checked}
 				<div transition:fade={{ duration: 200 }}>
-					<Circle class="h-3 w-3 fill-current text-current" />
+					<Circle class="radio-button-item-circle fill-current text-current" />
 				</div>
 			{/if}
 		</div>
