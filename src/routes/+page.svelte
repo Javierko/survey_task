@@ -92,8 +92,7 @@
 		},
 		{
 			title: 'Co brání účasti v tomto výzkumu? ',
-			description:
-				'V rámci studie chceme sbírat data pouze od studentů vysokých škol (mimo obor psychologie).'
+			description: 'V rámci studie chceme sbírat data pouze od studentů vysokých škol.'
 		},
 		{
 			title: 'Jaké jsou výhody/odměny za účast v tomto výzkumu? ',
