@@ -54,6 +54,10 @@ export const setupGazeInput = async (
 	window: Window
 ) => {
 	gazeManagerStore.update((gazeManager) => {
+		if (gazeManager.input != null) {
+			gazeManager.close();
+		}
+
 		gazeManager.createInput(config);
 		gazeManager.setWindowCalibration(mouseEvent, window);
 
@@ -77,16 +81,20 @@ export const setupGazeInput = async (
 export const closeGazeInput = async () => {
 	const currentGazeManager = get(gazeManagerStore);
 
-	if (currentGazeManager) {
-		currentGazeManager.off('inputData', onDataRecieve);
-		currentGazeManager.off('fixationObjectStart', addFixationEvent);
-		currentGazeManager.off('fixationObjectEnd', addFixationEvent);
+	currentGazeManager.off('inputData', onDataRecieve);
+	currentGazeManager.off('fixationObjectStart', addFixationEvent);
+	currentGazeManager.off('fixationObjectEnd', addFixationEvent);
 
+	currentGazeManager.off('inputData', onDataRecieve);
+	currentGazeManager.off('fixationObjectStart', addFixationEvent);
+	currentGazeManager.off('fixationObjectEnd', addFixationEvent);
+
+	if (currentGazeManager.input != null) {
 		await currentGazeManager.disconnect();
 		await currentGazeManager.close();
-
-		gazeState.set(GazeState.DISCONNECTED);
 	}
+
+	gazeState.set(GazeState.DISCONNECTED);
 };
 
 const onDataRecieve = async (point: GazeDataPoint) => {

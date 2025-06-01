@@ -24,7 +24,7 @@
 
 			await setupGazeInput($gazeLatestConfig, e, window);
 
-			if ($gazeManagerStore) {
+			if ($gazeManagerStore.input != null) {
 				await $gazeManagerStore.start();
 			}
 
@@ -37,7 +37,7 @@
 	};
 
 	const handleCalibrate = async () => {
-		if ($gazeManagerStore) {
+		if ($gazeManagerStore.input != null) {
 			await $gazeManagerStore.calibrate();
 		}
 	};

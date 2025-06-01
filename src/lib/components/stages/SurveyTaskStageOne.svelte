@@ -61,7 +61,7 @@
 
 		await setupGazeInput(config, e, window);
 
-		if ($gazeManagerStore) {
+		if ($gazeManagerStore.input != null) {
 			await $gazeManagerStore.start();
 		}
 	};

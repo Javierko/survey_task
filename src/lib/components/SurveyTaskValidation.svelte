@@ -57,7 +57,7 @@
 	const handleTryAgain = async () => {
 		const status = await $gazeManagerStore.status();
 
-		if ($gazeManagerStore && $gazeManagerStore.lastStatus?.tracker.status !== "trackerEmitting") {
+		if ($gazeManagerStore.input != null && $gazeManagerStore.lastStatus?.tracker.status !== "trackerEmitting") {
 			loading = true;
 			await $gazeManagerStore.start();
 			loading = false;
@@ -68,7 +68,7 @@
 	};
 
 	const handleCalibrate = async () => {
-		if ($gazeManagerStore) {
+		if ($gazeManagerStore.input != null) {
 			loading = true;
 			await $gazeManagerStore.stop();
 			await $gazeManagerStore.calibrate();
@@ -78,7 +78,7 @@
 
 	const onKeyPress = async (e: KeyboardEvent) => {
 		if (e.code === 'Space') {
-			if ($gazeManagerStore && $gazeManagerStore.lastStatus?.tracker.status !== "trackerEmitting") {
+			if ($gazeManagerStore.input != null && $gazeManagerStore.lastStatus?.tracker.status !== "trackerEmitting") {
 				loading = true;
 				await $gazeManagerStore.start();
 				loading = false;

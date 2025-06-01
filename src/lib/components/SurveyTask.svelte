@@ -65,7 +65,7 @@
 
 		await setupGazeInput(config, e, window);
 
-		if ($gazeManagerStore) {
+		if ($gazeManagerStore.input != null) {
 			await $gazeManagerStore.start();
 		}
 	};
@@ -88,7 +88,10 @@
 
 	beforeNavigate(({ cancel }) => {
 		gazeStop.set(true);
-		$gazeManagerStore?.stop();
+		
+		if ($gazeManagerStore.input != null) {
+			$gazeManagerStore.stop();
+		}
 
 		if ($surveyUserId && $surveyState !== SurveyState.Finished) {
 			cancel();
