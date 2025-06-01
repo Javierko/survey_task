@@ -7,7 +7,7 @@
 		setupGazeInput,
 		gazeManagerStore
 	} from '$lib/stores/gazeInput';
-	import { SurveyState, surveyState, switchCurrentType } from '$lib/stores/surveyTask';
+	import { surveyStage, SurveyState, surveyState, switchCurrentType } from '$lib/stores/surveyTask';
 	import * as Alert from '$lib/shadcn/ui/alert/index';
 	import Icon from '@iconify/svelte';
 	import { onMount } from 'svelte';
@@ -31,6 +31,7 @@
 			loading = false;
 		}
 
+		surveyStage.set(1);
 		surveyState.set(SurveyState.SecondPhase);
 		gazeValidation.set(true);
 		switchCurrentType();
