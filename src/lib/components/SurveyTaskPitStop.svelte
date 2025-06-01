@@ -2,10 +2,10 @@
 	import Button from '$lib/shadcn/ui/button/button.svelte';
 	import {
 		closeGazeInput,
-		gazeInput,
 		gazeLatestConfig,
 		gazeValidation,
-		setupGazeInput
+		setupGazeInput,
+		gazeManagerStore
 	} from '$lib/stores/gazeInput';
 	import { SurveyState, surveyState, switchCurrentType } from '$lib/stores/surveyTask';
 	import * as Alert from '$lib/shadcn/ui/alert/index';
@@ -24,8 +24,8 @@
 
 			await setupGazeInput($gazeLatestConfig, e, window);
 
-			if ($gazeInput) {
-				await $gazeInput.start();
+			if ($gazeManagerStore) {
+				await $gazeManagerStore.start();
 			}
 
 			loading = false;
@@ -37,8 +37,8 @@
 	};
 
 	const handleCalibrate = async () => {
-		if ($gazeInput) {
-			await $gazeInput.calibrate();
+		if ($gazeManagerStore) {
+			await $gazeManagerStore.calibrate();
 		}
 	};
 </script>

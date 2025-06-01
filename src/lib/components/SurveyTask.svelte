@@ -16,7 +16,8 @@
 	import {
 		closeGazeInput,
 		dummyConfig,
-		gazeInput,
+		eyelogicConfig,
+		gazeManagerStore,
 		gazePointConfig,
 		GazeState,
 		gazeState,
@@ -31,10 +32,12 @@
 	import { Switch } from '$lib/shadcn/ui/switch';
 	import SurveyTaskPitStop from './SurveyTaskPitStop.svelte';
 	import SurveyTaskDemographic from './SurveyTaskDemographic.svelte';
+	import SurveyTaskFullscreen from './SurveyTaskFullscreen.svelte';
 
 	const trackers: Record<string, string> = {
 		dummy: 'Dummy',
-		opengaze: 'GazePoint'
+		opengaze: 'GazePoint',
+		eyelogic: 'EyeLogic',
 	};
 
 	$: selectedTrackerValue = '';
@@ -52,6 +55,8 @@
 			config = dummyConfig;
 		} else if (selectedTrackerValue === 'opengaze') {
 			config = gazePointConfig;
+		} else if (selectedTrackerValue === 'eyelogic') {
+			config = eyelogicConfig;
 		}
 
 		if (!config) {
@@ -60,8 +65,8 @@
 
 		await setupGazeInput(config, e, window);
 
-		if ($gazeInput) {
-			await $gazeInput.start();
+		if ($gazeManagerStore) {
+			await $gazeManagerStore.start();
 		}
 	};
 
@@ -83,7 +88,7 @@
 
 	beforeNavigate(({ cancel }) => {
 		gazeStop.set(true);
-		$gazeInput?.stop();
+		$gazeManagerStore?.stop();
 
 		if ($surveyUserId && $surveyState !== SurveyState.Finished) {
 			cancel();
@@ -97,6 +102,8 @@
 	</div>
 {:else if $surveyState === SurveyState.Demographic}
 	<SurveyTaskDemographic />
+{:else if $surveyState === SurveyState.Finished}
+	<SurveyTaskFinished />
 {:else if $gazeState != GazeState.CONNECTED || $surveyUserId === null}
 	<div class="flex w-full max-w-2xl flex-col gap-4 rounded-md border border-gray-200 p-4 shadow-sm">
 		<div class="flex items-center justify-end">
@@ -104,6 +111,8 @@
 		</div>
 
 		<SurveyTaskIntro />
+
+		<SurveyTaskFullscreen />
 
 		<div class="flex items-center gap-4">
 			<Select.Root
@@ -162,8 +171,6 @@
 			{/if}
 		</div>
 	</div>
-{:else if $surveyState === SurveyState.Finished}
-	<SurveyTaskFinished />
 {:else if $gazeValidation}
 	<div in:fade>
 		<SurveyTaskValidation />
@@ -181,7 +188,7 @@
 	on:focus={() => {
 		if ($gazeStop) {
 			const timeout = setTimeout(() => {
-				$gazeInput?.start();
+				$gazeManagerStore?.start();
 			}, 5000);
 			gazeStopTimeout.set(timeout);
 			gazeStop.set(false);

@@ -54,9 +54,8 @@
 		<Alert.Root>
 			<Icon icon="mdi:information-variant-circle-outline" class="mr-2 h-4 w-4" />
 			<Alert.Description>
-				V následujících otázkách se bude kromě vašich odpovědí měřit i váš reakční čas. Z toho
-				důvodu není možné při odpovídání přeskakovat ani se vracet zpět, ale je nutné odpovídat na
-				otázky postupně.
+				V rámci tohoto dotazníku vás požádáme, abyste dvakrát odpověděli na stejnou sadu tří výroků. V každém případě dostanete jiné instrukce, které popisují rozdílnou situaci, ve které si máte představit, že se nacházíte. 
+				Prosíme vás, abyste se vždy nejprve důkladně seznámili s instrukcemi, a poté odpovídali co nejpřesněji podle toho, jak byste v dané situaci skutečně jednali nebo přemýšleli.
 			</Alert.Description>
 		</Alert.Root>
 

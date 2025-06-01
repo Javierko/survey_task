@@ -5,19 +5,20 @@ import type { GazeInteractionObjectFixationEvent } from '@473783/develex-core';
 import { get } from 'svelte/store';
 
 export const addFixationEvent = (event: GazeInteractionObjectFixationEvent) => {
-  const { type, timestamp, duration, gazeData, target, fixationId } = event;
+	const { type, timestamp, duration, x, y, target, fixationId } = event;
 
-  const aois = Array.isArray(target) ? target.map((t) => t.id.toString()).join(';') : '';
+	const aois = Array.isArray(target) ? target.map((t) => t.id.toString()).join(';') : '';
 
-  const fixation: Fixation = {
-    userId: get(surveyUserId) as string,
-    fixationId,
-    aois,
-    duration,
-    gazeData,
-    type,
-    timestamp
-  };
+	const fixation: Fixation = {
+		userId: get(surveyUserId) as string,
+		fixationId,
+		aois,
+		duration,
+		x,
+		y,
+		type,
+		timestamp
+	};
 
-  fixationRepository.create(fixation);
+	fixationRepository.create(fixation);
 };

@@ -16,7 +16,7 @@
 	import {
 		closeGazeInput,
 		dummyConfig,
-		gazeInput,
+		gazeManagerStore,
 		gazePointConfig,
 		GazeState,
 		gazeState,
@@ -31,7 +31,6 @@
 	import { Switch } from '$lib/shadcn/ui/switch';
 	import SurveyTaskDemographic from '../SurveyTaskDemographic.svelte';
 	import SurveyTaskPitStop from './SurveyTaskPitStop.svelte';
-	import SurveyTaskFixationsLayer from '../SurveyTaskFixationsLayer.svelte';
 	import SurveyTaskFullscreen from '../SurveyTaskFullscreen.svelte';
 
 	const trackers: Record<string, string> = {
@@ -62,8 +61,8 @@
 
 		await setupGazeInput(config, e, window);
 
-		if ($gazeInput) {
-			await $gazeInput.start();
+		if ($gazeManagerStore) {
+			await $gazeManagerStore.start();
 		}
 	};
 
@@ -90,7 +89,7 @@
 
 	beforeNavigate(({ cancel }) => {
 		gazeStop.set(true);
-		$gazeInput?.stop();
+		$gazeManagerStore?.stop();
 
 		if (
 			$surveyUserId &&
@@ -177,15 +176,11 @@
 	</div>
 {:else if $gazeValidation}
 	<div in:fade>
-		<SurveyTaskFixationsLayer let:registerFixation let:unregisterFixation>
-			<SurveyTaskValidation {registerFixation} {unregisterFixation} />
-		</SurveyTaskFixationsLayer>
+		<SurveyTaskValidation />
 	</div>
 {:else}
 	<div in:fade class="w-full">
-		<SurveyTaskFixationsLayer let:registerFixation let:unregisterFixation>
-			<SurveyTaskSlider {registerFixation} {unregisterFixation} />
-		</SurveyTaskFixationsLayer>
+		<SurveyTaskSlider />
 	</div>
 {/if}
 
@@ -196,7 +191,7 @@
 	on:focus={() => {
 		if ($gazeStop) {
 			const timeout = setTimeout(() => {
-				$gazeInput?.start();
+				$gazeManagerStore?.start();
 			}, 5000);
 			gazeStopTimeout.set(timeout);
 			gazeStop.set(false);

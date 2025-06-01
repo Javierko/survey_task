@@ -1,79 +1,104 @@
-import { createGazeInput, type GazeDataPoint, type GazeInput, type GazeInputConfig, type GazeInputConfigDummy, type GazeInputConfigGazePoint } from '@473783/develex-core';
+import {
+	GazeManager,
+	type GazeDataPoint,
+	type GazeInput,
+	type GazeInputConfig,
+	type GazeInputConfigDummy,
+	type GazeInputConfigEyelogic,
+	type GazeInputConfigGazePoint
+} from '@473783/develex-core';
 import { get, writable } from 'svelte/store';
 import { SurveyState, surveyState, surveyUserId } from './surveyTask';
 import pointRepository from '$lib/database/repositories/point.repository';
+import { addFixationEvent } from '$lib/utils/fixationEvent';
 
 export enum GazeState {
-  DISCONNECTED,
-  CONNECTING,
-  CONNECTED,
-  ERROR
-};
+	DISCONNECTED,
+	CONNECTING,
+	CONNECTED,
+	ERROR
+}
 
 export const dummyConfig: GazeInputConfigDummy = {
-  tracker: 'dummy',
-  fixationDetection: 'idt',
-  frequency: 30,
-  precisionMinimalError: 0.5,
-  precisionMaximumError: 1.5,
-  precisionDecayRate: 0.5
+	tracker: 'dummy',
+	fixationDetection: 'idt',
+	frequency: 30,
+	precisionMinimalError: 0.5,
+	precisionMaximumError: 1.5,
+	precisionDecayRate: 0.5
 };
 
 export const gazePointConfig: GazeInputConfigGazePoint = {
-  tracker: 'opengaze',
-  fixationDetection: 'device',
-  uri: 'ws://localhost:13892'
+	tracker: 'gazepoint',
+	fixationDetection: 'device',
+	uri: 'ws://localhost:13892'
 };
 
-export const gazeInput = writable<GazeInput<GazeInputConfig> | null>(null);
+export const eyelogicConfig: GazeInputConfigEyelogic = {
+	tracker: 'eyelogic',
+	fixationDetection: 'idt',
+	uri: 'ws://localhost:13892'
+};
+
+export const gazeManagerStore = writable<GazeManager>(new GazeManager());
+
 export const gazeState = writable<GazeState>(GazeState.DISCONNECTED);
 export const gazeValidation = writable(false);
 export const gazeStopTimeout = writable<number | null>(null);
 export const gazeStop = writable(false);
 export const gazeLatestConfig = writable<GazeInputConfig | null>(null);
 
-export const setupGazeInput = async (config: GazeInputConfig, mouseEvent: MouseEvent, window: Window) => {
-  if (get(gazeInput)) {
-    return;
-  }
+export const setupGazeInput = async (
+	config: GazeInputConfig,
+	mouseEvent: MouseEvent,
+	window: Window
+) => {
+	gazeManagerStore.update((gazeManager) => {
+		gazeManager.createInput(config);
+		gazeManager.setWindowCalibration(mouseEvent, window);
 
-  gazeState.set(GazeState.CONNECTING);
-  gazeLatestConfig.set(config);
+		return gazeManager;
+	});
 
-  const newGazeInput = createGazeInput<GazeInputConfig>(config);
-  newGazeInput.setWindowCalibration(mouseEvent, window);
+	gazeState.set(GazeState.CONNECTING);
+	gazeLatestConfig.set(config);
 
-  await newGazeInput.connect();
+	const currentGazeManager = get(gazeManagerStore);
 
-  newGazeInput.on("data", onDataRecieve);
+	await currentGazeManager.connect();
 
-  gazeInput.set(newGazeInput);
-  gazeState.set(GazeState.CONNECTED);
+	currentGazeManager.on('inputData', onDataRecieve);
+	currentGazeManager.on('fixationObjectStart', addFixationEvent);
+	currentGazeManager.on('fixationObjectEnd', addFixationEvent);
+
+	gazeState.set(GazeState.CONNECTED);
 };
 
 export const closeGazeInput = async () => {
-  const currentGazeInput = get(gazeInput);
+	const currentGazeManager = get(gazeManagerStore);
 
-  if (currentGazeInput) {
-    currentGazeInput.off("data", onDataRecieve);
+	if (currentGazeManager) {
+		currentGazeManager.off('inputData', onDataRecieve);
+		currentGazeManager.off('fixationObjectStart', addFixationEvent);
+		currentGazeManager.off('fixationObjectEnd', addFixationEvent);
 
-    await currentGazeInput.disconnect();
+		await currentGazeManager.disconnect();
+		await currentGazeManager.close();
 
-    gazeInput.set(null);
-    gazeState.set(GazeState.DISCONNECTED);
-  }
+		gazeState.set(GazeState.DISCONNECTED);
+	}
 };
 
 const onDataRecieve = async (point: GazeDataPoint) => {
-  const userId = get(surveyUserId);
-  const state = get(surveyState);
+	const userId = get(surveyUserId);
+	const state = get(surveyState);
 
-  if (!userId || state == SurveyState.Finished || state == SurveyState.PitStop) {
-    return;
-  }
+	if (!userId || state == SurveyState.Finished || state == SurveyState.PitStop) {
+		return;
+	}
 
-  await pointRepository.create({
-    ...point,
-    userId: userId
-  });
+	await pointRepository.create({
+		...point,
+		userId: userId
+	});
 };

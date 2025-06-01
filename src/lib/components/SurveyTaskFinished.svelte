@@ -14,7 +14,7 @@
 
 	const handleStartAgain = () => {
 		resetSurvey();
-		goto('/stage/1');
+		goto('/');
 	};
 
 	onMount(async () => {

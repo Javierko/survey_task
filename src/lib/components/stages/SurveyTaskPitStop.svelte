@@ -1,14 +1,12 @@
 <script lang="ts">
-	import Button from '$lib/shadcn/ui/button/button.svelte';
-	import { closeGazeInput, gazeInput } from '$lib/stores/gazeInput';
+	import { closeGazeInput } from '$lib/stores/gazeInput';
 	import * as Alert from '$lib/shadcn/ui/alert/index';
 	import Icon from '@iconify/svelte';
 	import { onMount } from 'svelte';
-
-	let loading = false;
+	import { goto } from '$app/navigation';
 
 	onMount(async () => {
-		await closeGazeInput();
+		goto("/stage/2");
 	});
 </script>
 

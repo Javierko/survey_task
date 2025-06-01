@@ -18,7 +18,7 @@
 	import clickRepository from '$lib/database/repositories/click.repository';
 	import { onMount } from 'svelte';
 	import { Button } from '$lib/shadcn/ui/button';
-	import { gazeValidation } from '$lib/stores/gazeInput';
+	import { gazeManagerStore, gazeValidation } from '$lib/stores/gazeInput';
 	import pageLoadRepository from '$lib/database/repositories/page-load.repository';
 	import SurveyTaskStageTwoWaitButton from './SurveyTaskStageTwoWaitButton.svelte';
 
@@ -27,8 +27,6 @@
 		id: number;
 		question: string;
 	}[];
-	export let registerFixation: (element: HTMLElement) => void;
-	export let unregisterFixation: (element: HTMLElement) => void;
 
 	let loadTime: number | null = null;
 
@@ -109,6 +107,7 @@
 		}
 
 		if (last) {
+			console.log('is last', $surveyState);
 			if ($surveyState === SurveyState.SecondPhase) {
 				surveyState.set(SurveyState.Finished);
 			} else if ($surveyState === SurveyState.FirstPhase) {
@@ -126,14 +125,23 @@
 
 		for (let i = 0; i < aois.length; i++) {
 			for (let j = 0; j < aois[i].length; j++) {
-				registerFixation(aois[i][j]);
+				$gazeManagerStore.register({
+					interaction: "fixation",
+					element: aois[i][j],
+					settings: {
+						bufferSize: 10
+					}
+				});
 			}
 		}
 
 		return () => {
 			for (let i = 0; i < aois.length; i++) {
 				for (let j = 0; j < aois[i].length; j++) {
-					unregisterFixation(aois[i][j]);
+					$gazeManagerStore.unregister({
+						interaction: "fixation",
+						element: aois[i][j],
+					});
 				}
 			}
 		};

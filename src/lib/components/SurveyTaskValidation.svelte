@@ -2,6 +2,7 @@
 	import * as Alert from '$lib/shadcn/ui/alert/index.js';
 	import {
 		GazeInteractionObjectValidation,
+		type GazeInteractionObjectFixationSettings,
 		type GazeInteractionObjectValidationSettings
 	} from '@473783/develex-core';
 	import Icon from '@iconify/svelte';
@@ -9,13 +10,10 @@
 	import SurveyTaskValidationCircle from './SurveyTaskValidationCircle.svelte';
 	import { fade } from 'svelte/transition';
 	import { Button } from '$lib/shadcn/ui/button';
-	import { gazeInput, gazeValidation } from '$lib/stores/gazeInput';
+	import { gazeManagerStore, gazeValidation } from '$lib/stores/gazeInput';
 	import aoiRepository from '$lib/database/repositories/aoi.repository';
 	import { surveyUserId } from '$lib/stores/surveyTask';
 	import { gazeErrors } from '$lib/stores/gazeError';
-
-	export let registerFixation: (element: HTMLElement) => void;
-	export let unregisterFixation: (element: HTMLElement) => void;
 
 	let validator = new GazeInteractionObjectValidation();
 	let validating = false;
@@ -33,6 +31,9 @@
 		accuracy: number;
 		precision: number;
 	} | null;
+	const fixationSettings: Partial<GazeInteractionObjectFixationSettings> = {
+		bufferSize: 10,
+	};
 
 	const originalOnValidation = validationSettings.onValidation;
 	validationSettings.onValidation = (result) => {
@@ -54,9 +55,11 @@
 	};
 
 	const handleTryAgain = async () => {
-		if ($gazeInput && !$gazeInput.isEmitting) {
+		const status = await $gazeManagerStore.status();
+
+		if ($gazeManagerStore && $gazeManagerStore.lastStatus?.tracker.status !== "trackerEmitting") {
 			loading = true;
-			await $gazeInput.start();
+			await $gazeManagerStore.start();
 			loading = false;
 		}
 
@@ -65,22 +68,19 @@
 	};
 
 	const handleCalibrate = async () => {
-		if ($gazeInput) {
+		if ($gazeManagerStore) {
 			loading = true;
-			if ($gazeInput && !$gazeInput.isEmitting) {
-				await $gazeInput.start();
-			}
-			await $gazeInput.stop();
-			await $gazeInput.calibrate();
+			await $gazeManagerStore.stop();
+			await $gazeManagerStore.calibrate();
 			loading = false;
 		}
 	};
 
 	const onKeyPress = async (e: KeyboardEvent) => {
 		if (e.code === 'Space') {
-			if ($gazeInput && !$gazeInput.isEmitting) {
+			if ($gazeManagerStore && $gazeManagerStore.lastStatus?.tracker.status !== "trackerEmitting") {
 				loading = true;
-				await $gazeInput.start();
+				await $gazeManagerStore.start();
 				loading = false;
 			}
 
@@ -96,10 +96,6 @@
 	}
 
 	onMount(() => {
-		if (!$gazeInput) {
-			return;
-		}
-
 		async function createAoiCross() {
 			const elementPos = element.getBoundingClientRect();
 
@@ -119,18 +115,23 @@
 
 		if (element) {
 			createAoiCross();
-			registerFixation(element);
+			$gazeManagerStore.register({
+				interaction: "fixation",
+				element: element,
+				settings: fixationSettings
+			});
 		}
 
-		validator.connect($gazeInput);
 		window.addEventListener('keypress', onKeyPress);
 
 		return () => {
 			window.removeEventListener('keypress', onKeyPress);
-			validator.disconnect($gazeInput);
 
 			if (element) {
-				unregisterFixation(element);
+				$gazeManagerStore.unregister({
+					interaction: "fixation",
+					element: element,
+				});
 			}
 
 			if (validationCircleElement) {
