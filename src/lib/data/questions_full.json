@@ -1,7 +1,7 @@
 {
 	"many": [
 		{
-			"title": "Představte si, že se ucházíte o práci středoškolského učitele. U přijímacího pohovoru vám předloží dotazník s několika výroky o vaší osobnosti. Vaším cílem je udělat co nejlepší dojem na členy výběrové komise a zvýšit tak své šance na přijetí. Prosíme vás proto, abyste odpovídali způsobem, který podle vás ukáže, že jste ideálním kandidátem na tuto pozici.",
+			"title": "",
 			"questions": [
 				{
 					"id": 1,
@@ -10,7 +10,7 @@
 			]
 		},
 		{
-			"title": "Představte si, že se ucházíte o práci středoškolského učitele. U přijímacího pohovoru vám předloží dotazník s několika výroky o vaší osobnosti. Vaším cílem je udělat co nejlepší dojem na členy výběrové komise a zvýšit tak své šance na přijetí. Prosíme vás proto, abyste odpovídali způsobem, který podle vás ukáže, že jste ideálním kandidátem na tuto pozici.",
+			"title": "",
 			"questions": [
 				{
 					"id": 2,
@@ -19,7 +19,7 @@
 			]
 		},
 		{
-			"title": "Představte si, že se ucházíte o práci středoškolského učitele. U přijímacího pohovoru vám předloží dotazník s několika výroky o vaší osobnosti. Vaším cílem je udělat co nejlepší dojem na členy výběrové komise a zvýšit tak své šance na přijetí. Prosíme vás proto, abyste odpovídali způsobem, který podle vás ukáže, že jste ideálním kandidátem na tuto pozici.",
+			"title": "",
 			"questions": [
 				{
 					"id": 3,
@@ -30,7 +30,7 @@
 	],
 	"one": [
 		{
-			"title": "Tento dotazník obsahuje výroky o vaší osobnosti. Neexistují žádné správné nebo špatné odpovědi. Prosíme vás, abyste odpovídali co nejupřímněji a podle vašeho skutečného přesvědčení.",
+			"title": "",
 			"questions": [
 				{
 					"id": 4,
@@ -39,7 +39,7 @@
 			]
 		},
 		{
-			"title": "Tento dotazník obsahuje výroky o vaší osobnosti. Neexistují žádné správné nebo špatné odpovědi. Prosíme vás, abyste odpovídali co nejupřímněji a podle vašeho skutečného přesvědčení.",
+			"title": "",
 			"questions": [
 				{
 					"id": 5,
@@ -48,7 +48,7 @@
 			]
 		},
 		{
-			"title": "Tento dotazník obsahuje výroky o vaší osobnosti. Neexistují žádné správné nebo špatné odpovědi. Prosíme vás, abyste odpovídali co nejupřímněji a podle vašeho skutečného přesvědčení.",
+			"title": "",
 			"questions": [
 				{
 					"id": 6,

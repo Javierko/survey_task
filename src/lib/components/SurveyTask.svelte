@@ -99,7 +99,11 @@
 	});
 </script>
 
-{#if $surveyState === SurveyState.PitStop}
+{#if $surveyState === SurveyState.FirstPhasePitStop}
+	<div in:fade>
+		<SurveyTaskPitStop switchStage={false} switchType={false} switchTo={SurveyState.FirstPhase} />
+	</div>
+{:else if $surveyState === SurveyState.PitStop}
 	<div in:fade>
 		<SurveyTaskPitStop />
 	</div>

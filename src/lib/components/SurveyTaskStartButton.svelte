@@ -36,7 +36,7 @@
 		});
 
 		surveyUserId.set(uId);
-		surveyState.set(SurveyState.FirstPhase);
+		surveyState.set(SurveyState.FirstPhasePitStop);
 
 		if ($surveyAllowValidations) {
 			gazeValidation.set(true);
