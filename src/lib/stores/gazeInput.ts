@@ -54,10 +54,6 @@ export const setupGazeInput = async (
 	window: Window
 ) => {
 	gazeManagerStore.update((gazeManager) => {
-		if (gazeManager.input != null) {
-			gazeManager.close();
-		}
-
 		gazeManager.createInput(config);
 		gazeManager.setWindowCalibration(mouseEvent, window);
 
@@ -69,6 +65,7 @@ export const setupGazeInput = async (
 
 	const currentGazeManager = get(gazeManagerStore);
 
+	await currentGazeManager.open();
 	await currentGazeManager.connect();
 
 	currentGazeManager.on('inputData', onDataRecieve);
