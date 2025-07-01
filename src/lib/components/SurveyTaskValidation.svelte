@@ -4,7 +4,7 @@
 		GazeInteractionObjectValidation,
 		type GazeInteractionObjectFixationSettings,
 		type GazeInteractionObjectValidationSettings
-	} from '@473783/develex-core';
+	} from 'develex-js-sdk';
 	import Icon from '@iconify/svelte';
 	import { onMount, SvelteComponent } from 'svelte';
 	import SurveyTaskValidationCircle from './SurveyTaskValidationCircle.svelte';
@@ -14,8 +14,9 @@
 	import aoiRepository from '$lib/database/repositories/aoi.repository';
 	import { surveyUserId } from '$lib/stores/surveyTask';
 	import { gazeErrors } from '$lib/stores/gazeError';
+	import { get } from 'svelte/store';
 
-	let validator = new GazeInteractionObjectValidation();
+	let validator = get(gazeManagerStore);
 	let validating = false;
 	let loading = false;
 	let element: HTMLElement;

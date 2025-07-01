@@ -1,6 +1,6 @@
-import type { GazeDataPoint } from '@473783/develex-core';
+import type { GazeDataPoint } from 'develex-js-sdk';
 
 export interface Point extends GazeDataPoint {
-  id?: number;
-  userId: string;
-};
+	id?: number;
+	userId: string;
+}

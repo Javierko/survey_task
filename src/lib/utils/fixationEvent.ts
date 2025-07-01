@@ -1,7 +1,7 @@
 import type { Fixation } from '$lib/database/models/Fixation';
 import fixationRepository from '$lib/database/repositories/fixation.repository';
 import { surveyUserId } from '$lib/stores/surveyTask';
-import type { GazeInteractionObjectFixationEvent } from '@473783/develex-core';
+import type { GazeInteractionObjectFixationEvent } from 'develex-js-sdk';
 import { get } from 'svelte/store';
 
 export const addFixationEvent = (event: GazeInteractionObjectFixationEvent) => {

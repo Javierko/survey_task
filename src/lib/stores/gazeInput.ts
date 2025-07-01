@@ -6,7 +6,7 @@ import {
 	type GazeInputConfigDummy,
 	type GazeInputConfigEyelogic,
 	type GazeInputConfigGazePoint
-} from '@473783/develex-core';
+} from 'develex-js-sdk';
 import { get, writable } from 'svelte/store';
 import { SurveyState, surveyState, surveyUserId } from './surveyTask';
 import pointRepository from '$lib/database/repositories/point.repository';
@@ -102,8 +102,5 @@ const onDataRecieve = async (point: GazeDataPoint) => {
 		return;
 	}
 
-	await pointRepository.create({
-		...point,
-		userId: userId
-	});
+	await pointRepository.create({ ...point, userId: userId });
 };

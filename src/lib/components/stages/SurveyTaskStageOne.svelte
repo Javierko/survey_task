@@ -27,7 +27,7 @@
 	} from '$lib/stores/gazeInput';
 	import { beforeNavigate, goto } from '$app/navigation';
 	import { fade } from 'svelte/transition';
-	import type { GazeInputConfig } from '@473783/develex-core';
+	import type { GazeInputConfig } from 'develex-js-sdk';
 	import { Switch } from '$lib/shadcn/ui/switch';
 	import SurveyTaskDemographic from '../SurveyTaskDemographic.svelte';
 	import SurveyTaskPitStop from './SurveyTaskPitStop.svelte';

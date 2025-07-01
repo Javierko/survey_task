@@ -1,24 +1,31 @@
 <script lang="ts">
 	import type {
-		GazeInteractionObjectValidation,
-		GazeInteractionObjectValidationSettings
-	} from '@473783/develex-core';
+		GazeInteractionObjectValidationSettings,
+		GazeManager
+	} from 'develex-js-sdk';
 	import { onDestroy, onMount } from 'svelte';
 
 	export let validationSettings: Partial<GazeInteractionObjectValidationSettings> & {
 		validationDuration: number;
 	};
-	export let validator: GazeInteractionObjectValidation;
+	export let validator: GazeManager;
 	export let centerCoordinates: { x: number; y: number };
 
 	let element: HTMLElement;
 
 	onMount(() => {
-		validator.register(element, validationSettings);
+		validator.register({
+			interaction: "validation",
+			element,
+			settings: validationSettings,
+		})
 	});
 
 	onDestroy(() => {
-		validator.unregister(element);
+		validator.unregister({
+            interaction: "validation",
+            element,
+        });
 	});
 </script>
 
