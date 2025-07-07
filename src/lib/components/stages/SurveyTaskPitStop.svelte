@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { closeGazeInput } from '$lib/stores/gazeInput';
 	import * as Alert from '$lib/shadcn/ui/alert/index';
 	import Icon from '@iconify/svelte';
 	import { onMount } from 'svelte';

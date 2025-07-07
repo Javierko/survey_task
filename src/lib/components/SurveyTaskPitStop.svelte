@@ -1,7 +1,6 @@
 <script lang="ts">
 	import Button from '$lib/shadcn/ui/button/button.svelte';
 	import {
-		closeGazeInput,
 		gazeLatestConfig,
 		gazeValidation,
 		setupGazeInput,
@@ -18,12 +17,8 @@
 
 	let loading = false;
 
-	onMount(async () => {
-		await closeGazeInput();
-	});
-
 	const onContinueHandle = async (e: MouseEvent) => {
-		if ($gazeLatestConfig != null) {
+		if ($gazeLatestConfig != null && $gazeManagerStore.input == null) {
 			loading = true;
 
 			await setupGazeInput($gazeLatestConfig, e, window);
