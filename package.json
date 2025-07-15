@@ -38,7 +38,7 @@
 	"dependencies": {
 		"bits-ui": "^0.21.13",
 		"clsx": "^2.1.1",
-		"develex-js-sdk": "^0.3.6",
+		"develex-js-sdk": "^0.3.7",
 		"dexie": "^4.0.8",
 		"file-saver": "^2.0.5",
 		"jszip": "^3.10.1",

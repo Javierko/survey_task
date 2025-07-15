@@ -36,7 +36,7 @@ export const gazePointConfig: GazeInputConfigGazePoint = {
 
 export const eyelogicConfig: GazeInputConfigEyelogic = {
 	tracker: 'eyelogic',
-	fixationDetection: 'idt',
+	fixationDetection: 'device',
 	uri: 'ws://localhost:13892'
 };
 
@@ -77,10 +77,6 @@ export const setupGazeInput = async (
 
 export const closeGazeInput = async () => {
 	const currentGazeManager = get(gazeManagerStore);
-
-	currentGazeManager.off('inputData', onDataRecieve);
-	currentGazeManager.off('fixationObjectStart', addFixationEvent);
-	currentGazeManager.off('fixationObjectEnd', addFixationEvent);
 
 	currentGazeManager.off('inputData', onDataRecieve);
 	currentGazeManager.off('fixationObjectStart', addFixationEvent);
