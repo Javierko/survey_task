@@ -56,8 +56,6 @@
 	};
 
 	const handleTryAgain = async () => {
-		const status = await $gazeManagerStore.status();
-
 		if ($gazeManagerStore.input != null && $gazeManagerStore.lastStatus?.tracker.status !== "trackerEmitting") {
 			loading = true;
 			await $gazeManagerStore.start();
