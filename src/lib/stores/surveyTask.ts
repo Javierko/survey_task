@@ -7,6 +7,7 @@ export enum SurveyState {
 	Started,
 	Middle,
 	TypeSwitched,
+	Iat,
 	Finished
 }
 

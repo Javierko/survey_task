@@ -1,5 +1,4 @@
 <script lang="ts">
-	import QUESTIONS from '$lib/data/questions.json';
 	import {
 		surveyManager,
 		surveyQuestion,
@@ -14,7 +13,6 @@
 	import SurveyTaskQuestion from './SurveyTaskQuestion.svelte';
 	import { apiPost } from '@/services/apiService';
 	import Icon from '@iconify/svelte';
-	import { removeFromLocalStorage } from '@/services/localStorageService';
 	import { toast } from 'svelte-sonner';
 
 	interface Props {
@@ -124,16 +122,7 @@
 
 		if (last) {
 			if ($surveyManager.state == SurveyState.TypeSwitched) {
-				surveyManager.setState(SurveyState.Finished);
-				removeFromLocalStorage('user');
-
-				await apiPost(
-					'participants/complete',
-					{
-						completed_at: new Date().toISOString()
-					},
-					$surveyUserToken
-				);
+				surveyManager.setState(SurveyState.Iat);
 			} else if ($surveyManager.state == SurveyState.Started) {
 				surveyManager.setSlide(0);
 				surveyManager.setState(SurveyState.Middle);

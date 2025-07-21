@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import IatTaskSlider from '@/components/iat/IatTaskSlider.svelte';
 	import SurveyTaskDemographic from '@/components/SurveyTaskDemographic.svelte';
 	import SurveyTaskFinished from '@/components/SurveyTaskFinished.svelte';
 	import SurveyTaskSlider from '@/components/SurveyTaskSlider.svelte';
@@ -44,6 +45,8 @@
 	<SurveyTaskFinished />
 {:else if $surveyManager.state == SurveyState.Demographic}
 	<SurveyTaskDemographic />
+{:else if $surveyManager.state == SurveyState.Iat}
+	<IatTaskSlider />
 {:else}
 	<SurveyTaskSlider />
 {/if}
