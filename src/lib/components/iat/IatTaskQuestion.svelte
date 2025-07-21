@@ -34,6 +34,7 @@
 	}
 
 	const LIMIT_IN_ROW = 3;
+	const LIMIT_IN_ROW_LOW = 2;
 
 	let { categories, data, currentPart, currentPartCount, isFirst, slideCompleted }: Props =
 		$props();
@@ -41,6 +42,8 @@
 	let itemShowedAt = $state<number>(Date.now());
 	let finalAnswers = $state<IatAnswer[]>([]);
 	let loading = $state(false);
+	let currentItemIndex = $state(0);
+	let incorrect = $state(false);
 
 	const handleKeyDown = (event: KeyboardEvent) => {
 		if (event.key.toLowerCase() === 'i' || event.key.toLowerCase() === 'e') {
@@ -99,12 +102,13 @@
 		}
 	};
 
-	let currentItemIndex = $state(0);
-	let incorrect = $state(false);
+	let items = $state<string[]>([]);
 
-	let items = $derived.by(() => {
-		let currentData = shuffleArray(data.good.concat(data.bad));
-		let sortedMixedData = [];
+	$effect(() => {
+		if (!data || !data.good || !data.bad) return;
+
+		let currentData = shuffleArray([...data.good, ...data.bad]);
+		let sortedMixedData: string[] = [];
 
 		if ([3, 4, 6, 7].includes(currentPart)) {
 			const withJpg = currentData.filter((item) => item.endsWith('.jpg'));
@@ -118,20 +122,15 @@
 			for (let i = 0; i < withJpg.length + withoutJpg.length; i++) {
 				let random = Math.random() < 0.5;
 
-				if (random && withCountInRow >= LIMIT_IN_ROW) {
-					random = false;
-				} else if (!random && withoutCountInRow >= LIMIT_IN_ROW) {
-					random = true;
-				}
+				if (random && withCountInRow >= LIMIT_IN_ROW) random = false;
+				else if (!random && withoutCountInRow >= LIMIT_IN_ROW) random = true;
 
 				if (random && withIndex < withJpg.length) {
-					sortedMixedData.push(withJpg[withIndex]);
-					withIndex++;
+					sortedMixedData.push(withJpg[withIndex++]);
 					withCountInRow++;
 					withoutCountInRow = 0;
 				} else if (!random && withoutIndex < withoutJpg.length) {
-					sortedMixedData.push(withoutJpg[withoutIndex]);
-					withoutIndex++;
+					sortedMixedData.push(withoutJpg[withoutIndex++]);
 					withoutCountInRow++;
 					withCountInRow = 0;
 				}
@@ -145,10 +144,51 @@
 				}
 			}
 
-			return sortedMixedData;
+			items = sortedMixedData;
+		} else {
+			let goodIndex = 0;
+			let goodCountInRow = 0;
+			let badIndex = 0;
+			let badCountInRow = 0;
+			let previousItem = '';
+
+			for (let i = 0; i < data.good.length + data.bad.length; i++) {
+				let random = Math.random() < 0.5;
+
+				if (random && goodCountInRow >= LIMIT_IN_ROW_LOW) random = false;
+				else if (!random && badCountInRow >= LIMIT_IN_ROW_LOW) random = true;
+
+				if (random && previousItem == data.good[goodIndex]) {
+					random = false;
+				} else if (!random && previousItem == data.bad[badIndex]) {
+					random = true;
+				}
+
+				if (random && goodIndex < data.good.length) {
+					sortedMixedData.push(data.good[goodIndex++]);
+					goodCountInRow++;
+					badCountInRow = 0;
+				} else if (!random && badIndex < data.bad.length) {
+					sortedMixedData.push(data.bad[badIndex++]);
+					badCountInRow++;
+					goodCountInRow = 0;
+				}
+
+				previousItem = sortedMixedData[sortedMixedData.length - 1];
+
+				if (goodIndex >= data.good.length) {
+					sortedMixedData.push(...data.bad.slice(badIndex));
+					break;
+				} else if (badIndex >= data.bad.length) {
+					sortedMixedData.push(...data.good.slice(goodIndex));
+					break;
+				}
+			}
+
+			items = sortedMixedData;
 		}
 
-		return currentData;
+		currentItemIndex = 0;
 	});
 
 	const currentItem = $derived(items[currentItemIndex]);

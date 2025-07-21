@@ -56,7 +56,7 @@ const iatPictures = [
 
 export const takeIatPictures = (
 	pictureCategory: IatPictureCategory,
-	amount: number = 12,
+	amount: number = 6,
 	shuffle: boolean = true
 ): string[] => {
 	let pictures = iatPictures.filter((pic) =>
