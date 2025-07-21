@@ -40,6 +40,7 @@
 	let preparation = $state(false);
 	let itemShowedAt = $state<number>(Date.now());
 	let finalAnswers = $state<IatAnswer[]>([]);
+	let loading = $state(false);
 
 	const handleKeyDown = (event: KeyboardEvent) => {
 		if (event.key.toLowerCase() === 'i' || event.key.toLowerCase() === 'e') {
@@ -76,8 +77,7 @@
 			currentItemIndex++;
 
 			if (currentItemIndex >= items.length) {
-				preparation = false;
-
+				loading = true;
 				if (finalAnswers.length > 0) {
 					const answersRes = await apiPost('iat/answers', finalAnswers, $surveyUserToken);
 
@@ -89,8 +89,10 @@
 					}
 				}
 
-				slideCompleted();
+				loading = false;
+				preparation = false;
 				currentItemIndex = 0;
+				slideCompleted();
 			}
 		} else {
 			incorrect = true;
@@ -204,7 +206,12 @@
 				</div>
 			{/if}
 
-			{#if currentItem && currentItem.endsWith('.jpg')}
+			{#if loading}
+				<div class="flex items-center">
+					<Icon icon="mdi:loading" class="h-7 w-7 animate-spin text-gray-700" />
+					<span class="ml-3 font-semibold text-gray-800">Zpracovávám...</span>
+				</div>
+			{:else if currentItem && currentItem.endsWith('.jpg')}
 				<img src={`/iat/${currentItem}`} alt="Current Item" class="max-h-48" />
 			{:else}
 				<span class="text-2xl font-semibold text-green-600">{currentItem}</span>
