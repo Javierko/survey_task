@@ -16,25 +16,60 @@
 		{ value: 'other', label: 'Jiné' }
 	];
 
-	const pcExperiences = [
-		{ value: 'less_than_month', label: 'Méně než jednou za měsíc' },
-		{ value: 'several_per_month', label: 'Několikrát za měsíc' },
-		{ value: 'once_week', label: 'Jednou týdně' },
-		{ value: 'several_per_week', label: 'Několikrát za týden' },
-		{ value: 'once_day', label: 'Každý den' },
-		{ value: 'several_per_day', label: 'Několikrát denně' }
+	const educations = [
+		{ value: 'primary', label: 'Základní' },
+		{ value: 'high', label: 'Středoškolské' },
+		{ value: 'college', label: 'Vysokoškolské' }
+	];
+
+	const repres = [
+		{ value: '0', label: '0' },
+		{ value: '1', label: '1' },
+		{ value: '2', label: '2' },
+		{ value: '3', label: '3' },
+		{ value: '4', label: '4' },
+		{ value: '5', label: '5' },
+		{ value: '6', label: '6' },
+		{ value: '7', label: '7' },
+		{ value: '8', label: '8' },
+		{ value: '9', label: '9' },
+		{ value: '10', label: '10' }
+	];
+
+	const sides = [
+		{ value: '0', label: '0 - Levice' },
+		{ value: '1', label: '1' },
+		{ value: '2', label: '2' },
+		{ value: '3', label: '3' },
+		{ value: '4', label: '4' },
+		{ value: '5', label: '5' },
+		{ value: '6', label: '6' },
+		{ value: '7', label: '7' },
+		{ value: '8', label: '8' },
+		{ value: '9', label: '9' },
+		{ value: '10', label: '10 - Pravice' }
 	];
 
 	let age = $state<number>();
 	let gender = $state('');
-	let pcExperience = $state('');
-	let student = $state(false);
+	let education = $state('');
+	let representation = $state('');
+	let side = $state('');
 	let loading = $state(false);
 	let error = $state(false);
 
-	const genderContent = $derived(genders.find((f) => f.value === gender)?.label ?? 'Jste?');
-	const pcExperienceContent = $derived(
-		pcExperiences.find((f) => f.value === pcExperience)?.label ?? 'Jak často pracujete na počítači?'
+	const genderContent = $derived(
+		genders.find((f) => f.value === gender)?.label ?? 'Jaké je Vaše pohlaví?'
+	);
+	const educationContent = $derived(
+		educations.find((f) => f.value === education)?.label ??
+			'Jaké je Vaše nejvyšší dosažené vzdělání?'
+	);
+	const representationContent = $derived(
+		repres.find((f) => f.value === representation)?.label ?? 'Jaká je Vaše reprezentace?'
+	);
+	const sideContent = $derived(
+		sides.find((f) => f.value === side)?.label ?? 'Jaká je Vaše politická orientace?'
 	);
 
 	const handleSubmit = async () => {
@@ -45,8 +80,9 @@
 			{
 				age,
 				gender,
-				pc_experience: pcExperience,
-				student
+				education,
+				social_representation: +representation,
+				political_side: +side
 			},
 			$surveyUserToken
 		);
@@ -85,7 +121,7 @@
 			<Input
 				type="number"
 				id="number"
-				placeholder="Věk"
+				placeholder="Kolik je Vám let?"
 				min="0"
 				max="99"
 				bind:value={age}
@@ -94,7 +130,7 @@
 		</div>
 
 		<div class="5 flex w-full flex-col gap-1">
-			<Label for="gender">Jste?</Label>
+			<Label for="gender">Jaké je Vaše pohlaví?</Label>
 			<Select.Root type="single" name="gender" bind:value={gender} required>
 				<Select.Trigger>
 					{genderContent}
@@ -110,16 +146,16 @@
 		</div>
 
 		<div class="5 flex w-full flex-col gap-1">
-			<Label for="pc_experience">Jak často pracujete na počítači?</Label>
-			<Select.Root type="single" name="pc_experience" bind:value={pcExperience} required>
+			<Label for="education">Jaké je Vaše nejvyšší dosažené vzdělání?</Label>
+			<Select.Root type="single" name="education" bind:value={education} required>
 				<Select.Trigger>
-					{pcExperienceContent}
+					{educationContent}
 				</Select.Trigger>
 				<Select.Content>
 					<Select.Group>
-						{#each pcExperiences as experience}
-							<Select.Item value={experience.value} label={experience.label}>
-								{experience.label}
+						{#each educations as education}
+							<Select.Item value={education.value} label={education.label}>
+								{education.label}
 							</Select.Item>
 						{/each}
 					</Select.Group>
@@ -127,15 +163,50 @@
 			</Select.Root>
 		</div>
 
-		<div class="flex items-center space-x-2">
-			<Checkbox id="terms" bind:checked={student} aria-labelledby="terms-label" />
-			<Label
-				id="terms-label"
-				for="terms"
-				class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-			>
-				Jste student VŠ?
+		<div class="5 flex w-full flex-col gap-1">
+			<Label for="repre">
+				Představte si žebříček, který reprezentuje postavení lidí v České republice. Na nejvyšším
+				stupínku jsou lidé, kteří se mají nejlépe - ti, kteří mají nejvíce peněz, nejvyšší vzdělání
+				a/nebo nejprestižnější zaměstnání. Na nejnižším stupínku jsou lidé, kteří se mají nejhůře -
+				ti, kteří mají nejméně peněz, nejnižší vzdělání a/nebo nejméně prestižní či žádné
+				zaměstnání. Čím výše na tomto žebříčku jste, tím více se blížíte k lidem na nejvyšším
+				stupínku; čím níže jste, tím více se blížíte k lidem na nejnižším stupínku. Kam na tomto
+				žebříčku byste sám/sama sebe umístil/a?
 			</Label>
+			<Select.Root type="single" name="repre" bind:value={representation} required>
+				<Select.Trigger>
+					{representationContent}
+				</Select.Trigger>
+				<Select.Content>
+					<Select.Group>
+						{#each repres as representation}
+							<Select.Item value={representation.value} label={representation.label}>
+								{representation.label}
+							</Select.Item>
+						{/each}
+					</Select.Group>
+				</Select.Content>
+			</Select.Root>
+		</div>
+
+		<div class="5 flex w-full flex-col gap-1">
+			<Label for="side">
+				Mnoho lidí používá pojmy "levice" a "pravice", když chtějí popsat rozdílné politické názory.
+				Zde máme k dispozici škálu běžící od levice k pravici. Když se zamyslíte nad Vašimi
+				vlastními politickými názory, kde na této škále byste se umístil/a?
+			</Label>
+			<Select.Root type="single" name="side" bind:value={side} required>
+				<Select.Trigger>
+					{sideContent}
+				</Select.Trigger>
+				<Select.Content>
+					<Select.Group>
+						{#each sides as side}
+							<Select.Item value={side.value} label={side.label}>{side.label}</Select.Item>
+						{/each}
+					</Select.Group>
+				</Select.Content>
+			</Select.Root>
 		</div>
 
 		<div class="flex justify-end">
