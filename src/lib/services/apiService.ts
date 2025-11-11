@@ -40,5 +40,7 @@ export const apiPost = async <T>(
 		headers: headers,
 		body: JSON.stringify(data),
 		credentials: 'include'
-	}).then((response) => response.json());
+	})
+		.then((response) => response.json())
+		.catch((err) => console.log(err));
 };

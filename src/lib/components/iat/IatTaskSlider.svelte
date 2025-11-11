@@ -29,16 +29,8 @@
 			currentPart = popped;
 			currentPartCount++;
 		} else {
-			surveyManager.setState(SurveyState.Finished);
-			removeFromLocalStorage('user');
-
-			await apiPost(
-				'participants/complete',
-				{
-					completed_at: new Date().toISOString()
-				},
-				$surveyUserToken
-			);
+			surveyManager.setSlide(0);
+			surveyManager.setState(SurveyState.Rest);
 		}
 	};
 

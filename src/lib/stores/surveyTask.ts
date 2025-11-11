@@ -5,9 +5,8 @@ export enum SurveyState {
 	None,
 	Demographic,
 	Started,
-	Middle,
-	TypeSwitched,
 	Iat,
+	Rest,
 	Finished
 }
 

@@ -14,12 +14,15 @@
 	import { apiPost } from '@/services/apiService';
 	import Icon from '@iconify/svelte';
 	import { toast } from 'svelte-sonner';
+	import { removeFromLocalStorage } from '@/services/localStorageService';
 
 	interface Props {
 		headers: string[];
 		questions: {
 			id: number;
 			question: string;
+			range?: [number, number];
+			default?: number;
 		}[];
 		slides: number;
 		title: string;
@@ -108,7 +111,10 @@
 		}
 
 		if (finalAnswers.length > 0) {
+			console.log(finalAnswers);
 			const answersRes = await apiPost('answers', finalAnswers, $surveyUserToken);
+
+			console.log(answersRes);
 
 			if (answersRes.Status != 200) {
 				errorToast(
@@ -121,15 +127,20 @@
 		loading = false;
 
 		if (last) {
-			if ($surveyManager.state == SurveyState.TypeSwitched) {
+			if ($surveyManager.state == SurveyState.Started) {
+				surveyManager.setSlide(0);
 				surveyManager.setState(SurveyState.Iat);
-			} else if ($surveyManager.state == SurveyState.Started) {
-				surveyManager.setSlide(0);
-				surveyManager.setState(SurveyState.Middle);
-			} else if ($surveyManager.state == SurveyState.Middle) {
-				surveyManager.setState(SurveyState.TypeSwitched);
-				surveyManager.setSlide(0);
-				surveyManager.switchType();
+			} else if ($surveyManager.state == SurveyState.Rest) {
+				surveyManager.setState(SurveyState.Finished);
+				removeFromLocalStorage('user');
+
+				await apiPost(
+					'participants/complete',
+					{
+						completed_at: new Date().toISOString()
+					},
+					$surveyUserToken
+				);
 			}
 		} else {
 			surveyManager.setSlide($surveyManager.slide + 1);
@@ -188,12 +199,18 @@
 							{/each}
 						</div>
 					</div>
+				{:else}
+					<div class="flex w-full items-center justify-center">
+						{@html title}
+					</div>
 				{/if}
 
 				<div class="flex flex-col divide-y divide-gray-200/60">
 					{#each questions as question, i}
 						<SurveyTaskQuestion
 							question={question.question}
+							range={question.range}
+							default={question.default}
 							rowId={i}
 							totalOptions={headers.length}
 							disabled={!$surveyQuestion.has(i)}
@@ -214,7 +231,7 @@
 								<Icon icon="line-md:loading-twotone-loop" class="!h-5 !w-5 text-gray-50" />
 							{/if}
 
-							{#if $surveyManager.state === SurveyState.TypeSwitched && $surveyManager.slide === slides - 1}
+							{#if $surveyManager.state === SurveyState.Rest && $surveyManager.slide === slides - 1}
 								Dokončit
 							{:else}
 								Další

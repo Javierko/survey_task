@@ -1,532 +1,63 @@
 {
-	"many": [
+	"start": [
 		{
-			"title": "Níže naleznete několik výroků týkajících se různých oblastí Vašeho studia a vztahů na univerzitě. Vaším úkolem je zhodnotit, jak moc souhlasíte s každým z následujících výroků.",
-			"header_id": 0,
-			"questions": [
-				{
-					"id": 1,
-					"question": "Jsem spokojený/á se vztahy, které mám s učiteli."
-				},
-				{
-					"id": 2,
-					"question": "Jsem spokojený/á se svými studijními výsledky."
-				},
-				{
-					"id": 3,
-					"question": "Jsem spokojený/á se svou angažovaností ve výuce."
-				},
-				{
-					"id": 4,
-					"question": "Jsem spokojený/á se vztahy, který mám se svými spolužáky na univerzitě."
-				},
-				{
-					"id": 5,
-					"question": "Jsem spokojený/á s podmínkami pro studium na univerzitě."
-				},
-				{
-					"id": 6,
-					"question": "Jsem spokojený/á s vysokou školou, kterou navštěvuji."
-				},
-				{
-					"id": 7,
-					"question": "Jsem spokojený/á s mimouniverzitními aktivitami instituce, kterou navštěvuji."
-				},
-				{
-					"id": 8,
-					"question": "Jsem spokojený/á s výukou, které jsem se doposud účastnil/a."
-				}
-			]
-		},
-		{
-			"title": "",
-			"header_id": 0,
+			"title": "Následující otázky se týkají Vašeho postoje k různým skupinám lidí.<br><br>Představte si „teploměr pocitů“, který ukazuje, jak příznivě nebo nepříznivě se na danou skupinu díváte.<br><br>Hodnota 50 znamená velmi teplé (příznivé) pocity, - 50 znamená velmi chladné (nepříznivé) pocity a 0 znamená neutrální postoj.<br><br>Jak byste ohodnotil/a své pocity vůči následující skupině?",
+			"header_id": 2,
 			"questions": []
 		},
 		{
-			"title": "Níže jsou uvedena tvrzení, která se týkají různých situací a názorů. Vaším úkolem je zhodnotit, do jaké míry s každým z těchto tvrzení souhlasíte nebo nesouhlasíte.",
-			"header_id": 0,
-			"questions": [
-				{
-					"id": 9,
-					"question": "Když chcete někoho přesně odhadnout, měli byste při posuzování jejich/jeho budoucích výkonů zohlednit, odkud pochází (tj. její/jeho etnicitu, národnost)."
-				},
-				{
-					"id": 10,
-					"question": "Když se cítíte ohrožení, je rozumné se vyhnout lidem ze skupin známých svojí zvýšenou agresivitou."
-				},
-				{
-					"id": 11,
-					"question": "Když u někoho znáte pouze její/jeho etnickou příslušnost, je jasné, že svoje znalosti o dané etnické skupině využijete při vytváření dojmu o této osobě."
-				},
-				{
-					"id": 12,
-					"question": "Policisté by měli věnovat vyšší pozornost skupinám, které se ve vyšší míře podílejí na trestné činnosti, i když to znamená zaměřit se na příslušníky určitých etnických skupin."
-				},
-				{
-					"id": 13,
-					"question": "Policisté by se měli chovat tak, jako by příslušníci všech rasových skupin měli stejnou pravděpodobnost spáchat trestný čin."
-				},
-				{
-					"id": 14,
-					"question": "Je vždy špatné vyhýbat se někomu kvůli tomu, že příslušníci její/jeho etnické skupiny mají větší pravděpodobnost spáchat násilné trestné činy."
-				},
-				{
-					"id": 15,
-					"question": "Při posuzování potenciálu uchazeček a uchazečů o vedoucí pozice by zaměstnavatelé měli  zohledňovat jejich etnický původ."
-				},
-				{
-					"id": 16,
-					"question": "Je špatně hodnotit kvalitu života v určité čtvrti na základě toho, zda v ní žijí lidé z jiných etnických skupin."
-				}
-			]
-		},
-		{
 			"title": "",
-			"header_id": 1,
-			"questions": [
-				{
-					"id": 17,
-					"question": "Jak psychicky náročný byl tento úkol?"
-				}
-			]
-		}
-	],
-	"middle": [
-		{
-			"title": "Následující vlastnosti mohou nebo nemusí vystihovat vaši osobnost. Odpovězte prosím, do jaké míry s ním souhlasíte nebo nesouhlasíte.",
-			"header_id": 0,
-			"questions": [
-				{
-					"id": 34,
-					"question": "... si hodně dělá starosti."
-				},
-				{
-					"id": 35,
-					"question": "... je uvolněný, dobře zvládá stres,"
-				},
-				{
-					"id": 36,
-					"question": "... má sklon bývat skleský, v depresi."
-				},
-				{
-					"id": 37,
-					"question": "... se cítí sebejistě, je sám se sebou spokojen."
-				},
-				{
-					"id": 38,
-					"question": "... je emočně vyrovnaný, jen tak něco ho nerozhodí."
-				},
-				{
-					"id": 39,
-					"question": "... je emočně impulzivní, snado se nechá vyvést z míry."
-				}
-			]
-		},
-		{
-			"title": "Následující tvrzení se týkají vašich přesvědčení a pocitů o vašem vlastním chování. Přečtěte si každé tvrzení a odpovězte výběrem, jak moc s každým tvrzením souhlasíte nebo nesouhlasíte.",
 			"header_id": 2,
 			"questions": [
 				{
-					"id": 40,
-					"question": "Dokážu vyjádřit myšlenku mnoha různými způsoby."
+					"id": 1,
+					"question": "vůči romům",
+					"range": [-50, 50],
+					"default": 0
 				},
 				{
-					"id": 41,
-					"question": "Vyhýbám se novým a neobvyklým situacím."
+					"id": 2,
+					"question": "vůči imigrantům",
+					"range": [-50, 50],
+					"default": 0
 				},
 				{
-					"id": 42,
-					"question": "Mám dojem, že nikdy nejsem ten, kdo rozhoduje."
+					"id": 3,
+					"question": "vůči černochům",
+					"range": [-50, 50],
+					"default": 0
 				},
 				{
-					"id": 43,
-					"question": "Umím najít funkční řešení k zdánlivě neřešitelným problémům."
+					"id": 4,
+					"question": "vůči ukrajincům",
+					"range": [-50, 50],
+					"default": 0
 				},
 				{
-					"id": 44,
-					"question": "Málokdy mám více možností, jak se zachovat."
-				},
-				{
-					"id": 45,
-					"question": "Jsem ochotný(á) pracovat na kreativním řešení problému."
-				},
-				{
-					"id": 46,
-					"question": "Umím se vhodně zachovat v jakékoliv situaci."
-				},
-				{
-					"id": 47,
-					"question": "Moje chování je výsledkem mých vědomých rozhodnutí."
-				},
-				{
-					"id": 48,
-					"question": "V jakékoliv situaci se umím zachovat vícero způsoby."
-				},
-				{
-					"id": 49,
-					"question": "V každodenních situacích je pro mě obtížné využít své znalosti o určitém tématu."
-				},
-				{
-					"id": 50,
-					"question": "Jsem ochotný(á) naslouchat a zvážit různé alternativy, jak se vypořádat s problémem."
-				},
-				{
-					"id": 51,
-					"question": "Jsem dost sebejistý(á) na to, abych vyzkoušel(a) různé způsoby, jak se zachovat."
-				}
-			]
-		},
-		{
-			"title": "Pro následující tvrzení prosím uveďte míru souhlasu, či nesouhlasu.",
-			"header_id": 3,
-			"questions": [
-				{
-					"id": 52,
-					"question": "Umím dobře posoudit různé situace."
-				},
-				{
-					"id": 53,
-					"question": "V obtížných situacích mi dělá potíže se rozhodnout."
-				},
-				{
-					"id": 54,
-					"question": "Před rozhodnutím zvážím vícero možností."
-				},
-				{
-					"id": 55,
-					"question": "Mám pocit, že v obtížných situacích ztrácím nad touto situací kontrolu"
-				},
-				{
-					"id": 56,
-					"question": "Rád(a) nahlížím na obtížné situace z různých úhlů pohledu."
-				},
-				{
-					"id": 57,
-					"question": "Než přisoudím určitému chování příčinu, vyhledám si doplňující informace, které mi nejsou bezprostředně dostupné."
-				},
-				{
-					"id": 58,
-					"question": "Když se dostanu do obtížné situace, zažívám takový stres, že nedokážu najít způsob, jak danou situaci vyřešit."
-				},
-				{
-					"id": 59,
-					"question": "Snažím se o věcech přemýšlet z pohledu jiných osob."
-				},
-				{
-					"id": 60,
-					"question": "Považuji za problematické, že existuje tolik různých způsobů, jak se vypořádat s obtížnými situacemi."
-				},
-				{
-					"id": 61,
-					"question": "Dokážu se dobře vcítit do kůže druhých."
-				},
-				{
-					"id": 62,
-					"question": "V obtížných situacích zkrátka nevím, co mám dělat."
-				},
-				{
-					"id": 63,
-					"question": "Je důležité nahlížet na obtížné situace z mnoha různých úhlů pohledu."
-				},
-				{
-					"id": 64,
-					"question": "Než se v obtížné situaci rozhodnu, jak se zachovat, zvážím vícero možností."
-				},
-				{
-					"id": 65,
-					"question": "Často se dívám na situaci z různých úhlů pohledu."
-				},
-				{
-					"id": 66,
-					"question": "Jsem schopný(á) překonávat obtíže, kterým v životě čelím."
-				},
-				{
-					"id": 67,
-					"question": "Když přisuzuji určitému chování příčinu, zvažuji při tom všechna dostupná fakta a informace."
-				},
-				{
-					"id": 68,
-					"question": "Mám pocit, že v obtížných situacích nemám žádnou moc věci změnit."
-				},
-				{
-					"id": 69,
-					"question": "Když se nacházím v obtížné situaci, tak se na chvíli pozastavím a snažím se vymyslet několik různých způsobů, jak tuto situaci vyřešit."
-				},
-				{
-					"id": 70,
-					"question": "Tváří v tvář obtížné situaci dokážu přijít s více než jedním způsobem, jak ji vyřešit."
-				},
-				{
-					"id": 71,
-					"question": "Před tím, než zareaguji na obtížnou situaci, zvážím vícero možností."
-				}
-			]
-		},
-		{
-			"title": "Níže najdete seznam tvrzení. Prosím uveďte, jak moc Vás jednotlivé výroky vystihují.",
-			"header_id": 4,
-			"questions": [
-				{
-					"id": 72,
-					"question": "Moje bolestivé zkušenosti a vzpomínky mi ztěžují žít život, kterého bych si cenil(a)."
-				},
-				{
-					"id": 73,
-					"question": "Mám strach ze svých pocitů."
-				},
-				{
-					"id": 74,
-					"question": "Obávám se toho, že nebudu schopný(á) ovládat své obavy a pocity."
-				},
-				{
-					"id": 75,
-					"question": "Moje bolestné vzpomínky mi brání v tom, abych žil(a) život, který mě naplňuje."
-				},
-				{
-					"id": 76,
-					"question": "Emoce způsobují v mém životě problémy."
-				},
-				{
-					"id": 77,
-					"question": "Zdá se, že většina lidí zvládá své životy lépe než já."
-				},
-				{
-					"id": 78,
-					"question": "Obavy mi stojí k cestě k úspěchu."
-				}
-			]
-		},
-		{
-			"title": "Přečtěte si níže uvedené výroky a na základě svojeho vlastního přesvědčení a zkušeností na škále zvolte, do jaké míry se s nimi ztotožňujete.",
-			"header_id": 5,
-			"questions": [
-				{
-					"id": 79,
-					"question": "Žít dobře uspořádaný život s pravidelným denním rozvrhem mi prostě sedne."
-				},
-				{
-					"id": 80,
-					"question": "Stanovit si pevný režim mi pomáhá více si užívat života."
-				},
-				{
-					"id": 81,
-					"question": "Líbí se mi jasný a uspořádaný způsob života."
-				},
-				{
-					"id": 82,
-					"question": "Nerad(a) se vystavuji situacím, o nichž dopředu nevím, co mohu očekávat."
-				},
-				{
-					"id": 83,
-					"question": "Nerad(a) trávím čas ve společnosti lidí, kteří jsou schopni jednat nepředvídatelně."
-				},
-				{
-					"id": 84,
-					"question": "Nemám rád(a) nepředvídatelné situace."
-				},
-				{
-					"id": 85,
-					"question": "Obyčejně se mi uleví, jakmile se pro něco rozhodnu."
-				},
-				{
-					"id": 86,
-					"question": "Když stojím před nějakým problémem, obvykle se snažím dojít k řešení co nejrychleji."
-				},
-				{
-					"id": 87,
-					"question": "Pokud nemůžu přijít na řešení problému okamžitě, jsem netrpělivý(á) a podrážněný(á)."
-				},
-				{
-					"id": 88,
-					"question": "Nemám rád(a) nejisté situace."
-				},
-				{
-					"id": 89,
-					"question": "Je mi nepříjemné, když nechápu důvod nějaké události, která se mi přihodila."
-				},
-				{
-					"id": 90,
-					"question": "Nemám rád(a), když něčí výrok může znamenat spoustu různých věcí."
-				},
-				{
-					"id": 91,
-					"question": "Obvykle mne dráždí, když jeden člověk nesouhlasí s něčím, co si myslí všichni ostatní."
-				},
-				{
-					"id": 92,
-					"question": "Nepotřebuji se zabývat všemi možnými úhly pohledu na to, abych si udělal(a) vlastní názor."
-				},
-				{
-					"id": 93,
-					"question": "Nemám rád(a) otázky, na které nelze odpovědět mnoha různými způsoby."
+					"id": 5,
+					"question": "vůči vietnamcům",
+					"range": [-50, 50],
+					"default": 0
 				}
 			]
 		}
 	],
-	"one": [
+	"rest": [
 		{
-			"title": "Níže naleznete několik výroků týkajících se různých oblastí Vašeho studia a vztahů na univerzitě. Vaším úkolem je zhodnotit, jak moc souhlasíte s každým z následujících výroků.",
+			"title": "Prosím uvěďte, do jaké míry souhlasíte s každým z následujících tvrzení: ",
 			"header_id": 0,
 			"questions": [
 				{
-					"id": 27,
-					"question": "Jsem spokojený/á se vztahy, které mám s učiteli."
-				}
-			]
-		},
-		{
-			"title": "Níže naleznete několik výroků týkajících se různých oblastí Vašeho studia a vztahů na univerzitě. Vaším úkolem je zhodnotit, jak moc souhlasíte s každým z následujících výroků.",
-			"header_id": 0,
-			"questions": [
+					"id": 6,
+					"question": "Považuji se za člověka, který nemá rád menšiny."
+				},
 				{
-					"id": 28,
-					"question": "Jsem spokojený/á se svými studijními výsledky."
-				}
-			]
-		},
-		{
-			"title": "Níže naleznete několik výroků týkajících se různých oblastí Vašeho studia a vztahů na univerzitě. Vaším úkolem je zhodnotit, jak moc souhlasíte s každým z následujících výroků.",
-			"header_id": 0,
-			"questions": [
+					"id": 7,
+					"question": "Nemám rád/a menšiny kvůli špatným činům, které provedly."
+				},
 				{
-					"id": 29,
-					"question": "Jsem spokojený/á se svou angažovaností ve výuce."
-				}
-			]
-		},
-		{
-			"title": "Níže naleznete několik výroků týkajících se různých oblastí Vašeho studia a vztahů na univerzitě. Vaším úkolem je zhodnotit, jak moc souhlasíte s každým z následujících výroků.",
-			"header_id": 0,
-			"questions": [
-				{
-					"id": 30,
-					"question": "Jsem spokojený/á se vztahy, který mám se svými spolužáky na univerzitě."
-				}
-			]
-		},
-		{
-			"title": "Níže naleznete několik výroků týkajících se různých oblastí Vašeho studia a vztahů na univerzitě. Vaším úkolem je zhodnotit, jak moc souhlasíte s každým z následujících výroků.",
-			"header_id": 0,
-			"questions": [
-				{
-					"id": 31,
-					"question": "Jsem spokojený/á s podmínkami pro studium na univerzitě."
-				}
-			]
-		},
-		{
-			"title": "Níže naleznete několik výroků týkajících se různých oblastí Vašeho studia a vztahů na univerzitě. Vaším úkolem je zhodnotit, jak moc souhlasíte s každým z následujících výroků.",
-			"header_id": 0,
-			"questions": [
-				{
-					"id": 32,
-					"question": "Jsem spokojený/á s mimouniverzitními aktivitami instituce, kterou navštěvuji."
-				}
-			]
-		},
-		{
-			"title": "Níže naleznete několik výroků týkajících se různých oblastí Vašeho studia a vztahů na univerzitě. Vaším úkolem je zhodnotit, jak moc souhlasíte s každým z následujících výroků.",
-			"header_id": 0,
-			"questions": [
-				{
-					"id": 33,
-					"question": "Jsem spokojený/á s výukou, které jsem se doposud účastnil/a."
-				}
-			]
-		},
-		{
-			"title": "",
-			"header_id": 0,
-			"questions": []
-		},
-		{
-			"title": "Níže jsou uvedena tvrzení, která se týkají různých situací a názorů. Vaším úkolem je zhodnotit, do jaké míry s každým z těchto tvrzení souhlasíte nebo nesouhlasíte.",
-			"header_id": 0,
-			"questions": [
-				{
-					"id": 18,
-					"question": "Když chcete někoho přesně odhadnout, měli byste při posuzování jejich/jeho budoucích výkonů zohlednit, odkud pochází (tj. její/jeho etnicitu, národnost)."
-				}
-			]
-		},
-		{
-			"title": "Níže jsou uvedena tvrzení, která se týkají různých situací a názorů. Vaším úkolem je zhodnotit, do jaké míry s každým z těchto tvrzení souhlasíte nebo nesouhlasíte.",
-			"header_id": 0,
-			"questions": [
-				{
-					"id": 19,
-					"question": "Když se cítíte ohrožení, je rozumné se vyhnout lidem ze skupin známých svojí zvýšenou agresivitou."
-				}
-			]
-		},
-		{
-			"title": "Níže jsou uvedena tvrzení, která se týkají různých situací a názorů. Vaším úkolem je zhodnotit, do jaké míry s každým z těchto tvrzení souhlasíte nebo nesouhlasíte.",
-			"header_id": 0,
-			"questions": [
-				{
-					"id": 20,
-					"question": "Když u někoho znáte pouze její/jeho etnickou příslušnost, je jasné, že svoje znalosti o dané etnické skupině využijete při vytváření dojmu o této osobě."
-				}
-			]
-		},
-		{
-			"title": "Níže jsou uvedena tvrzení, která se týkají různých situací a názorů. Vaším úkolem je zhodnotit, do jaké míry s každým z těchto tvrzení souhlasíte nebo nesouhlasíte.",
-			"header_id": 0,
-			"questions": [
-				{
-					"id": 21,
-					"question": "Policisté by měli věnovat vyšší pozornost skupinám, které se ve vyšší míře podílejí na trestné činnosti, i když to znamená zaměřit se na příslušníky určitých etnických skupin."
-				}
-			]
-		},
-		{
-			"title": "Níže jsou uvedena tvrzení, která se týkají různých situací a názorů. Vaším úkolem je zhodnotit, do jaké míry s každým z těchto tvrzení souhlasíte nebo nesouhlasíte.",
-			"header_id": 0,
-			"questions": [
-				{
-					"id": 22,
-					"question": "Policisté by se měli chovat tak, jako by příslušníci všech rasových skupin měli stejnou pravděpodobnost spáchat trestný čin."
-				}
-			]
-		},
-		{
-			"title": "Níže jsou uvedena tvrzení, která se týkají různých situací a názorů. Vaším úkolem je zhodnotit, do jaké míry s každým z těchto tvrzení souhlasíte nebo nesouhlasíte.",
-			"header_id": 0,
-			"questions": [
-				{
-					"id": 23,
-					"question": "Je vždy špatné vyhýbat se někomu kvůli tomu, že příslušníci její/jeho etnické skupiny mají větší pravděpodobnost spáchat násilné trestné činy."
-				}
-			]
-		},
-		{
-			"title": "Níže jsou uvedena tvrzení, která se týkají různých situací a názorů. Vaším úkolem je zhodnotit, do jaké míry s každým z těchto tvrzení souhlasíte nebo nesouhlasíte.",
-			"header_id": 0,
-			"questions": [
-				{
-					"id": 24,
-					"question": "Při posuzování potenciálu uchazeček a uchazečů o vedoucí pozice by zaměstnavatelé měli  zohledňovat jejich etnický původ."
-				}
-			]
-		},
-		{
-			"title": "Níže jsou uvedena tvrzení, která se týkají různých situací a názorů. Vaším úkolem je zhodnotit, do jaké míry s každým z těchto tvrzení souhlasíte nebo nesouhlasíte.",
-			"header_id": 0,
-			"questions": [
-				{
-					"id": 25,
-					"question": "Je špatně hodnotit kvalitu života v určité čtvrti na základě toho, zda v ní žijí lidé z jiných etnických skupin."
-				}
-			]
-		},
-		{
-			"title": "",
-			"header_id": 1,
-			"questions": [
-				{
-					"id": 26,
-					"question": "Jak psychicky náročný byl tento úkol?"
+					"id": 8,
+					"question": "O menšinách jsem se obecně vyjadřoval/a negativně."
 				}
 			]
 		}

@@ -6,9 +6,9 @@
 	import SurveyTaskQuestions from './SurveyTaskQuestions.svelte';
 
 	const questionsList = derived(surveyManager, ($surveyManager) => {
-		return $surveyManager.state == SurveyState.Middle
-			? QUESTIONS['middle'][$surveyManager.slide]
-			: QUESTIONS[$surveyManager.type][$surveyManager.slide] || [];
+		return $surveyManager.state == SurveyState.Started
+			? QUESTIONS['start'][$surveyManager.slide]
+			: QUESTIONS['rest'][$surveyManager.slide] || [];
 	});
 
 	const headers = derived(questionsList, ($questionsList) => {
@@ -20,9 +20,9 @@
 	});
 
 	const slides = derived(surveyManager, ($surveyManager) => {
-		return $surveyManager.state == SurveyState.Middle
-			? QUESTIONS['middle'].length
-			: QUESTIONS[$surveyManager.type].length;
+		return $surveyManager.state == SurveyState.Started
+			? QUESTIONS['start'].length
+			: QUESTIONS['rest'].length;
 	});
 </script>
 
