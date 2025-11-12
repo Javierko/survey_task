@@ -111,10 +111,7 @@
 		}
 
 		if (finalAnswers.length > 0) {
-			console.log(finalAnswers);
 			const answersRes = await apiPost('answers', finalAnswers, $surveyUserToken);
-
-			console.log(answersRes);
 
 			if (answersRes.Status != 200) {
 				errorToast(
