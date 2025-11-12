@@ -78,7 +78,7 @@
 		}
 
 		optionClick(rowId, {
-			aoiId: getQuestionId($surveyManager.slide, rowId, 0),
+			aoiId: `${getQuestionId($surveyManager.slide, rowId, 0)}-slider`,
 			x: lastPosition?.x || 0,
 			y: lastPosition?.y || 0,
 			value: val,
