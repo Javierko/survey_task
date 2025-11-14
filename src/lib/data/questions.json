@@ -44,8 +44,14 @@
 	],
 	"rest": [
 		{
-			"title": "Prosím uvěďte, do jaké míry souhlasíte s každým z následujících tvrzení: ",
+			"title": "Prosím uvěďte, do jaké míry souhlasíte s každým z následujících tvrzení:",
+			"header_id": 2,
+			"questions": []
+		},
+		{
+			"title": "",
 			"header_id": 0,
+			"randomize": true,
 			"questions": [
 				{
 					"id": 6,
@@ -58,6 +64,332 @@
 				{
 					"id": 8,
 					"question": "O menšinách jsem se obecně vyjadřoval/a negativně."
+				},
+				{
+					"id": 9,
+					"question": "Myslím, že lidé z jiných etnických menšin páchají více trestných činů než většina lidí."
+				},
+				{
+					"id": 10,
+					"question": "Myslím, že slušných lidí mezi jinými etnickými menšinami je velmi málo."
+				},
+				{
+					"id": 11,
+					"question": "Myslím, že růst populace jiných etnických menšin ohrožuje bezpečnost naší společnosti."
+				},
+				{
+					"id": 12,
+					"question": "Je správné, že stále existují místa, do kterých mají menšiny vstup zakázán."
+				},
+				{
+					"id": 13,
+					"question": "V posledních letech se lidem z menšin dostalo vice, než si zaslouží. "
+				},
+				{
+					"id": 14,
+					"question": "Menšiny by se neměly vnucovat tam, kde nejsou vítány. "
+				},
+				{
+					"id": 15,
+					"question": "Myslím, že etnické menšiny v této zemi mají v některých ohledech výhodnější zacházení."
+				},
+				{
+					"id": 16,
+					"question": "Etnické menšiny jsou příliš náročné ve svých požadavcích na rovná práva."
+				},
+				{
+					"id": 17,
+					"question": "Snahy o snížení diskriminace menšinových skupin vedou k diskriminaci většiny."
+				},
+				{
+					"id": 18,
+					"question": "Diskriminace menšin v naší společnosti už není problém."
+				},
+				{
+					"id": 19,
+					"question": "Etnické menšiny velmi hlasitě a důrazně prosazují svá práva."
+				},
+				{
+					"id": 20,
+					"question": "Zvýhodnění etnických menšin znamená nespravedlnost vůči většinové populaci"
+				},
+				{
+					"id": 21,
+					"question": "Kdyby se etnické menšiny více snažily, mohly by být stejně úspěšné jako většina."
+				},
+				{
+					"id": 22,
+					"question": "Členové etnických menšin často přehánějí."
+				},
+				{
+					"id": 23,
+					"question": "Naše kultura má vyšší hodnotu než jiné kultury."
+				},
+				{
+					"id": 24,
+					"question": "Vadí mi, když lidé z etnických menšin mluví kolem mě svým jazykem."
+				},
+				{
+					"id": 25,
+					"question": "Hodnoty, které etnické menšiny učí své děti, jsou odlišné od těch, které jsou zde potřebné."
+				},
+				{
+					"id": 26,
+					"question": "Je přirozené, že většinová populace má ve škole a práci určité výhody."
+				},
+				{
+					"id": 27,
+					"question": "Rozumím, proč si etnické menšiny stěžují na pocit vyloučení."
+				},
+				{
+					"id": 28,
+					"question": "Nové kulturní zážitky mohou ohrozit mou vlastní identitu."
+				},
+				{
+					"id": 29,
+					"question": "Když organizace zvyšují rozmanitost, většinová společnost ztrácí část svého vlivu a postavení."
+				}
+			]
+		},
+		{
+			"title": "Prosím uvěďte, do jaké míry souhlasíte s každým z následujících tvrzení:",
+			"header_id": 2,
+			"questions": []
+		},
+		{
+			"title": "",
+			"header_id": 0,
+			"randomize": true,
+			"questions": [
+				{
+					"id": 30,
+					"question": "Diskriminace etnických menšin již není v České republice problémem."
+				},
+				{
+					"id": 31,
+					"question": "Je snadné pochopit hněv etnických menšin v České republice. "
+				},
+				{
+					"id": 32,
+					"question": "Etnické menšiny mají na rozhodování o vzdělávací politice větší vliv, než by měly mít."
+				},
+				{
+					"id": 33,
+					"question": "Etnické menšiny se ve svém úsilí o rovná práva stávají příliš náročnými."
+				},
+				{
+					"id": 34,
+					"question": "Etnické menšiny by se neměly vnucovat tam, kde nejsou vítány."
+				},
+				{
+					"id": 35,
+					"question": "V posledních několika letech získaly etnické menšiny ekonomicky více, než si zaslouží."
+				},
+				{
+					"id": 36,
+					"question": "V posledních několika letech projevuje vláda a sdělovací média etnickým menšinám větší úctu, než si zaslouží."
+				}
+			]
+		},
+		{
+			"title": "Následující vlastnosti mohou nebo nemusí vystihovat Vaši osobnost. Určete u každého tvrzení, do jaké míry s ním souhlasíte nebo nesouhlasíte. \"Považuji se za někoho, kdo …:\"",
+			"header_id": 2,
+			"questions": []
+		},
+		{
+			"title": "",
+			"header_id": 0,
+			"randomize": true,
+			"questions": [
+				{
+					"id": 37,
+					"question": "...bývá tichý/á."
+				},
+				{
+					"id": 38,
+					"question": "... je soucitný/á, má dobré srdce."
+				},
+				{
+					"id": 39,
+					"question": "... má sklon být chaotický/á."
+				},
+				{
+					"id": 40,
+					"question": "...si hodně dělá starosti."
+				},
+				{
+					"id": 41,
+					"question": "...je fascinován/a uměním, hudbou a literaturou."
+				},
+				{
+					"id": 42,
+					"question": "...je dominantní, zastává roli vůdce."
+				},
+				{
+					"id": 43,
+					"question": "...je někdy na ostatní hrubý/á."
+				},
+				{
+					"id": 44,
+					"question": "...má obtíže začít s úkoly."
+				},
+				{
+					"id": 45,
+					"question": "...má sklon být skleslý/á, v depresi."
+				},
+				{
+					"id": 46,
+					"question": "...se příliš nezajímá o abstraktní myšlenky."
+				},
+				{
+					"id": 47,
+					"question": "...je plný/á energie."
+				},
+				{
+					"id": 48,
+					"question": "...si o lidech myslí to nejlepší."
+				},
+				{
+					"id": 49,
+					"question": "…je důvěryhodný/á, vždy se na něj/ni dá spolehnout."
+				},
+				{
+					"id": 50,
+					"question": "…je emočně vyrovnaný/á, jen tak něco ho/ji nerozhodí."
+				},
+				{
+					"id": 51,
+					"question": "…je originální, přichází s novými nápady."
+				},
+				{
+					"id": 52,
+					"question": "…je společenský/á, družný/á."
+				},
+				{
+					"id": 53,
+					"question": "…dokáže být chladný/á a bezcitný/á."
+				},
+				{
+					"id": 54,
+					"question": "…udržuje věci úhledné a uspořádané."
+				},
+				{
+					"id": 55,
+					"question": "…je uvolněný/á, dobře zvládá stres."
+				},
+				{
+					"id": 56,
+					"question": "…se o umění příliš nezajímá."
+				},
+				{
+					"id": 57,
+					"question": "…upřednostňuje, aby se vedení ujali ostatní."
+				},
+				{
+					"id": 58,
+					"question": "…je uctivý/á, s ostatními zachází s úctou."
+				},
+				{
+					"id": 59,
+					"question": "…je vytrvalý/á, pracuje, dokud úkol nedokončí."
+				},
+				{
+					"id": 60,
+					"question": "…se cítí sebejistě, je sám/sama se sebou spokojen/a."
+				},
+				{
+					"id": 61,
+					"question": "…je přemýšlivý/á, nad věcmi uvažuje do hloubky."
+				},
+				{
+					"id": 62,
+					"question": "…je méně činorodý/á než ostatní."
+				},
+				{
+					"id": 63,
+					"question": "…má sklon hledat chyby na ostatních."
+				},
+				{
+					"id": 64,
+					"question": "…bývá poněkud ledabylý/á."
+				},
+				{
+					"id": 65,
+					"question": "…je emočně impulzivní, snadno se nechá vyvést z míry."
+				},
+				{
+					"id": 66,
+					"question": "…není příliš tvořivý/á."
+				}
+			]
+		},
+		{
+			"title": "Prosím uvěďte, do jaké míry souhlasíte s každým z následujících tvrzení:",
+			"header_id": 2,
+			"questions": []
+		},
+		{
+			"title": "",
+			"header_id": 1,
+			"randomize": true,
+			"questions": [
+				{
+					"id": 67,
+					"question": "Mám sklon manipulovat s ostatními, abych dosáhl/a svého."
+				},
+				{
+					"id": 68,
+					"question": "Lhal/a jsem nebo podváděl/a, abych dosáhl/a svého."
+				},
+				{
+					"id": 69,
+					"question": "Použil/a jsem lichotky, abych dosáhl/a svého."
+				},
+				{
+					"id": 70,
+					"question": "Mám sklon využívat ostatních pro svůj vlastní prospěch."
+				},
+				{
+					"id": 71,
+					"question": "Mám sklon nemít výčitky svědomí."
+				},
+				{
+					"id": 72,
+					"question": "Mám sklon se nezabývat morálností svých činů."
+				},
+				{
+					"id": 73,
+					"question": "Mám sklon být bezcitný/á nebo necitlivý/á."
+				},
+				{
+					"id": 74,
+					"question": "Mám sklon být cynický/á."
+				},
+				{
+					"id": 75,
+					"question": "Mám sklon chtít, aby mě ostatní obdivovali."
+				},
+				{
+					"id": 76,
+					"question": "Mám sklon chtít, aby mi ostatní věnovali pozornost."
+				},
+				{
+					"id": 77,
+					"question": "Mám sklon vyhledávat prestiž nebo postavení."
+				},
+				{
+					"id": 78,
+					"question": "Mám sklon očekávat od ostatních zvláštní laskavosti."
+				}
+			]
+		},
+		{
+			"title": "",
+			"header_id": 3,
+			"questions": [
+				{
+					"id": 79,
+					"question": "Koho jste volil ve volbách do poslanecké sněmovny v roce 2025? "
 				}
 			]
 		}
