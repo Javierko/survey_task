@@ -4,6 +4,7 @@
 	import { surveyManager, SurveyState } from '$lib/stores/surveyTask';
 	import { derived } from 'svelte/store';
 	import SurveyTaskQuestions from './SurveyTaskQuestions.svelte';
+	import { shuffleArray } from '@/utils';
 
 	const questionsList = derived(surveyManager, ($surveyManager) => {
 		return $surveyManager.state == SurveyState.Started
@@ -16,7 +17,11 @@
 	});
 
 	const questions = derived(questionsList, ($questionsList) => {
-		return $questionsList.questions || [];
+		return (
+			('randomize' in $questionsList && $questionsList.randomize
+				? shuffleArray($questionsList.questions)
+				: $questionsList.questions) || []
+		);
 	});
 
 	const slides = derived(surveyManager, ($surveyManager) => {
