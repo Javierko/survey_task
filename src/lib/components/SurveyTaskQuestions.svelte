@@ -147,7 +147,12 @@
 	const handleOptionClick = (rowId: number, click: SurveyOptionClick) => {
 		clicks[rowId].push(click);
 
-		if (questions.length === 1 && $surveyQuestion.has(questions.length)) {
+		if (
+			(questions.length === 1 && $surveyQuestion.has(questions.length)) ||
+			(questions.length > 1 &&
+				rowId === questions.length - 1 &&
+				$surveyQuestion.has(questions.length))
+		) {
 			handleNextSlide($surveyManager.slide === slides - 1);
 		}
 	};
