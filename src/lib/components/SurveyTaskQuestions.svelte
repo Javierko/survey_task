@@ -180,7 +180,9 @@
 		{#key $surveyManager.slide}
 			<div in:fade>
 				{#if questions.length > 0}
-					<div class="question-row flex items-center border-b border-gray-200">
+					<div
+						class="question-row sticky top-0 z-[999999] flex items-center overflow-hidden border-b border-gray-200 bg-white"
+					>
 						<div
 							id={getQuestionId($surveyManager.slide, 'header', 0)}
 							class="col-item col-item--title flex font-medium text-gray-700"
