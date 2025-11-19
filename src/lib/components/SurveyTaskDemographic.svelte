@@ -2,13 +2,13 @@
 	import { Input } from '$lib/shadcn/ui/input/index.js';
 	import { Label } from '$lib/shadcn/ui/label/index.js';
 	import * as Select from '$lib/shadcn/ui/select/index.js';
-	import { Checkbox } from '$lib/shadcn/ui/checkbox/index.js';
 	import Button from '@/shadcn/ui/button/button.svelte';
 	import Icon from '@iconify/svelte';
 	import * as Alert from '$lib/shadcn/ui/alert/index.js';
 	import { apiPost } from '@/services/apiService';
 	import { surveyManager, SurveyState, surveyUserToken } from '@/stores/surveyTask';
 	import { goto } from '$app/navigation';
+	import { Slider } from 'bits-ui';
 
 	const genders = [
 		{ value: 'male', label: 'Muž' },
@@ -23,38 +23,41 @@
 	];
 
 	const repres = [
-		{ value: '0', label: '0' },
-		{ value: '1', label: '1' },
-		{ value: '2', label: '2' },
-		{ value: '3', label: '3' },
-		{ value: '4', label: '4' },
-		{ value: '5', label: '5' },
-		{ value: '6', label: '6' },
-		{ value: '7', label: '7' },
-		{ value: '8', label: '8' },
+		{ value: '10', label: '10 - Nejvyšší stupínek' },
 		{ value: '9', label: '9' },
-		{ value: '10', label: '10' }
+		{ value: '8', label: '8' },
+		{ value: '7', label: '7' },
+		{ value: '6', label: '6' },
+		{ value: '5', label: '5' },
+		{ value: '4', label: '4' },
+		{ value: '3', label: '3' },
+		{ value: '2', label: '2' },
+		{ value: '1', label: '1 - Nejnižší stupínek' }
 	];
 
-	const sides = [
-		{ value: '0', label: '0 - Levice' },
-		{ value: '1', label: '1' },
-		{ value: '2', label: '2' },
-		{ value: '3', label: '3' },
-		{ value: '4', label: '4' },
-		{ value: '5', label: '5' },
-		{ value: '6', label: '6' },
-		{ value: '7', label: '7' },
-		{ value: '8', label: '8' },
-		{ value: '9', label: '9' },
-		{ value: '10', label: '10 - Pravice' }
+	const regions = [
+		{ value: 'CZ010', label: 'Hlavní město Praha' },
+		{ value: 'CZ020', label: 'Středočeský kraj' },
+		{ value: 'CZ031', label: 'Jihočeský kraj' },
+		{ value: 'CZ032', label: 'Plzeňský kraj' },
+		{ value: 'CZ041', label: 'Karlovarský kraj' },
+		{ value: 'CZ042', label: 'Ústecký kraj' },
+		{ value: 'CZ051', label: 'Liberecký kraj' },
+		{ value: 'CZ052', label: 'Královéhradecký kraj' },
+		{ value: 'CZ053', label: 'Pardubický kraj' },
+		{ value: 'CZ063', label: 'Kraj Vysočina' },
+		{ value: 'CZ064', label: 'Jihomoravský kraj' },
+		{ value: 'CZ071', label: 'Olomoucký kraj' },
+		{ value: 'CZ072', label: 'Zlínský kraj' },
+		{ value: 'CZ080', label: 'Moravskoslezský kraj' }
 	];
 
 	let age = $state<number>();
 	let gender = $state('');
 	let education = $state('');
 	let representation = $state('');
-	let side = $state('');
+	let region = $state('');
+	let side = $state(5);
 	let loading = $state(false);
 	let error = $state(false);
 
@@ -68,8 +71,8 @@
 	const representationContent = $derived(
 		repres.find((f) => f.value === representation)?.label ?? 'Jaká je Vaše reprezentace?'
 	);
-	const sideContent = $derived(
-		sides.find((f) => f.value === side)?.label ?? 'Jaká je Vaše politická orientace?'
+	const regionContent = $derived(
+		regions.find((f) => f.value === region)?.label ?? 'Jaký je Váš region?'
 	);
 
 	const handleSubmit = async () => {
@@ -81,14 +84,15 @@
 				age,
 				gender,
 				education,
+				region,
 				social_representation: +representation,
-				political_side: +side
+				political_side: side
 			},
 			$surveyUserToken
 		);
 
 		if (res.Status === 200) {
-			surveyManager.setState(SurveyState.Started);
+			surveyManager.setState(SurveyState.Rest);
 			goto('/survey');
 		} else {
 			error = true;
@@ -164,6 +168,24 @@
 		</div>
 
 		<div class="5 flex w-full flex-col gap-1">
+			<Label for="region">Jaký je Váš region?</Label>
+			<Select.Root type="single" name="region" bind:value={region} required>
+				<Select.Trigger>
+					{regionContent}
+				</Select.Trigger>
+				<Select.Content>
+					<Select.Group>
+						{#each regions as region}
+							<Select.Item value={region.value} label={region.label}>
+								{region.label}
+							</Select.Item>
+						{/each}
+					</Select.Group>
+				</Select.Content>
+			</Select.Root>
+		</div>
+
+		<div class="5 flex w-full flex-col gap-1">
 			<Label for="repre">
 				Představte si žebříček, který reprezentuje postavení lidí v České republice. Na nejvyšším
 				stupínku jsou lidé, kteří se mají nejlépe - ti, kteří mají nejvíce peněz, nejvyšší vzdělání
@@ -189,24 +211,62 @@
 			</Select.Root>
 		</div>
 
-		<div class="5 flex w-full flex-col gap-1">
+		<div class="flex w-full flex-col gap-1">
 			<Label for="side">
 				Mnoho lidí používá pojmy "levice" a "pravice", když chtějí popsat rozdílné politické názory.
 				Zde máme k dispozici škálu běžící od levice k pravici. Když se zamyslíte nad Vašimi
 				vlastními politickými názory, kde na této škále byste se umístil/a?
 			</Label>
-			<Select.Root type="single" name="side" bind:value={side} required>
-				<Select.Trigger>
-					{sideContent}
-				</Select.Trigger>
-				<Select.Content>
-					<Select.Group>
-						{#each sides as side}
-							<Select.Item value={side.value} label={side.label}>{side.label}</Select.Item>
-						{/each}
-					</Select.Group>
-				</Select.Content>
-			</Select.Root>
+		</div>
+
+		<div class="mt-8">
+			<Slider.Root
+				step={1}
+				min={0}
+				max={10}
+				type="single"
+				bind:value={side}
+				class="relative flex w-full touch-none select-none items-center"
+				trackPadding={2}
+			>
+				{#snippet children({ tickItems, thumbItems })}
+					<span
+						class="relative h-2 w-full grow cursor-pointer overflow-hidden rounded-full bg-secondary"
+					>
+						<Slider.Range class="absolute h-full bg-primary" />
+					</span>
+					{#each thumbItems as { index } (index)}
+						<Slider.Thumb
+							{index}
+							class="block size-5 rounded-full border-2 border-primary bg-background ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
+						/>
+					{/each}
+					{#each tickItems as { index, value } (index)}
+						<Slider.Tick {index} class="z-1 h-2 w-[1px] bg-background dark:bg-background/20" />
+						<Slider.TickLabel
+							{index}
+							class="data-bounded:text-foreground mb-5 text-sm font-medium leading-none text-muted-foreground"
+							position="top"
+						>
+							{value}
+						</Slider.TickLabel>
+					{/each}
+				{/snippet}
+			</Slider.Root>
+
+			<div class="mt-5 flex items-center justify-between">
+				<div class="rounded-md bg-gray-300 px-2 py-1 text-center text-sm font-medium text-gray-700">
+					Levice
+				</div>
+
+				<div class="rounded-md bg-gray-300 px-2 py-1 text-center text-sm font-medium text-gray-700">
+					Střed
+				</div>
+
+				<div class="rounded-md bg-gray-300 px-2 py-1 text-center text-sm font-medium text-gray-700">
+					Pravice
+				</div>
+			</div>
 		</div>
 
 		<div class="flex justify-end">
