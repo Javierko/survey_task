@@ -1,7 +1,7 @@
 {
 	"start": [
 		{
-			"title": "Následující otázky se týkají Vašeho postoje k různým skupinám lidí.<br><br>Představte si „teploměr pocitů“, který ukazuje, jak příznivě nebo nepříznivě se na danou skupinu díváte.<br><br>Hodnota 50 znamená velmi teplé (příznivé) pocity, - 50 znamená velmi chladné (nepříznivé) pocity a 0 znamená neutrální postoj.<br><br>Jak byste ohodnotil/a své pocity vůči následující skupině?",
+			"title": "Následující otázky se týkají Vašeho postoje k různým skupinám lidí.<br><br>Představte si „teploměr pocitů“, který ukazuje, jak příznivě nebo nepříznivě se na danou skupinu díváte.<br><br>Hodnota 50 znamená velmi teplé (příznivé) pocity, - 50 znamená velmi chladné (nepříznivé) pocity a 0 znamená neutrální postoj.<br><br>Jak byste ohodnotil/a své pocity vůči následujícím skupinám?",
 			"header_id": 2,
 			"questions": []
 		},
@@ -43,6 +43,16 @@
 		}
 	],
 	"rest": [
+		{
+			"title": "",
+			"header_id": 0,
+			"questions": [
+				{
+					"id": 999,
+					"question": "Abychom se ujistili, že věnujete otázkám pozornost, prosím zvolte možnost „rozhodně nesouhlasím“."
+				}
+			]
+		},
 		{
 			"title": "Prosím uvěďte, do jaké míry souhlasíte s každým z následujících tvrzení:",
 			"header_id": 2,
@@ -131,7 +141,7 @@
 				},
 				{
 					"id": 25,
-					"question": "Hodnoty, které etnické menšiny učí své děti, jsou odlišné od těch, které jsou zde potřebné."
+					"question": "Hodnoty, které etnické menšiny učí své děti, jsou odlišné od těch, které jsou v naší zemi potřebné."
 				},
 				{
 					"id": 26,
@@ -192,12 +202,12 @@
 			]
 		},
 		{
-			"title": "Následující vlastnosti mohou nebo nemusí vystihovat Vaši osobnost. Určete u každého tvrzení, do jaké míry s ním souhlasíte nebo nesouhlasíte. \"Považuji se za někoho, kdo …:\"",
+			"title": "Následující vlastnosti mohou nebo nemusí vystihovat Vaši osobnost. Určete u každého tvrzení, do jaké míry s ním souhlasíte nebo nesouhlasíte.",
 			"header_id": 2,
 			"questions": []
 		},
 		{
-			"title": "",
+			"title": "Považuji se za někoho, kdo …:",
 			"header_id": 0,
 			"randomize": true,
 			"questions": [
@@ -380,16 +390,6 @@
 				{
 					"id": 78,
 					"question": "Mám sklon očekávat od ostatních zvláštní laskavosti."
-				}
-			]
-		},
-		{
-			"title": "",
-			"header_id": 3,
-			"questions": [
-				{
-					"id": 79,
-					"question": "Koho jste volil ve volbách do poslanecké sněmovny v roce 2025? "
 				}
 			]
 		}
