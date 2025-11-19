@@ -163,12 +163,6 @@
 		surveyQuestion.set(new Set([0]));
 	};
 
-	const errorToast = (message: string, description: string) => {
-		toast.error(message, {
-			description: description
-		});
-	};
-
 	$effect.pre(() => {
 		if (questions) {
 			reset();

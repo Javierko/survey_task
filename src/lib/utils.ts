@@ -1,6 +1,7 @@
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import words from '$lib/data/iat/words.json';
+import { toast } from 'svelte-sonner';
 
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
@@ -86,4 +87,10 @@ export const takeFromArray = <T>(arr: T[], take: number): T[] => {
 	}
 
 	return result;
+};
+
+export const errorToast = (message: string, description: string) => {
+	toast.error(message, {
+		description: description
+	});
 };
