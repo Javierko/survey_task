@@ -192,7 +192,11 @@
 
 						<div class="flex w-full items-center justify-end gap-0">
 							{#each headers as header, i}
-								<div id={getQuestionId($surveyManager.slide, 'header', i + 1)} class="col-item">
+								<div
+									id={getQuestionId($surveyManager.slide, 'header', i + 1)}
+									class="col-item hyphens-auto"
+									lang="cs"
+								>
 									{header}
 								</div>
 							{/each}
