@@ -103,8 +103,12 @@
 
 	<p>
 		Děkujeme Vám za účast ve výzkumu, který je realizován Psychologickým ústavem Akademie věd České
-		republiky. V následující části naleznete několik výroků týkajících se Vašich názorů, prožívání a
-		běžného fungování. Neexistují správné nebo špatné odpovědi, zajímá nás Vaše vlastní vnímání.
+		republiky. Testování zabere přibližně 30 minut a proběhne dvakrát – nyní a následně znovu
+		přibližně za dva měsíce, kdy Vám přijde opět e-mail s odkazem. Během testování prosím používejte
+		počítač s připojenou klávesnicí a počítačovou myší, protože v některých úkolech budeme měřit
+		reakční dobu Vašich odpovědí. V následující části naleznete několik výroků týkajících se Vašich
+		názorů, prožívání a běžného fungování. Neexistují správné nebo špatné odpovědi, zajímá nás Vaše
+		vlastní vnímání.
 	</p>
 
 	<p>Vaše odpovědi jsou anonymní a budou využity výhradně pro výzkumné účely.</p>
