@@ -138,6 +138,11 @@
 	const handleOptionClick = (rowId: number, click: SurveyOptionClick) => {
 		clicks[rowId].push(click);
 
+		const currentQuestion = questions[rowId];
+		if (currentQuestion && currentQuestion.range && currentQuestion.default !== undefined) {
+			return;
+		}
+
 		if (
 			(questions.length === 1 && $surveyQuestion.has(questions.length)) ||
 			(questions.length > 1 &&
