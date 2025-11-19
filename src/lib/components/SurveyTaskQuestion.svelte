@@ -129,7 +129,7 @@
 			</div>
 		</div>
 	{:else}
-		<RadioGroup.Root data-orientation="horizontal" class="flex items-center gap-0">
+		<RadioGroup.Root data-orientation="horizontal" class="relative z-10 flex items-center gap-0">
 			{#each options as option, j}
 				<div id={getQuestionId($surveyManager.slide, rowId, j + 1)} class="col-item">
 					<RadioGroup.Item

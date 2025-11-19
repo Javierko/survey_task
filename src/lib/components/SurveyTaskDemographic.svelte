@@ -92,7 +92,7 @@
 		);
 
 		if (res.Status === 200) {
-			surveyManager.setState(SurveyState.Rest);
+			surveyManager.setState(SurveyState.Started);
 			goto('/survey');
 		} else {
 			error = true;

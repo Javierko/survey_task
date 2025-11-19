@@ -6,7 +6,7 @@
 		surveyUserToken,
 		type SurveyOptionClick
 	} from '$lib/stores/surveyTask';
-	import { getQuestionId } from '$lib/utils';
+	import { errorToast, getQuestionId } from '$lib/utils';
 	import { fade } from 'svelte/transition';
 	import { onMount } from 'svelte';
 	import { Button } from '$lib/shadcn/ui/button';
@@ -14,7 +14,6 @@
 	import { apiPost } from '@/services/apiService';
 	import Icon from '@iconify/svelte';
 	import { toast } from 'svelte-sonner';
-	import { removeFromLocalStorage } from '@/services/localStorageService';
 
 	interface Props {
 		headers: string[];
@@ -128,16 +127,8 @@
 				surveyManager.setSlide(0);
 				surveyManager.setState(SurveyState.Iat);
 			} else if ($surveyManager.state == SurveyState.Rest) {
-				surveyManager.setState(SurveyState.Finished);
-				removeFromLocalStorage('user');
-
-				await apiPost(
-					'participants/complete',
-					{
-						completed_at: new Date().toISOString()
-					},
-					$surveyUserToken
-				);
+				surveyManager.setSlide($surveyManager.slide + 1);
+				surveyManager.setState(SurveyState.Voted);
 			}
 		} else {
 			surveyManager.setSlide($surveyManager.slide + 1);

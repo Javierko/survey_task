@@ -7,6 +7,7 @@ export enum SurveyState {
 	Started,
 	Iat,
 	Rest,
+	Voted,
 	Finished
 }
 
