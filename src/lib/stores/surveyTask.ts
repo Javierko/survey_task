@@ -27,6 +27,7 @@ export interface SurveyManager {
 	type: SurveyStartedWithType;
 }
 
+export const surveyUserIdentity = writable<string | null>(null);
 export const surveyUserToken = writable<string | null>(null);
 export const surveyQuestion = writable(new Set([0]));
 

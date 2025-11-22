@@ -10,6 +10,7 @@
 	import {
 		surveyManager,
 		SurveyState,
+		surveyUserIdentity,
 		surveyUserToken,
 		type SurveyManager
 	} from '@/stores/surveyTask';
@@ -19,6 +20,7 @@
 		const getLocalParticipant = getFromLocalStorage<Participant>('user');
 
 		if (getLocalParticipant != null) {
+			surveyUserIdentity.set(getLocalParticipant.IdentityId);
 			surveyUserToken.set(getLocalParticipant.Token);
 		} else {
 			goto('/');
