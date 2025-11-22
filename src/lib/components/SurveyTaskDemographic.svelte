@@ -9,6 +9,8 @@
 	import { surveyManager, SurveyState, surveyUserToken } from '@/stores/surveyTask';
 	import { goto } from '$app/navigation';
 	import { Slider } from 'bits-ui';
+	import { get } from 'svelte/store';
+	import { removeFromLocalStorage } from '@/services/localStorageService';
 
 	const genders = [
 		{ value: 'male', label: 'Muž' },
@@ -59,7 +61,7 @@
 	let region = $state('');
 	let side = $state(5);
 	let loading = $state(false);
-	let error = $state(false);
+	let error = $state<null | 'missingFields' | 'quotaFull'>(null);
 
 	const genderContent = $derived(
 		genders.find((f) => f.value === gender)?.label ?? 'Jaké je Vaše pohlaví?'
@@ -95,7 +97,14 @@
 			surveyManager.setState(SurveyState.Started);
 			goto('/survey');
 		} else {
-			error = true;
+			if ('errors' in res) {
+				error = 'missingFields';
+			} else if (res.Message.includes('quota exceeded')) {
+				error = 'quotaFull';
+				removeFromLocalStorage('user');
+
+				window.location.href = `https://return-to.enp.world/respondent-research-status/research/40966/?status=quota_full&id=${get(surveyUserToken)}`;
+			}
 		}
 
 		loading = false;
