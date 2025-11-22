@@ -3,6 +3,7 @@
 		surveyManager,
 		surveyQuestion,
 		SurveyState,
+		surveyUserIdentity,
 		surveyUserToken,
 		type SurveyOptionClick
 	} from '$lib/stores/surveyTask';
@@ -13,7 +14,8 @@
 	import SurveyTaskQuestion from './SurveyTaskQuestion.svelte';
 	import { apiPost } from '@/services/apiService';
 	import Icon from '@iconify/svelte';
-	import { toast } from 'svelte-sonner';
+	import { removeFromLocalStorage } from '@/services/localStorageService';
+	import { get } from 'svelte/store';
 
 	interface Props {
 		headers: string[];
@@ -28,7 +30,6 @@
 	}
 
 	let { headers, questions, slides, title }: Props = $props();
-
 	let loadTime: number | null = null;
 
 	const initClicks = () => Array.from({ length: questions.length }, () => new Array());
@@ -38,6 +39,19 @@
 
 	const handleNextSlide = async (last = false) => {
 		loading = true;
+
+		if (
+			questions.length === 1 &&
+			questions[0].id === 999 &&
+			clicks.length === 1 &&
+			clicks[0].length === 1 &&
+			clicks[0][0].value !== 1
+		) {
+			removeFromLocalStorage('user');
+			window.location.href = `https://return-to.enp.world/respondent-research-status/research/40966/?status=qcout&id=${get(surveyUserIdentity)}`;
+
+			return;
+		}
 
 		if (loadTime) {
 			const loadTimeRes = await apiPost(
