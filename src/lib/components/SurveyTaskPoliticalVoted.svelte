@@ -124,8 +124,6 @@
 			}
 		}
 
-		removeFromLocalStorage('user');
-
 		await apiPost(
 			'participants/complete',
 			{
