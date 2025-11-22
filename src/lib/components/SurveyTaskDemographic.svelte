@@ -126,8 +126,8 @@
 				type="number"
 				id="number"
 				placeholder="Kolik je Vám let?"
-				min="0"
-				max="99"
+				min="18"
+				max="65"
 				bind:value={age}
 				required
 			/>
