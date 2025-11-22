@@ -40,19 +40,14 @@
 					"default": 0
 				}
 			]
+		},
+		{
+			"title": "V následující části budete vyplňovat test, který měří rychlost přiřazování slov a obrázků do různých kategorií. Test se skládá z několika částí, které se postupně střídají. Nejprve budete třídít fotografie lidských tváří do kategorií „Bílí lidé“ a „Černí lidé“. Poté budete třídít slova označující pozitivní nebo negativní význam do kategorií „dobré“ a „špatné“.<br><br>V dalších částech se tyto úlohy zkombinují – například budete mít přiřadit jednou klávesou „Bílí lidé“ nebo „dobré“ a druhou klávesou „Černí lidé“ nebo „špatné“. V jiné části se toto přiřazení prohodí.<br><br>Vaším úkolem je reagovat co nejrychleji a zároveň co nejpřesněji. V každé části uvidíte přesné instrukce, co máte dělat. Pokud uděláte chybu, zobrazí se upozornění a budete moci odpověď opravit.",
+			"header_id": 2,
+			"questions": []
 		}
 	],
 	"rest": [
-		{
-			"title": "",
-			"header_id": 0,
-			"questions": [
-				{
-					"id": 999,
-					"question": "Abychom se ujistili, že věnujete otázkám pozornost, prosím zvolte možnost „rozhodně nesouhlasím“."
-				}
-			]
-		},
 		{
 			"title": "Prosím uvěďte, do jaké míry souhlasíte s každým z následujících tvrzení:",
 			"header_id": 2,
@@ -93,7 +88,7 @@
 				},
 				{
 					"id": 13,
-					"question": "V posledních letech se lidem z menšin dostalo vice, než si zaslouží. "
+					"question": "V posledních letech se lidem z menšin dostalo více, než si zaslouží. "
 				},
 				{
 					"id": 14,
@@ -121,7 +116,7 @@
 				},
 				{
 					"id": 20,
-					"question": "Zvýhodnění etnických menšin znamená nespravedlnost vůči většinové populaci"
+					"question": "Zvýhodnění etnických menšin znamená nespravedlnost vůči většinové populaci."
 				},
 				{
 					"id": 21,
@@ -158,6 +153,16 @@
 				{
 					"id": 29,
 					"question": "Když organizace zvyšují rozmanitost, většinová společnost ztrácí část svého vlivu a postavení."
+				}
+			]
+		},
+		{
+			"title": "",
+			"header_id": 0,
+			"questions": [
+				{
+					"id": 999,
+					"question": "Abychom se ujistili, že věnujete otázkám pozornost, prosím zvolte možnost „rozhodně nesouhlasím“."
 				}
 			]
 		},
@@ -213,51 +218,51 @@
 			"questions": [
 				{
 					"id": 37,
-					"question": "...bývá tichý/á."
+					"question": "…bývá tichý/á."
 				},
 				{
 					"id": 38,
-					"question": "... je soucitný/á, má dobré srdce."
+					"question": "…je soucitný/á, má dobré srdce."
 				},
 				{
 					"id": 39,
-					"question": "... má sklon být chaotický/á."
+					"question": "…má sklon být chaotický/á."
 				},
 				{
 					"id": 40,
-					"question": "...si hodně dělá starosti."
+					"question": "…si hodně dělá starosti."
 				},
 				{
 					"id": 41,
-					"question": "...je fascinován/a uměním, hudbou a literaturou."
+					"question": "…je fascinován/a uměním, hudbou a literaturou."
 				},
 				{
 					"id": 42,
-					"question": "...je dominantní, zastává roli vůdce."
+					"question": "…je dominantní, zastává roli vůdce."
 				},
 				{
 					"id": 43,
-					"question": "...je někdy na ostatní hrubý/á."
+					"question": "…je někdy na ostatní hrubý/á."
 				},
 				{
 					"id": 44,
-					"question": "...má obtíže začít s úkoly."
+					"question": "…má obtíže začít s úkoly."
 				},
 				{
 					"id": 45,
-					"question": "...má sklon být skleslý/á, v depresi."
+					"question": "…má sklon být skleslý/á, v depresi."
 				},
 				{
 					"id": 46,
-					"question": "...se příliš nezajímá o abstraktní myšlenky."
+					"question": "…se příliš nezajímá o abstraktní myšlenky."
 				},
 				{
 					"id": 47,
-					"question": "...je plný/á energie."
+					"question": "…je plný/á energie."
 				},
 				{
 					"id": 48,
-					"question": "...si o lidech myslí to nejlepší."
+					"question": "…si o lidech myslí to nejlepší."
 				},
 				{
 					"id": 49,
