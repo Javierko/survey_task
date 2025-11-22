@@ -26,6 +26,7 @@
 				category: Category;
 			}
 		>;
+		info: string;
 		data: Record<Category, string[]>;
 		currentPart: number;
 		currentPartCount: number;
@@ -36,7 +37,7 @@
 	const LIMIT_IN_ROW = 3;
 	const LIMIT_IN_ROW_LOW = 2;
 
-	let { categories, data, currentPart, currentPartCount, isFirst, slideCompleted }: Props =
+	let { categories, info, data, currentPart, currentPartCount, isFirst, slideCompleted }: Props =
 		$props();
 	let preparation = $state(false);
 	let itemShowedAt = $state<number>(Date.now());
@@ -44,6 +45,7 @@
 	let loading = $state(false);
 	let currentItemIndex = $state(0);
 	let incorrect = $state(false);
+	let lastIncorrectAnswer = $state<[IatAnswer, number] | null>(null);
 
 	const handleKeyDown = (event: KeyboardEvent) => {
 		if (event.key.toLowerCase() === 'i' || event.key.toLowerCase() === 'e') {
@@ -66,17 +68,25 @@
 		if (data[keyCategory].includes(currentItem)) {
 			incorrect = false;
 
+			if (lastIncorrectAnswer) {
+				finalAnswers.push(lastIncorrectAnswer[0]);
+			}
+
 			finalAnswers.push({
 				block: currentPart,
 				trial: currentItemIndex,
 				aoi: `block-${currentPart}-trial-${currentItemIndex}-item-${currentItem}`,
 				answer: key.toLowerCase() as Key,
 				answer_type: 'correct',
-				reaction: Date.now() - itemShowedAt,
+				reaction:
+					(lastIncorrectAnswer == null
+						? Date.now() - itemShowedAt
+						: Date.now() - lastIncorrectAnswer[1]) / 1000,
 				showed_at: new Date(itemShowedAt).toISOString(),
 				answered_at: new Date().toISOString()
 			});
 
+			lastIncorrectAnswer = null;
 			currentItemIndex++;
 
 			if (currentItemIndex >= items.length) {
@@ -98,6 +108,24 @@
 				slideCompleted();
 			}
 		} else {
+			if (!incorrect) {
+				const currentTime = Date.now();
+
+				lastIncorrectAnswer = [
+					{
+						block: currentPart,
+						trial: currentItemIndex,
+						aoi: `block-${currentPart}-trial-${currentItemIndex}-item-${currentItem}`,
+						answer: key.toLowerCase() as Key,
+						answer_type: 'incorrect',
+						reaction: (currentTime - itemShowedAt) / 1000,
+						showed_at: new Date(itemShowedAt).toISOString(),
+						answered_at: new Date().toISOString()
+					},
+					currentTime
+				];
+			}
+
 			incorrect = true;
 		}
 	};
@@ -263,7 +291,7 @@
 		class="mt-28 flex flex-col gap-4 transition-all duration-200 ease-in-out"
 		class:opacity-0={preparation}
 	>
-		{#if isFirst && !preparation}
+		{#if !preparation}
 			<div transition:fade class="-mt-16">
 				<Alert.Root>
 					<Icon icon="mdi:information-slab-circle-outline" class="h-5 w-5 text-orange-400" />
@@ -271,15 +299,7 @@
 
 					<Alert.Description>
 						<p>
-							V této studii vyplníte test implicitních asociací (IAT), v němž budete vyzváni, abyste
-							roztřídili obrázky a slova do skupin co nejrychleji dokážete. Vyplnění této studie by
-							mělo trvat asi 10 minut. Na konci obdržíte výsledek testu IAT spolu s informacemi o
-							tom, co znamená.
-						</p>
-
-						<p>
-							Déle budete používat počítačové klávesy „E“ a „I“ ke kategorizaci položek do skupin co
-							nejrychleji dokážete.
+							{info}
 						</p>
 					</Alert.Description>
 				</Alert.Root>
