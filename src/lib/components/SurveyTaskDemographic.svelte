@@ -79,7 +79,13 @@
 	);
 
 	const handleSubmit = async () => {
-		if (!sideClicked) {
+		if (
+			!sideClicked ||
+			gender === '' ||
+			education === '' ||
+			representation === '' ||
+			region === ''
+		) {
 			error = 'missingFields';
 
 			return;
