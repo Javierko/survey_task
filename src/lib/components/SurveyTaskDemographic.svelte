@@ -60,6 +60,7 @@
 	let representation = $state('');
 	let region = $state('');
 	let side = $state(5);
+	let sideClicked = $state(false);
 	let loading = $state(false);
 	let error = $state<null | 'missingFields' | 'quotaFull'>(null);
 
@@ -78,6 +79,12 @@
 	);
 
 	const handleSubmit = async () => {
+		if (!sideClicked) {
+			error = 'missingFields';
+
+			return;
+		}
+
 		loading = true;
 
 		const res = await apiPost(
@@ -237,6 +244,7 @@
 				bind:value={side}
 				class="relative flex w-full touch-none select-none items-center"
 				trackPadding={2}
+				onValueCommit={() => (sideClicked = true)}
 			>
 				{#snippet children({ tickItems, thumbItems })}
 					<span
@@ -276,6 +284,10 @@
 					Pravice
 				</div>
 			</div>
+
+			{#if error === 'missingFields' && !sideClicked}
+				<small class="text-red-500">Prosím zvolte svou pozici na škále.</small>
+			{/if}
 		</div>
 
 		<div class="flex justify-end">
