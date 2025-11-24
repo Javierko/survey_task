@@ -11,16 +11,16 @@
 	import { errorToast } from '@/utils';
 
 	const politicalSides = [
-		{ value: '0', label: 'ANO 2011' },
-		{ value: '1', label: 'SPOLU' },
-		{ value: '2', label: 'Svoboda a Přímá Demokracie (SPD)' },
-		{ value: '3', label: 'Motoristé sobě' },
-		{ value: '4', label: 'Česká pirátská strana' },
-		{ value: '5', label: 'Starostové a nezávislí' },
-		{ value: '6', label: 'Stačilo!' },
-		{ value: '7', label: 'PŘÍSAHA občanské hnutí' },
-		{ value: '8', label: 'Ostatní' },
-		{ value: '9', label: 'Nevolil/a jsem' }
+		{ value: '1', label: 'ANO 2011' },
+		{ value: '2', label: 'SPOLU' },
+		{ value: '3', label: 'Svoboda a Přímá Demokracie (SPD)' },
+		{ value: '4', label: 'Motoristé sobě' },
+		{ value: '5', label: 'Česká pirátská strana' },
+		{ value: '6', label: 'Starostové a nezávislí' },
+		{ value: '7', label: 'Stačilo!' },
+		{ value: '8', label: 'PŘÍSAHA občanské hnutí' },
+		{ value: '9', label: 'Ostatní' },
+		{ value: '10', label: 'Nevolil/a jsem' }
 	];
 
 	let voted = $state('');
