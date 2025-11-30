@@ -32,13 +32,22 @@
 		currentPartCount: number;
 		isFirst: boolean;
 		slideCompleted: () => void;
+		skipIat: () => void;
 	}
 
 	const LIMIT_IN_ROW = 3;
 	const LIMIT_IN_ROW_LOW = 2;
 
-	let { categories, info, data, currentPart, currentPartCount, isFirst, slideCompleted }: Props =
-		$props();
+	let {
+		categories,
+		info,
+		data,
+		currentPart,
+		currentPartCount,
+		isFirst,
+		slideCompleted,
+		skipIat
+	}: Props = $props();
 	let preparation = $state(false);
 	let itemShowedAt = $state<number>(Date.now());
 	let finalAnswers = $state<IatAnswer[]>([]);
@@ -47,16 +56,24 @@
 	let incorrect = $state(false);
 	let lastIncorrectAnswer = $state<[IatAnswer, number] | null>(null);
 
-	const handleKeyDown = (event: KeyboardEvent) => {
+	const handleKeyDown = async (event: KeyboardEvent) => {
+		if (event.key === ' ') {
+			preparation = true;
+			itemShowedAt = Date.now();
+		} else if (event.key === 'Escape') {
+			await sendAnswers();
+
+			skipIat();
+		}
+	};
+
+	const handleKeyUp = (event: KeyboardEvent) => {
 		if (event.key.toLowerCase() === 'i' || event.key.toLowerCase() === 'e') {
 			if (!preparation) {
 				return;
 			}
 
 			handleKey(event.key.toLowerCase());
-		} else if (event.key === ' ') {
-			preparation = true;
-			itemShowedAt = Date.now();
 		}
 	};
 
@@ -65,70 +82,114 @@
 
 		let keyCategory = categories[key as Key].category;
 
-		if (data[keyCategory].includes(currentItem)) {
-			incorrect = false;
+		finalAnswers.push({
+			block: currentPart,
+			trial: currentItemIndex,
+			aoi: `block-${currentPart}-trial-${currentItemIndex}-item-${currentItem}`,
+			answer: key.toLowerCase() as Key,
+			answer_type: data[keyCategory].includes(currentItem) ? 'correct' : 'incorrect',
+			reaction: (Date.now() - itemShowedAt) / 1000,
+			showed_at: new Date(itemShowedAt).toISOString(),
+			answered_at: new Date().toISOString()
+		});
 
-			if (lastIncorrectAnswer) {
-				finalAnswers.push(lastIncorrectAnswer[0]);
-			}
+		currentItemIndex++;
 
-			finalAnswers.push({
-				block: currentPart,
-				trial: currentItemIndex,
-				aoi: `block-${currentPart}-trial-${currentItemIndex}-item-${currentItem}`,
-				answer: key.toLowerCase() as Key,
-				answer_type: 'correct',
-				reaction:
-					(lastIncorrectAnswer == null
-						? Date.now() - itemShowedAt
-						: Date.now() - lastIncorrectAnswer[1]) / 1000,
-				showed_at: new Date(itemShowedAt).toISOString(),
-				answered_at: new Date().toISOString()
-			});
+		if (currentItemIndex >= items.length) {
+			await sendAnswers();
 
-			lastIncorrectAnswer = null;
-			currentItemIndex++;
-
-			if (currentItemIndex >= items.length) {
-				loading = true;
-				if (finalAnswers.length > 0) {
-					const answersRes = await apiPost('iat/answers', finalAnswers, $surveyUserToken);
-
-					if (answersRes.Status != 200) {
-						errorToast(
-							'Chyba při ukládání dat',
-							'Nepodařilo se uložit data o odpovědích. Kontaktujte admina.'
-						);
-					}
-				}
-
-				loading = false;
-				preparation = false;
-				currentItemIndex = 0;
-				slideCompleted();
-			}
-		} else {
-			if (!incorrect) {
-				const currentTime = Date.now();
-
-				lastIncorrectAnswer = [
-					{
-						block: currentPart,
-						trial: currentItemIndex,
-						aoi: `block-${currentPart}-trial-${currentItemIndex}-item-${currentItem}`,
-						answer: key.toLowerCase() as Key,
-						answer_type: 'incorrect',
-						reaction: (currentTime - itemShowedAt) / 1000,
-						showed_at: new Date(itemShowedAt).toISOString(),
-						answered_at: new Date().toISOString()
-					},
-					currentTime
-				];
-			}
-
-			incorrect = true;
+			preparation = false;
+			currentItemIndex = 0;
+			slideCompleted();
 		}
 	};
+
+	const sendAnswers = async () => {
+		loading = true;
+
+		if (finalAnswers.length > 0) {
+			const answersRes = await apiPost('iat/answers', finalAnswers, $surveyUserToken);
+
+			if (answersRes.Status != 200) {
+				errorToast(
+					'Chyba při ukládání dat',
+					'Nepodařilo se uložit data o odpovědích. Kontaktujte admina.'
+				);
+			}
+		}
+
+		loading = false;
+	};
+
+	// const handleKey = async (key: string) => {
+	// 	if (!currentItem) return;
+
+	// 	let keyCategory = categories[key as Key].category;
+
+	// 	if (data[keyCategory].includes(currentItem)) {
+	// 		incorrect = false;
+
+	// 		if (lastIncorrectAnswer) {
+	// 			finalAnswers.push(lastIncorrectAnswer[0]);
+	// 		}
+
+	// 		finalAnswers.push({
+	// 			block: currentPart,
+	// 			trial: currentItemIndex,
+	// 			aoi: `block-${currentPart}-trial-${currentItemIndex}-item-${currentItem}`,
+	// 			answer: key.toLowerCase() as Key,
+	// 			answer_type: 'correct',
+	// 			reaction:
+	// 				(lastIncorrectAnswer == null
+	// 					? Date.now() - itemShowedAt
+	// 					: Date.now() - lastIncorrectAnswer[1]) / 1000,
+	// 			showed_at: new Date(itemShowedAt).toISOString(),
+	// 			answered_at: new Date().toISOString()
+	// 		});
+
+	// 		lastIncorrectAnswer = null;
+	// 		currentItemIndex++;
+
+	// 		if (currentItemIndex >= items.length) {
+	// 			loading = true;
+	// 			if (finalAnswers.length > 0) {
+	// 				const answersRes = await apiPost('iat/answers', finalAnswers, $surveyUserToken);
+
+	// 				if (answersRes.Status != 200) {
+	// 					errorToast(
+	// 						'Chyba při ukládání dat',
+	// 						'Nepodařilo se uložit data o odpovědích. Kontaktujte admina.'
+	// 					);
+	// 				}
+	// 			}
+
+	// 			loading = false;
+	// 			preparation = false;
+	// 			currentItemIndex = 0;
+	// 			slideCompleted();
+	// 		}
+	// 	} else {
+	// 		if (!incorrect) {
+	// 			const currentTime = Date.now();
+
+	// 			lastIncorrectAnswer = [
+	// 				{
+	// 					block: currentPart,
+	// 					trial: currentItemIndex,
+	// 					aoi: `block-${currentPart}-trial-${currentItemIndex}-item-${currentItem}`,
+	// 					answer: key.toLowerCase() as Key,
+	// 					answer_type: 'incorrect',
+	// 					reaction: (currentTime - itemShowedAt) / 1000,
+	// 					showed_at: new Date(itemShowedAt).toISOString(),
+	// 					answered_at: new Date().toISOString()
+	// 				},
+	// 				currentTime
+	// 			];
+	// 		}
+
+	// 		incorrect = true;
+	// 	}
+	// };
 
 	let items = $state<string[]>([]);
 
@@ -245,10 +306,12 @@
 				<div class="flex flex-col items-center justify-center gap-0.5">
 					{#each value.title.split(' ') as titleItem}
 						{#if titleItem === 'nebo'}
-							<span class="text-lg font-semibold text-gray-700">{titleItem.replace('_', ' ')}</span>
+							<span class="text-lg font-semibold text-gray-700"
+								>{titleItem.replaceAll('_', ' ')}</span
+							>
 						{:else}
 							<span class="text-2xl font-semibold text-green-600">
-								{titleItem.replace('_', ' ')}
+								{titleItem.replaceAll('_', ' ')}
 							</span>
 						{/if}
 					{/each}
@@ -262,10 +325,10 @@
 		class:opacity-0={!preparation}
 	>
 		<div
-			class:border-red-400={incorrect}
+			class:border-red-400={false && incorrect}
 			class="relative flex w-72 flex-col items-center gap-2 rounded-md border border-gray-300/60 p-4 shadow-sm"
 		>
-			{#if incorrect}
+			{#if false && incorrect}
 				<div
 					in:fade
 					class="absolute inset-0 -left-4 -top-4 flex h-8 w-8 items-center justify-center rounded-full border border-red-600/30 bg-red-50 text-red-700"
@@ -311,12 +374,12 @@
 		<div class="flex flex-col gap-0.5">
 			<span>
 				Dejte levý prst na klávesu <kbd>E</kbd> pro položky, které patří do kategorie:
-				<span class="text-green-600">{categories.e.title.replace('_', ' ')}</span>
+				<span class="text-green-600">{categories.e.title.replaceAll('_', ' ')}</span>
 			</span>
 
 			<span>
 				Dejte pravý prst na klávesu <kbd>I</kbd> pro položky, které patří do kategorie:
-				<span class="text-green-600">{categories.i.title.replace('_', ' ')}</span>
+				<span class="text-green-600">{categories.i.title.replaceAll('_', ' ')}</span>
 			</span>
 		</div>
 
@@ -326,12 +389,13 @@
 		</span>
 
 		<span>
-			Stiskněte <kbd>mezerník</kbd>, až budete připraveni začít.
+			Stiskněte <kbd>mezerník</kbd>, až budete připraveni začít. Tuhle část dotazníku můžete
+			kdykoliv přeskočit pomocí klávesy <kbd>Escape</kbd>.
 		</span>
 	</div>
 </div>
 
-<svelte:window on:keydown={handleKeyDown} />
+<svelte:window on:keydown={handleKeyDown} on:keyup={handleKeyUp} />
 
 <style>
 	kbd {

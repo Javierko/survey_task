@@ -32,6 +32,11 @@
 		}
 	};
 
+	const handleSkipIat = async () => {
+		surveyManager.setSlide(0);
+		surveyManager.setState(SurveyState.Rest);
+	};
+
 	const dataset: Record<
 		number,
 		{
@@ -48,14 +53,14 @@
 	> = {
 		1: {
 			categories: {
-				e: { title: 'Černí_lidé', category: 'good' },
-				i: { title: 'Bílí_lidé', category: 'bad' }
+				e: { title: 'Lidé_černé_pleti', category: 'good' },
+				i: { title: 'Lidé_bílé_pleti', category: 'bad' }
 			},
 			data: {
 				good: takeIatPictures('black', 10),
 				bad: takeIatPictures('white', 10)
 			},
-			info: 'V této části budete třídít zobrazované položky pomocí kláves „E“ pro Černé lidi a „I“ pro Bílé lidi. Postupujte prosím co nejrychleji a zároveň co nejpřesněji.'
+			info: 'V této části budete třídít zobrazované položky pomocí kláves „E“ pro Lidé černé pleti a „I“ pro Lidé bílé pleti. Postupujte prosím co nejrychleji a zároveň co nejpřesněji.'
 		},
 		2: {
 			categories: {
@@ -70,58 +75,58 @@
 		},
 		3: {
 			categories: {
-				e: { title: 'Černí_lidé nebo dobré', category: 'good' },
-				i: { title: 'Bílí_lidé nebo špatné', category: 'bad' }
+				e: { title: 'Lidé_černé_pleti nebo dobré', category: 'good' },
+				i: { title: 'Lidé_bílé_pleti nebo špatné', category: 'bad' }
 			},
 			data: {
 				good: takeWords(5, 'good').concat(takeIatPictures('black', 5)),
 				bad: takeWords(5, 'bad').concat(takeIatPictures('white', 5))
 			},
-			info: 'V této části budete třídít položky pomocí kláves „E“ pro Černé lidi nebo dobré a „I“ pro Bílé lidi nebo špatné. Postupujte prosím co nejrychleji a zároveň co nejpřesněji.'
+			info: 'V této části budete třídít položky pomocí kláves „E“ pro Lidé černé pleti nebo dobré a „I“ pro Lidé bílé pleti nebo špatné. Postupujte prosím co nejrychleji a zároveň co nejpřesněji.'
 		},
 		4: {
 			categories: {
-				e: { title: 'Černí_lidé nebo dobré', category: 'good' },
-				i: { title: 'Bílí_lidé nebo špatné', category: 'bad' }
+				e: { title: 'Lidé_černé_pleti nebo dobré', category: 'good' },
+				i: { title: 'Lidé_bílé_pleti nebo špatné', category: 'bad' }
 			},
 			data: {
 				good: takeWords(10, 'good').concat(takeIatPictures('black', 10)),
 				bad: takeWords(10, 'bad').concat(takeIatPictures('white', 10))
 			},
-			info: 'V této části budete třídít položky pomocí kláves „E“ pro Černé lidi nebo dobré a „I“ pro Bílé lidi nebo špatné. Snažte se reagovat co nejrychleji a zároveň udržet maximální přesnost.'
+			info: 'V této části budete třídít položky pomocí kláves „E“ pro Lidé černé pleti nebo dobré a „I“ pro Lidé bílé pleti nebo špatné. Snažte se reagovat co nejrychleji a zároveň udržet maximální přesnost.'
 		},
 		5: {
 			categories: {
-				e: { title: 'Bílí_lidé', category: 'good' },
-				i: { title: 'Černí_lidé', category: 'bad' }
+				e: { title: 'Lidé_bílé_pleti', category: 'good' },
+				i: { title: 'Lidé_černé_pleti', category: 'bad' }
 			},
 			data: {
 				good: takeIatPictures('white', 10),
 				bad: takeIatPictures('black', 10)
 			},
-			info: 'V následující části budete pomocí kláves „E“ pro Bílé lidi a „I“ pro Černé lidi třídít zobrazované obrázky do správných kategorií. Postupujte prosím co nejrychleji a zároveň co nejpřesněji'
+			info: 'V následující části budete pomocí kláves „E“ pro Lidé bílé pleti a „I“ pro Lidé černé pleti třídít zobrazované obrázky do správných kategorií. Postupujte prosím co nejrychleji a zároveň co nejpřesněji'
 		},
 		6: {
 			categories: {
-				e: { title: 'Bílí_lidé nebo dobré', category: 'good' },
-				i: { title: 'Černí_lidé nebo špatné', category: 'bad' }
+				e: { title: 'Lidé_bílé_pleti nebo dobré', category: 'good' },
+				i: { title: 'Lidé_černé_pleti nebo špatné', category: 'bad' }
 			},
 			data: {
 				good: takeWords(5, 'good').concat(takeIatPictures('white', 10)),
 				bad: takeWords(5, 'bad').concat(takeIatPictures('black', 10))
 			},
-			info: 'V této části budete pomocí kláves „E“ pro Bílé lidi nebo dobré a „I“ pro Černé lidi nebo špatné třídít zobrazované položky do odpovídajících kategorií. Postupujte prosím co nejrychleji a zároveň co nejpřesněji.'
+			info: 'V této části budete pomocí kláves „E“ pro Lidé bílé pleti nebo dobré a „I“ pro Lidé černé pleti nebo špatné třídít zobrazované položky do odpovídajících kategorií. Postupujte prosím co nejrychleji a zároveň co nejpřesněji.'
 		},
 		7: {
 			categories: {
-				e: { title: 'Bílí_lidé nebo dobré', category: 'good' },
-				i: { title: 'Černí_lidé nebo špatné', category: 'bad' }
+				e: { title: 'Lidé_bílé_pleti nebo dobré', category: 'good' },
+				i: { title: 'Lidé_černé_pleti nebo špatné', category: 'bad' }
 			},
 			data: {
 				good: takeWords(10, 'good').concat(takeIatPictures('white', 10)),
 				bad: takeWords(10, 'bad').concat(takeIatPictures('black', 10))
 			},
-			info: 'V této části budete opět třídít položky pomocí kláves „E“ pro Bílé lidi nebo dobré a „I“ pro Černé lidi nebo špatné. Snažte se postupovat co nejrychleji a zároveň s maximální přesností.'
+			info: 'V této části budete opět třídít položky pomocí kláves „E“ pro Lidé bílé pleti nebo dobré a „I“ pro Lidé černé pleti nebo špatné. Snažte se postupovat co nejrychleji a zároveň s maximální přesností.'
 		}
 	};
 </script>
@@ -133,5 +138,6 @@
 	{currentPart}
 	{currentPartCount}
 	slideCompleted={handleSlideComplete}
+	skipIat={handleSkipIat}
 	{isFirst}
 />

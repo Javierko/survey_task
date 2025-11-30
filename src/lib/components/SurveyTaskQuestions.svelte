@@ -213,7 +213,9 @@
 					</div>
 				{:else}
 					<div class="flex w-full items-center justify-center">
-						{@html title}
+						<p>
+							{@html title}
+						</p>
 					</div>
 				{/if}
 
