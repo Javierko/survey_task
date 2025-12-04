@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
 	import * as Alert from '$lib/shadcn/ui/alert/index.js';
+	import { getAgencyReturnUrl } from '@/constants';
 	import { removeFromLocalStorage } from '@/services/localStorageService';
 	import { surveyUserIdentity } from '@/stores/surveyTask';
 	import Icon from '@iconify/svelte';
@@ -12,7 +12,7 @@
 		removeFromLocalStorage('user');
 
 		setInterval(() => {
-			window.location.href = `https://return-to.enp.world/respondent-research-status/research/40966/?status=filled&id=${identityId}`;
+			window.location.href = getAgencyReturnUrl('filled', identityId);
 		}, 5000);
 	});
 </script>

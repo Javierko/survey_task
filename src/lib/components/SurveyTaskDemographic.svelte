@@ -11,6 +11,7 @@
 	import { Slider } from 'bits-ui';
 	import { get } from 'svelte/store';
 	import { removeFromLocalStorage } from '@/services/localStorageService';
+	import { getAgencyReturnUrl } from '@/constants';
 
 	const genders = [
 		{ value: 'male', label: 'Muž' },
@@ -116,7 +117,7 @@
 				error = 'quotaFull';
 				removeFromLocalStorage('user');
 
-				window.location.href = `https://return-to.enp.world/respondent-research-status/research/40966/?status=quota_full&id=${get(surveyUserToken)}`;
+				window.location.href = getAgencyReturnUrl('quota_full', get(surveyUserToken));
 			}
 		}
 

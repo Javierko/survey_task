@@ -16,6 +16,7 @@
 	import Icon from '@iconify/svelte';
 	import { removeFromLocalStorage } from '@/services/localStorageService';
 	import { get } from 'svelte/store';
+	import { getAgencyReturnUrl } from '@/constants';
 
 	interface Props {
 		headers: string[];
@@ -48,7 +49,7 @@
 			clicks[0][0].value !== 1
 		) {
 			removeFromLocalStorage('user');
-			window.location.href = `https://return-to.enp.world/respondent-research-status/research/40966/?status=qcout&id=${get(surveyUserIdentity)}`;
+			window.location.href = getAgencyReturnUrl('qcout', get(surveyUserIdentity));
 
 			return;
 		}
