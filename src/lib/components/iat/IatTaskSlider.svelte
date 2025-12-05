@@ -1,23 +1,14 @@
 <script lang="ts">
 	import { takeIatPictures, takeWords, type Category, type Key } from '@/utils';
 	import IatTaskQuestion from './IatTaskQuestion.svelte';
-	import { onMount } from 'svelte';
 	import { surveyManager, SurveyState } from '@/stores/surveyTask';
 
-	let currentPart = $state(1);
 	let currentPartCount = $state(1);
-	let currentPartOrder = $state([7, 6, 5, 4, 3, 2]);
+	let currentPartOrder = $state(
+		$surveyManager.type == 'many' ? [7, 6, 5, 4, 3, 2] : [4, 3, 1, 7, 6, 2]
+	);
+	let currentPart = $state($surveyManager.type == 'many' ? 1 : 5);
 	let isFirst = $state(true);
-
-	onMount(() => {
-		if ($surveyManager.type == 'many') {
-			currentPartOrder = [7, 6, 5, 4, 3, 2, 1];
-			currentPart = currentPartOrder.pop() ?? 1;
-		} else {
-			currentPartOrder = [4, 3, 1, 7, 6, 2, 5];
-			currentPart = currentPartOrder.pop() ?? 5;
-		}
-	});
 
 	const handleSlideComplete = async () => {
 		let popped = currentPartOrder.pop();

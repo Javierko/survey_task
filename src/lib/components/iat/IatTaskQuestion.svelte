@@ -116,6 +116,8 @@
 					'Nepodařilo se uložit data o odpovědích. Kontaktujte admina.'
 				);
 			}
+
+			finalAnswers = [];
 		}
 
 		loading = false;
