@@ -50,7 +50,7 @@
 		loading = false;
 
 		if ($surveyUserToken != null) {
-			surveyManager.setState(SurveyState.Demographic);
+			surveyManager.setState(SurveyState.Started);
 			goto('/survey');
 		}
 	};

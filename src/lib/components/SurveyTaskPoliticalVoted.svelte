@@ -124,13 +124,15 @@
 			}
 		}
 
-		await apiPost(
+		const completePost = await apiPost(
 			'participants/complete',
 			{
 				completed_at: new Date().toISOString()
 			},
 			$surveyUserToken
 		);
+
+		console.log(completePost);
 
 		surveyManager.setState(SurveyState.Finished);
 	};

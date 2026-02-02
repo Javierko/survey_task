@@ -15,7 +15,7 @@ export interface SurveyOptionClick {
 	aoiId: string;
 	x: number;
 	y: number;
-	value: number;
+	value: string;
 	timestamp: number;
 }
 

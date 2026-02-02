@@ -25,6 +25,7 @@
 			question: string;
 			range?: [number, number];
 			default?: number;
+			unit?: string;
 		}[];
 		slides: number;
 		title: string;
@@ -46,7 +47,7 @@
 			questions[0].id === 999 &&
 			clicks.length === 1 &&
 			clicks[0].length === 1 &&
-			clicks[0][0].value !== 1
+			clicks[0][0].value !== '1'
 		) {
 			removeFromLocalStorage('user');
 			window.location.href = getAgencyReturnUrl('qcout', get(surveyUserIdentity));
@@ -77,7 +78,7 @@
 			aoi: string;
 			x: number;
 			y: number;
-			value: number;
+			value: string;
 			clicked_at: string;
 		}[] = [];
 
@@ -142,15 +143,34 @@
 				surveyManager.setSlide(0);
 				surveyManager.setState(SurveyState.Iat);
 			} else if ($surveyManager.state == SurveyState.Rest) {
+				const completePost = await apiPost(
+					'participants/complete',
+					{
+						completed_at: new Date().toISOString()
+					},
+					$surveyUserToken
+				);
+
+				if (completePost.Status != 200) {
+					errorToast(
+						'Chyba při dokončování dotazníku',
+						'Nepodařilo se uložit dokončení účasti. Kontaktujte admina.'
+					);
+				}
+
 				surveyManager.setSlide($surveyManager.slide + 1);
-				surveyManager.setState(SurveyState.Voted);
+				surveyManager.setState(SurveyState.Finished);
 			}
 		} else {
 			surveyManager.setSlide($surveyManager.slide + 1);
 		}
 	};
 
-	const handleOptionClick = (rowId: number, click: SurveyOptionClick) => {
+	const handleOptionClick = (
+		rowId: number,
+		click: SurveyOptionClick,
+		isQuestionWithText: boolean = false
+	) => {
 		clicks[rowId].push(click);
 
 		const currentQuestion = questions[rowId];
@@ -159,10 +179,11 @@
 		}
 
 		if (
-			(questions.length === 1 && $surveyQuestion.has(questions.length)) ||
-			(questions.length > 1 &&
-				rowId === questions.length - 1 &&
-				$surveyQuestion.has(questions.length))
+			!isQuestionWithText &&
+			((questions.length === 1 && $surveyQuestion.has(questions.length)) ||
+				(questions.length > 1 &&
+					rowId === questions.length - 1 &&
+					$surveyQuestion.has(questions.length)))
 		) {
 			handleNextSlide($surveyManager.slide === slides - 1);
 		}
@@ -226,6 +247,7 @@
 							question={question.question}
 							range={question.range}
 							default={question.default}
+							unit={question.unit}
 							rowId={i}
 							totalOptions={headers.length}
 							disabled={!$surveyQuestion.has(i)}

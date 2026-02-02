@@ -1,22 +1,32 @@
 [
 	[
-		"Rozhodně nesouhlasím",
-		"Nesouhlasím",
-		"Spíše nesouhlasím",
-		"Ani tak, ani tak",
-		"Spíše souhlasím",
-		"Souhlasím",
-		"Rozhodně souhlasím"
+		"(1) Rozhodně nesouhlasím",
+		"(2) Nesouhlasím",
+		"(3) Spíše nesouhlasím",
+		"(4) Ani tak, ani tak",
+		"(5) Spíše souhlasím",
+		"(6) Souhlasím",
+		"(7) Rozhodně souhlasím"
 	],
 	[
-		"Rozhodně nepravděpodobné",
-		"Nepravděpodobné",
-		"Spíše nepravděpodobné",
-		"Ani tak, ani tak",
-		"Spíše pravděpodobné",
-		"Pravděpodobné",
-		"Rozhodně pravděpodobné"
+		"(1) Rozhodně nepravděpodobné",
+		"(2) Nepravděpodobné",
+		"(3) Spíše nepravděpodobné",
+		"(4) Ani tak, ani tak",
+		"(5) Spíše pravděpodobné",
+		"(6) Pravděpodobné",
+		"(7) Rozhodně pravděpodobné"
 	],
 	[""],
-	["Chladné pocity", "", "", "", "", "Vřelé pocity"]
+	["Chladné pocity", "", "", "", "", "Vřelé pocity"],
+	["Výborný", "Velmi dobrý", "Dobrý", "Špatný", "Velmi špatný"],
+	[
+		"Zcela nesouhlasím",
+		"Spíše nesouhlasím",
+		"Ani souhlasím, ani nesouhlasím",
+		"Spíše souhlasím",
+		"Zcela souhlasím"
+	],
+	["1=nikdy", "2=zřídka", "3=občas", "4=často ", "5=vždy"],
+	["Žádnou konkrétní", "Romy", "Ukrajince", "Vietnamce", "Slováky", "Poláky", "Jiné:"]
 ]

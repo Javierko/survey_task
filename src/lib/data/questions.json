@@ -1,6 +1,121 @@
 {
 	"start": [
 		{
+			"title": "Níže je pět výroků, s nimiž můžete souhlasit či nesouhlasit. Na stupnici od 1 (rozhodně nesouhlasím) do 7 (rozhodně souhlasím) vyjádřete míru svého souhlasu či nesouhlasu s každým tvrzením. Odpovídejte, prosím, otevřeně a upřímně.",
+			"header_id": 0,
+			"questions": [
+				{
+					"id": 79,
+					"question": "Můj život je v mnoha ohledech blízko mému ideálu."
+				},
+				{
+					"id": 80,
+					"question": "Podmínky mého života jsou vynikající."
+				},
+				{
+					"id": 81,
+					"question": "Jsem spokojen(a) se svým životem."
+				},
+				{
+					"id": 82,
+					"question": "Až dosud jsem dostal(a) od života téměř vše, co jsem chtěl(a)."
+				},
+				{
+					"id": 83,
+					"question": "Kdybych mohl(a) žít svůj život znovu, nezměnil(a) bych téměř nic."
+				}
+			]
+		},
+		{
+			"title": "",
+			"header_id": 4,
+			"questions": [
+				{
+					"id": 84,
+					"question": "Jak byste celkově hodnotil(a) svůj zdravotní stav? Řekl(a) byste, že je…"
+				}
+			]
+		},
+		{
+			"title": "Následující tvrzení se týkají místa, kde žijete.",
+			"header_id": 2,
+			"questions": []
+		},
+		{
+			"title": "U každého tvrzení prosím vyznačte, do jaké míry s ním souhlasíte nebo nesouhlasíte.",
+			"header_id": 5,
+			"questions": [
+				{
+					"id": 85,
+					"question": "Žiji v prostředí, kde lidé drží při sobě."
+				},
+				{
+					"id": 86,
+					"question": "Lidé v místě, kde žiji, jsou ochotni si pomáhat."
+				},
+				{
+					"id": 87,
+					"question": "Lidé v místě, kde žiji, spolu nevycházejí."
+				},
+				{
+					"id": 88,
+					"question": "Lidé v místě, kde žiji, nesdílejí podobné hodnoty. "
+				},
+				{
+					"id": 89,
+					"question": "Lidem v místě, kde žiji, lze důvěřovat."
+				}
+			]
+		},
+		{
+			"title": "Níže jsou uvedena tvrzení týkající se Vašich pocitů a myšlenek. U každého z nich prosím vyberte možnost, která nejlépe popisuje, jak to máte obecně ve svém životě. Označte odpověď na škále 1-5, kde: 1=nikdy, 2=zřídka, 3=občas, 4=často, 5=vždy",
+			"header_id": 6,
+			"questions": [
+				{
+					"id": 90,
+					"question": "Svou budoucnost vidím optimisticky",
+					"range": [1, 5],
+					"default": 3
+				},
+				{
+					"id": 91,
+					"question": "Připadám si užitečný/á.",
+					"range": [1, 5],
+					"default": 3
+				},
+				{
+					"id": 92,
+					"question": "Cítím se uvolněně.",
+					"range": [1, 5],
+					"default": 3
+				},
+				{
+					"id": 93,
+					"question": "S problémy se vyrovnávám dobře.",
+					"range": [1, 5],
+					"default": 3
+				},
+				{
+					"id": 94,
+					"question": "Jsem schopen/schopna jasně přemýšlet.",
+					"range": [1, 5],
+					"default": 3
+				},
+				{
+					"id": 95,
+					"question": "Cítím spřízněnost s ostatními lidmi.",
+					"range": [1, 5],
+					"default": 3
+				},
+				{
+					"id": 96,
+					"question": "Dokážu si na věci udělat vlastní názor.",
+					"range": [1, 5],
+					"default": 3
+				}
+			]
+		},
+		{
 			"title": "Následující otázky se týkají Vašeho postoje k různým skupinám lidí.<br><br>Představte si „teploměr pocitů“, který ukazuje, jak příznivě nebo nepříznivě se na danou skupinu díváte.<br><br>Hodnota 50 znamená velmi teplé (příznivé) pocity, - 50 znamená velmi chladné (nepříznivé) pocity a 0 znamená neutrální postoj.<br><br>Jak byste ohodnotil/a své pocity vůči následujícím skupinám?",
 			"header_id": 2,
 			"questions": []
@@ -207,139 +322,7 @@
 			]
 		},
 		{
-			"title": "Následující vlastnosti mohou nebo nemusí vystihovat Vaši osobnost. Určete u každého tvrzení, do jaké míry s ním souhlasíte nebo nesouhlasíte.",
-			"header_id": 2,
-			"questions": []
-		},
-		{
-			"title": "Považuji se za někoho, kdo …:",
-			"header_id": 0,
-			"randomize": true,
-			"questions": [
-				{
-					"id": 37,
-					"question": "…bývá tichý/á."
-				},
-				{
-					"id": 38,
-					"question": "…je soucitný/á, má dobré srdce."
-				},
-				{
-					"id": 39,
-					"question": "…má sklon být chaotický/á."
-				},
-				{
-					"id": 40,
-					"question": "…si hodně dělá starosti."
-				},
-				{
-					"id": 41,
-					"question": "…je fascinován/a uměním, hudbou a literaturou."
-				},
-				{
-					"id": 42,
-					"question": "…je dominantní, zastává roli vůdce."
-				},
-				{
-					"id": 43,
-					"question": "…je někdy na ostatní hrubý/á."
-				},
-				{
-					"id": 44,
-					"question": "…má obtíže začít s úkoly."
-				},
-				{
-					"id": 45,
-					"question": "…má sklon být skleslý/á, v depresi."
-				},
-				{
-					"id": 46,
-					"question": "…se příliš nezajímá o abstraktní myšlenky."
-				},
-				{
-					"id": 47,
-					"question": "…je plný/á energie."
-				},
-				{
-					"id": 48,
-					"question": "…si o lidech myslí to nejlepší."
-				},
-				{
-					"id": 49,
-					"question": "…je důvěryhodný/á, vždy se na něj/ni dá spolehnout."
-				},
-				{
-					"id": 50,
-					"question": "…je emočně vyrovnaný/á, jen tak něco ho/ji nerozhodí."
-				},
-				{
-					"id": 51,
-					"question": "…je originální, přichází s novými nápady."
-				},
-				{
-					"id": 52,
-					"question": "…je společenský/á, družný/á."
-				},
-				{
-					"id": 53,
-					"question": "…dokáže být chladný/á a bezcitný/á."
-				},
-				{
-					"id": 54,
-					"question": "…udržuje věci úhledné a uspořádané."
-				},
-				{
-					"id": 55,
-					"question": "…je uvolněný/á, dobře zvládá stres."
-				},
-				{
-					"id": 56,
-					"question": "…se o umění příliš nezajímá."
-				},
-				{
-					"id": 57,
-					"question": "…upřednostňuje, aby se vedení ujali ostatní."
-				},
-				{
-					"id": 58,
-					"question": "…je uctivý/á, s ostatními zachází s úctou."
-				},
-				{
-					"id": 59,
-					"question": "…je vytrvalý/á, pracuje, dokud úkol nedokončí."
-				},
-				{
-					"id": 60,
-					"question": "…se cítí sebejistě, je sám/sama se sebou spokojen/a."
-				},
-				{
-					"id": 61,
-					"question": "…je přemýšlivý/á, nad věcmi uvažuje do hloubky."
-				},
-				{
-					"id": 62,
-					"question": "…je méně činorodý/á než ostatní."
-				},
-				{
-					"id": 63,
-					"question": "…má sklon hledat chyby na ostatních."
-				},
-				{
-					"id": 64,
-					"question": "…bývá poněkud ledabylý/á."
-				},
-				{
-					"id": 65,
-					"question": "…je emočně impulzivní, snadno se nechá vyvést z míry."
-				},
-				{
-					"id": 66,
-					"question": "…není příliš tvořivý/á."
-				}
-			]
-		},
-		{
-			"title": "Prosím uveďte, do jaké míry souhlasíte s každým z následujících tvrzení:",
+			"title": "Projděte si každé tvrzení a rozhodněte, do jaké míry souhlasíte s každým z následujících tvrzení:",
 			"header_id": 2,
 			"questions": []
 		},
@@ -349,54 +332,226 @@
 			"randomize": true,
 			"questions": [
 				{
-					"id": 67,
-					"question": "Mám sklon manipulovat s ostatními, abych dosáhl/a svého."
+					"id": 97,
+					"question": "Někdy je pro mě těžké pokračovat v práci, pokud nejsem povzbuzován/a."
 				},
 				{
-					"id": 68,
-					"question": "Lhal/a jsem nebo podváděl/a, abych dosáhl/a svého."
+					"id": 98,
+					"question": "Někdy se cítím rozzlobeně, když není po mém."
 				},
 				{
-					"id": 69,
-					"question": "Použil/a jsem lichotky, abych dosáhl/a svého."
+					"id": 99,
+					"question": "V pár případech jsem se vzdal/a něčeho, protože jsem nevěřil/a vlastním schopnostem."
 				},
 				{
-					"id": 70,
-					"question": "Mám sklon využívat ostatních pro svůj vlastní prospěch."
+					"id": 100,
+					"question": "Byly chvíle, kdy jsem měl/a chuť se vzbouřit proti lidem s autoritou, i když jsem věděl/a, že mají pravdu."
 				},
 				{
-					"id": 71,
-					"question": "Mám sklon nemít výčitky svědomí."
+					"id": 101,
+					"question": "Ať už mluvím s kýmkoliv, jsem vždy dobrým posluchačem."
 				},
 				{
-					"id": 72,
-					"question": "Mám sklon se nezabývat morálností svých činů."
+					"id": 102,
+					"question": "Byly příležitosti, kdy jsem někoho využil/a."
 				},
 				{
-					"id": 73,
-					"question": "Mám sklon být bezcitný/á nebo necitlivý/á."
+					"id": 103,
+					"question": "Vždy jsem ochoten přiznat, když udělám chybu."
 				},
 				{
-					"id": 74,
-					"question": "Mám sklon být cynický/á."
+					"id": 104,
+					"question": "Někdy se snažím pomstít než abych odpustil a zapomněl."
 				},
 				{
-					"id": 75,
-					"question": "Mám sklon chtít, aby mě ostatní obdivovali."
+					"id": 105,
+					"question": "Jsem vždy zdvořilý/á, i k lidem, kteří jsou nepříjemní."
 				},
 				{
-					"id": 76,
-					"question": "Mám sklon chtít, aby mi ostatní věnovali pozornost."
+					"id": 106,
+					"question": "Nikdy jsem nebyl/a naštvaný/á, pokud lidé vyjadřovali myšlenky velmi odlišné od mých vlastních."
 				},
 				{
-					"id": 77,
-					"question": "Mám sklon vyhledávat prestiž nebo postavení."
+					"id": 107,
+					"question": "Byly chvíle, kdy jsem docela záviděl/a štěstí ostatních."
 				},
 				{
-					"id": 78,
-					"question": "Mám sklon očekávat od ostatních zvláštní laskavosti."
+					"id": 108,
+					"question": "Někdy mě dráždí lidé, kteří po mně chtějí laskavosti."
+				},
+				{
+					"id": 109,
+					"question": "Nikdy jsem záměrně neřekl/a něco, co ranilo něčí pocity."
 				}
 			]
+		},
+		{
+			"title": "Níže je uvedena řada tvrzení, s nimiž můžete buď souhlasit nebo nesouhlasit. U každého tvrzení prosím uveďte míru svého souhlasu/nesouhlasu zvolením příslušného čísla od „1“ do „7“. Vaše první odpovědi jsou obvykle nejpřesnější.",
+			"header_id": 2,
+			"questions": []
+		},
+		{
+			"title": "",
+			"header_id": 0,
+			"randomize": true,
+			"questions": [
+				{
+					"id": 110,
+					"question": "Ideální společnost vyžaduje, aby některé skupiny byly nahoře a jiné dole."
+				},
+				{
+					"id": 111,
+					"question": "Některé skupiny lidí jsou prostě horší než jiné skupiny."
+				},
+				{
+					"id": 112,
+					"question": "Skupiny na spodu si zaslouží stejně jako skupiny na vrcholu."
+				},
+				{
+					"id": 113,
+					"question": "Dominance skupin je špatný princip."
+				},
+				{
+					"id": 114,
+					"question": "Neměli bychom prosazovat rovnost mezi skupinami."
+				},
+				{
+					"id": 115,
+					"question": "Je nespravedlivé snažit se o rovnost mezi skupinami."
+				},
+				{
+					"id": 116,
+					"question": "Měli bychom udělat vše pro to, abychom vyrovnali podmínky pro různé skupiny."
+				},
+				{
+					"id": 117,
+					"question": "Rovnost mezi skupinami by měla být naším ideálem."
+				}
+			]
+		},
+		{
+			"title": "Následující tvrzení vyjadřují širokou škálu názorů. Neexistují správné ani nesprávné odpovědi, protože lidé mají právo na své vlastní názory. Pečlivě si prosím přečtěte každé tvrzení a uveďte, jak moc s ním souhlasíte nebo nesouhlasíte.",
+			"header_id": 2,
+			"questions": []
+		},
+		{
+			"title": "",
+			"header_id": 0,
+			"randomize": true,
+			"questions": [
+				{
+					"id": 118,
+					"question": "Naše země potřebuje mocného vůdce, aby bylo možné zničit radikální a nemorální proudy, které dnes převládají ve společnosti."
+				},
+				{
+					"id": 119,
+					"question": "Společnost potřebuje lidi, kteří jsou ochotni zpochybňovat zavedené způsoby fungování, i když to může vyvolat nesouhlas."
+				},
+				{
+					"id": 120,
+					"question": "„Staromódní způsoby“ a „staromódní hodnoty“ stále ukazují nejlepší způsob života."
+				},
+				{
+					"id": 121,
+					"question": "Naše společnost by byla lepší, kdybychom projevovali toleranci a porozumění vůči netradičním hodnotám a názorům."
+				},
+				{
+					"id": 122,
+					"question": "Zákony by měly přísně chránit tradiční rodinné a morální hodnoty, a ti, kdo je porušují, by měli být potrestáni."
+				},
+				{
+					"id": 123,
+					"question": "Společnost potřebuje projevovat otevřenost vůči lidem uvažujícím jinak, spíše než silnému vůdci. Svět není nijak zvlášť zlý ani nebezpečný."
+				},
+				{
+					"id": 124,
+					"question": "Bylo by nejlepší, kdyby noviny podléhaly cenzuře, aby se lidé nedostali k destruktivním a nechutným materiálům."
+				},
+				{
+					"id": 125,
+					"question": "Někteří lidé zpochybňují autority a běžně přijímané společenské normy a považují to za správné."
+				},
+				{
+					"id": 126,
+					"question": "Naši předkové by měli být více uctívání za způsob, jakým vybudovali naši společnost, a zároveň bychom měli zkoncovat s těmi silami, které ji ničí."
+				},
+				{
+					"id": 127,
+					"question": "Morální rozhodování by se mělo více opírat o osobní odpovědnost a zkušenost, než o náboženská pravidla."
+				},
+				{
+					"id": 128,
+					"question": "Existují lidé, jejichž chování ohrožuje veřejný pořádek; společnost by měla přijmout opatření, která tomu zabrání."
+				},
+				{
+					"id": 129,
+					"question": "Je lepší přijmout špatnou literaturu, než ji cenzurovat."
+				},
+				{
+					"id": 130,
+					"question": "Fakta ukazují, že bychom měli být přísnější vůči kriminalitě a sexuální nemravnosti, aby se dodržoval zákon a pořádek."
+				},
+				{
+					"id": 131,
+					"question": "Situace v dnešní společnosti by se zlepšila, kdyby se s potížisty zacházelo s rozumem a lidsky."
+				},
+				{
+					"id": 132,
+					"question": "Pokud to společnost chce, je povinností každého skutečného občana pomoci odstranit zlo, které naši zemi otravuje zevnitř."
+				}
+			]
+		},
+		{
+			"title": "Obdrželi jste možnost být zařazeni do slosování o výhru ve výši 1 000 Kč.<br>Vaším úkolem je rozhodnout, jakou částku byste z případné výhry věnovali následující organizaci:<br><br>Fond na podporu etnických menšin v ČR v sociálně znevýhodněné situaci.<br><br>Pokud ve slosování vyhrajete, obdržíte výhru 1 000 Kč sníženou o Vámi určenou celkovou darovanou částku.",
+			"header_id": 2,
+			"questions": []
+		},
+		{
+			"title": "",
+			"header_id": 2,
+			"questions": [
+				{
+					"id": 133,
+					"question": "Jakou částku byste z případné výhry věnovali dané organizaci?",
+					"range": [0, 1000],
+					"default": 0,
+					"unit": "Kč"
+				}
+			]
+		},
+		{
+			"title": "Závěrem bychom Vás chtěli informovat, že celý dotazník byl zaměřen na různé aspekty měření předsudků. Na úplný konec Vás nyní požádáme, abyste sami upřímně zhodnotili, jaké předsudky si myslíte, že máte. Projděte si každé tvrzení a rozhodněte, do jaké míry souhlasíte s každým z následujících tvrzení:",
+			"header_id": 2,
+			"questions": []
+		},
+		{
+			"title": "",
+			"header_id": 0,
+			"questions": [
+				{
+					"id": 134,
+					"question": "Cítím se být zaujatý/á vůči etnickým menšinám."
+				},
+				{
+					"id": 135,
+					"question": "Cítím se být rasistický/á vůči etnickým menšinám."
+				}
+			]
+		},
+		{
+			"title": "",
+			"header_id": 7,
+			"questions": [
+				{
+					"id": 136,
+					"question": "Jakou etnickou menšinu jste si během vyplňování dotazníku představovali?"
+				}
+			]
+		},
+		{
+			"title": "Otázka, ve které jste měli rozhodnout, jakou část z případné výhry 1 000 Kč byste věnovali fondu na podporu etnických menšin v České republice, byla zařazena za účelem zkoumání rozhodování v hypotetické alokační situaci. Bez ohledu na částku, kterou jste v tomto úkolu uvedli, obdržíte v případě výhry ve slosování plnou částku 1 000 Kč ve formě Vámi zvolených voucherů.",
+			"header_id": 2,
+			"questions": []
 		}
 	]
 }
