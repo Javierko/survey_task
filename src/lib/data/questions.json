@@ -73,7 +73,7 @@
 			"questions": [
 				{
 					"id": 90,
-					"question": "Svou budoucnost vidím optimisticky",
+					"question": "Svou budoucnost vidím optimisticky.",
 					"range": [1, 5],
 					"default": 3
 				},
@@ -328,7 +328,7 @@
 		},
 		{
 			"title": "",
-			"header_id": 1,
+			"header_id": 0,
 			"randomize": true,
 			"questions": [
 				{

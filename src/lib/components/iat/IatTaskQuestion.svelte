@@ -96,15 +96,18 @@
 		currentItemIndex++;
 
 		if (currentItemIndex >= items.length) {
-			await sendAnswers();
+			await sendAnswers(true);
 
 			preparation = false;
 			currentItemIndex = 0;
 			slideCompleted();
+			setTimeout(() => {
+				loading = false;
+			}, 200);
 		}
 	};
 
-	const sendAnswers = async () => {
+	const sendAnswers = async (keepLoading: boolean = false) => {
 		loading = true;
 
 		if (finalAnswers.length > 0) {
@@ -120,7 +123,9 @@
 			finalAnswers = [];
 		}
 
-		loading = false;
+		if (!keepLoading) {
+			loading = false;
+		}
 	};
 
 	// const handleKey = async (key: string) => {
@@ -385,10 +390,7 @@
 			</span>
 		</div>
 
-		<span>
-			Pokud uděláte chybu, zobrazí se červené <span class="text-red-600">X</span>. Pro pokračování
-			stiskněte druhou klávesu. Jeďte co nejrychleji a zároveň přesně.
-		</span>
+		<span> Jeďte co nejrychleji a zároveň přesně. </span>
 
 		<span>
 			Stiskněte <kbd>mezerník</kbd>, až budete připraveni začít. Tuhle část dotazníku můžete
