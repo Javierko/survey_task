@@ -131,18 +131,18 @@
 
 		<p>
 			Děkujeme Vám za účast ve výzkumu, který je realizován Psychologickým ústavem Akademie věd
-			České republiky. Testování zabere přibližně 30 minut a proběhne dvakrát – nyní a následně
-			znovu přibližně za dva měsíce, kdy Vám přijde opět e-mail s odkazem. Během testování prosím
-			používejte počítač s připojenou klávesnicí a počítačovou myší, protože v některých úkolech
-			budeme měřit reakční dobu Vašich odpovědí. V následující části naleznete několik výroků
-			týkajících se Vašich názorů, prožívání a běžného fungování. Neexistují správné nebo špatné
-			odpovědi, zajímá nás Vaše vlastní vnímání.
+			České republiky. Toto je druhé kolo testování, první proběhlo na konci roku 2025. Během
+			testování prosím používejte počítač s připojenou klávesnicí a počítačovou myší, protože v
+			některých úkolech budeme měřit reakční dobu Vašich odpovědí. V následující části naleznete
+			několik výroků týkajících se Vašich názorů, prožívání a běžného fungování. Neexistují správné
+			nebo špatné odpovědi, zajímá nás Vaše vlastní vnímání. Některé otázky jsou stejné jako v
+			prvním kole testování, a proto se Vám může zdát, že jste na ně již odpovídali.
 		</p>
 
 		<p>Vaše odpovědi jsou anonymní a budou využity výhradně pro výzkumné účely.</p>
 
 		<p>
-			V případě jakýchkoli dotazů nebo nejasností se prosím obraťte na odpovědného řešitele
+			V případě jakýchkoliv dotazů nebo nejasností se prosím obraťte na odpovědného řešitele
 			projektu, Mgr. Davida Lacka, PhD., lacko@psu.cas.cz
 		</p>
 

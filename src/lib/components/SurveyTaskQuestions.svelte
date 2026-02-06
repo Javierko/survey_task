@@ -162,7 +162,17 @@
 				surveyManager.setState(SurveyState.Finished);
 			}
 		} else {
-			surveyManager.setSlide($surveyManager.slide + 1);
+			if (
+				headers[0] == 'Ne' &&
+				headers[1] == 'Ano' &&
+				clicks.length === 1 &&
+				clicks[0].length === 1 &&
+				clicks[0][0].value === '1'
+			) {
+				surveyManager.setSlide($surveyManager.slide + 3);
+			} else {
+				surveyManager.setSlide($surveyManager.slide + 1);
+			}
 		}
 	};
 

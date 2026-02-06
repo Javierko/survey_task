@@ -68,7 +68,7 @@
 			]
 		},
 		{
-			"title": "Níže jsou uvedena tvrzení týkající se Vašich pocitů a myšlenek. U každého z nich prosím vyberte možnost, která nejlépe popisuje, jak to máte obecně ve svém životě. Označte odpověď na škále 1-5, kde: 1=nikdy, 2=zřídka, 3=občas, 4=často, 5=vždy",
+			"title": "Níže jsou uvedena tvrzení týkající se Vašich pocitů a myšlenek. U každého z nich prosím vyberte možnost, která nejlépe popisuje, jak to máte obecně ve svém životě. Označte odpověď na škále od 1 (nikdy) do 5 (vždy).",
 			"header_id": 6,
 			"questions": [
 				{
@@ -386,7 +386,7 @@
 			]
 		},
 		{
-			"title": "Níže je uvedena řada tvrzení, s nimiž můžete buď souhlasit nebo nesouhlasit. U každého tvrzení prosím uveďte míru svého souhlasu/nesouhlasu zvolením příslušného čísla od „1“ do „7“. Vaše první odpovědi jsou obvykle nejpřesnější.",
+			"title": "Níže je uvedena řada tvrzení, s nimiž můžete buď souhlasit nebo nesouhlasit. U každého tvrzení prosím uveďte míru svého souhlasu/nesouhlasu zvolením příslušného čísla od „1“ (= „Rozhodně nesouhlasím”) do „7“ (= „Rozhodně souhlasím”). Vaše první odpovědi jsou obvykle nejpřesnější.",
 			"header_id": 2,
 			"questions": []
 		},
@@ -430,7 +430,7 @@
 			]
 		},
 		{
-			"title": "Následující tvrzení vyjadřují širokou škálu názorů. Neexistují správné ani nesprávné odpovědi, protože lidé mají právo na své vlastní názory. Pečlivě si prosím přečtěte každé tvrzení a uveďte, jak moc s ním souhlasíte nebo nesouhlasíte.",
+			"title": "Následující tvrzení vyjadřují širokou škálu názorů. Neexistují správné ani nesprávné odpovědi. Pečlivě si prosím přečtěte každé tvrzení a uveďte, jak moc s ním souhlasíte nebo nesouhlasíte.",
 			"header_id": 2,
 			"questions": []
 		},
@@ -441,7 +441,7 @@
 			"questions": [
 				{
 					"id": 118,
-					"question": "Naše země potřebuje mocného vůdce, aby bylo možné zničit radikální a nemorální proudy, které dnes převládají ve společnosti."
+					"question": "Naše země potřebuje silného vůdce, aby bylo možné zničit radikální a nemorální proudy, které dnes převládají ve společnosti."
 				},
 				{
 					"id": 119,
@@ -449,7 +449,7 @@
 				},
 				{
 					"id": 120,
-					"question": "„Staromódní způsoby“ a „staromódní hodnoty“ stále ukazují nejlepší způsob života."
+					"question": "„Staromódní způsoby“ a „staromódní hodnoty“ stále reprezentují nejlepší způsob života."
 				},
 				{
 					"id": 121,
@@ -461,11 +461,11 @@
 				},
 				{
 					"id": 123,
-					"question": "Společnost potřebuje projevovat otevřenost vůči lidem uvažujícím jinak, spíše než silnému vůdci. Svět není nijak zvlášť zlý ani nebezpečný."
+					"question": "Společnost by měla být otevřená lidem s odlišnými názory, nikoli závislá na silném vůdci, protože svět není ve skutečnosti nijak zvlášť zlý ani nebezpečný."
 				},
 				{
 					"id": 124,
-					"question": "Bylo by nejlepší, kdyby noviny podléhaly cenzuře, aby se lidé nedostali k destruktivním a nechutným materiálům."
+					"question": "Bylo by nejlepší, kdyby média podléhala cenzuře, aby se lidé nedostali k destruktivním a nechutným materiálům."
 				},
 				{
 					"id": 125,
@@ -473,7 +473,7 @@
 				},
 				{
 					"id": 126,
-					"question": "Naši předkové by měli být více uctívání za způsob, jakým vybudovali naši společnost, a zároveň bychom měli zkoncovat s těmi silami, které ji ničí."
+					"question": "Naši předkové by měli být více uctívání za způsob, jakým vybudovali naši společnost, a zároveň bychom měli skoncovat s těmi silami, které ji ničí."
 				},
 				{
 					"id": 127,
@@ -489,7 +489,7 @@
 				},
 				{
 					"id": 130,
-					"question": "Fakta ukazují, že bychom měli být přísnější vůči kriminalitě a sexuální nemravnosti, aby se dodržoval zákon a pořádek."
+					"question": "Měli být přísnější vůči kriminalitě a sexuální nemravnosti, aby se dodržoval zákon a pořádek."
 				},
 				{
 					"id": 131,
@@ -502,8 +502,18 @@
 			]
 		},
 		{
-			"title": "Obdrželi jste možnost být zařazeni do slosování o výhru ve výši 1 000 Kč.<br>Vaším úkolem je rozhodnout, jakou částku byste z případné výhry věnovali následující organizaci:<br><br>Fond na podporu etnických menšin v ČR v sociálně znevýhodněné situaci.<br><br>Pokud ve slosování vyhrajete, obdržíte výhru 1 000 Kč sníženou o Vámi určenou celkovou darovanou částku.",
-			"header_id": 2,
+			"title": "",
+			"header_id": 8,
+			"questions": [
+				{
+					"id": 133,
+					"question": "Děkujeme Vám za vyplnění hlavní části dotazníku, nyní už se blížíme k jeho závěru. Kromě Vaší standardní odměny za účast ve výzkumu máte ještě možnost být zařazen/a do slosování o výhru v hodnotě 1.000 Kč ve formě Vámi vybraných voucherů. Máte o zařazení do tohoto slosování zájem?"
+				}
+			]
+		},
+		{
+			"title": "Pokud budete vylosován/a jako výherce, máte možnost věnovat jakoukoliv část z hodnoty výhry organizaci <strong>In IUSTITIA</strong>, která v ČR poskytuje právní a sociální podporu lidem ohroženým diskriminací a předsudečným jednáním, včetně osob z etnických menšin. Nyní se, prosím, závazně rozhodněte, jakou část z celkové hodnoty výhry věnujete na tento účel.",
+			"header_id": 0,
 			"questions": []
 		},
 		{
@@ -511,7 +521,7 @@
 			"header_id": 2,
 			"questions": [
 				{
-					"id": 133,
+					"id": 134,
 					"question": "Jakou částku byste z případné výhry věnovali dané organizaci?",
 					"range": [0, 1000],
 					"default": 0,
@@ -520,7 +530,7 @@
 			]
 		},
 		{
-			"title": "Závěrem bychom Vás chtěli informovat, že celý dotazník byl zaměřen na různé aspekty měření předsudků. Na úplný konec Vás nyní požádáme, abyste sami upřímně zhodnotili, jaké předsudky si myslíte, že máte. Projděte si každé tvrzení a rozhodněte, do jaké míry souhlasíte s každým z následujících tvrzení:",
+			"title": "Závěrem bychom Vás chtěli informovat, že celý dotazník byl zaměřen na různé aspekty měření předsudků. Nyní Vás proto požádáme, abyste sami sám/sama upřímně odpověděl/a na následující otázky.",
 			"header_id": 2,
 			"questions": []
 		},
@@ -529,11 +539,11 @@
 			"header_id": 0,
 			"questions": [
 				{
-					"id": 134,
+					"id": 135,
 					"question": "Cítím se být zaujatý/á vůči etnickým menšinám."
 				},
 				{
-					"id": 135,
+					"id": 136,
 					"question": "Cítím se být rasistický/á vůči etnickým menšinám."
 				}
 			]
@@ -543,15 +553,10 @@
 			"header_id": 7,
 			"questions": [
 				{
-					"id": 136,
-					"question": "Jakou etnickou menšinu jste si během vyplňování dotazníku představovali?"
+					"id": 137,
+					"question": "Představoval/a jste si v průběhu vyplňování dotazníku, že se některé otázky týkají nějaké etnické či národnostní menšiny? Pokud ano, o kterou či které menšiny se jednalo?"
 				}
 			]
-		},
-		{
-			"title": "Otázka, ve které jste měli rozhodnout, jakou část z případné výhry 1 000 Kč byste věnovali fondu na podporu etnických menšin v České republice, byla zařazena za účelem zkoumání rozhodování v hypotetické alokační situaci. Bez ohledu na částku, kterou jste v tomto úkolu uvedli, obdržíte v případě výhry ve slosování plnou částku 1 000 Kč ve formě Vámi zvolených voucherů.",
-			"header_id": 2,
-			"questions": []
 		}
 	]
 }

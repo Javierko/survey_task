@@ -33,7 +33,7 @@
 	let lastPosition = $state<{ x: number; y: number } | null>(null);
 
 	const isSpecialQuestion = question.includes(
-		'etnickou menšinu jste si během vyplňování dotazníku představovali'
+		'některé otázky týkají nějaké etnické či národnostní menšiny'
 	);
 
 	$effect(() => {

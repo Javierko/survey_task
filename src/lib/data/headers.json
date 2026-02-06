@@ -28,5 +28,15 @@
 		"Zcela souhlasím"
 	],
 	["1=nikdy", "2=zřídka", "3=občas", "4=často ", "5=vždy"],
-	["Žádnou konkrétní", "Romy", "Ukrajince", "Vietnamce", "Slováky", "Poláky", "Jiné:"]
+	[
+		"Nepředstavoval/a jsem si žádnou menšinu",
+		"Představoval/a jsem si menšinu, ale žádnou konkrétní",
+		"Romy",
+		"Ukrajince",
+		"Vietnamce",
+		"Slováky",
+		"Poláky",
+		"Jiné:"
+	],
+	["Ne", "Ano"]
 ]
