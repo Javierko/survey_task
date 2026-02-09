@@ -73,45 +73,31 @@
 			"questions": [
 				{
 					"id": 90,
-					"question": "Svou budoucnost vidím optimisticky.",
-					"range": [1, 5],
-					"default": 3
+					"question": "Svou budoucnost vidím optimisticky."
 				},
 				{
 					"id": 91,
-					"question": "Připadám si užitečný/á.",
-					"range": [1, 5],
-					"default": 3
+					"question": "Připadám si užitečný/á."
 				},
 				{
 					"id": 92,
-					"question": "Cítím se uvolněně.",
-					"range": [1, 5],
-					"default": 3
+					"question": "Cítím se uvolněně."
 				},
 				{
 					"id": 93,
-					"question": "S problémy se vyrovnávám dobře.",
-					"range": [1, 5],
-					"default": 3
+					"question": "S problémy se vyrovnávám dobře."
 				},
 				{
 					"id": 94,
-					"question": "Jsem schopen/schopna jasně přemýšlet.",
-					"range": [1, 5],
-					"default": 3
+					"question": "Jsem schopen/schopna jasně přemýšlet."
 				},
 				{
 					"id": 95,
-					"question": "Cítím spřízněnost s ostatními lidmi.",
-					"range": [1, 5],
-					"default": 3
+					"question": "Cítím spřízněnost s ostatními lidmi."
 				},
 				{
 					"id": 96,
-					"question": "Dokážu si na věci udělat vlastní názor.",
-					"range": [1, 5],
-					"default": 3
+					"question": "Dokážu si na věci udělat vlastní názor."
 				}
 			]
 		},
