@@ -20,6 +20,7 @@
 	import { toast } from 'svelte-sonner';
 	import * as Alert from '$lib/shadcn/ui/alert/index.js';
 	import type { PageProps } from './$types';
+	import { getAgencyReturnUrl } from '@/constants';
 
 	let loading = $state(false);
 	let userFound = $state(false);
@@ -94,6 +95,10 @@
 			toast.error('Chyba při vytváření uživatele', {
 				description: res.Message
 			});
+
+			setTimeout(() => {
+				window.location.href = getAgencyReturnUrl('hard_screenout', data.id);
+			}, 500);
 		}
 	};
 </script>
