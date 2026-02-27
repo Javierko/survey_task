@@ -30,6 +30,12 @@
 	const isIdentityValid = $derived(data.id !== null && data.id.length === 10);
 
 	onMount(() => {
+		if (!isIdentityValid) {
+			redirectHardScreenout();
+
+			return;
+		}
+
 		const user = getFromLocalStorage<Participant>('user');
 		userFound = user !== null;
 	});
@@ -96,10 +102,14 @@
 				description: res.Message
 			});
 
-			setTimeout(() => {
-				window.location.href = getAgencyReturnUrl('hard_screenout', data.id);
-			}, 500);
+			redirectHardScreenout();
 		}
+	};
+
+	const redirectHardScreenout = () => {
+		setTimeout(() => {
+			window.location.href = getAgencyReturnUrl('hard_screenout', data.id);
+		}, 500);
 	};
 </script>
 
@@ -121,7 +131,7 @@
 			<Icon icon="material-symbols:warning-outline-rounded" class="h-5 w-5" />
 			<Alert.Title>Neznámá identita!</Alert.Title>
 			<Alert.Description>
-				Tenhle dotazník je určen pouze pro specifické uživatele.
+				Tenhle dotazník je určen pouze pro specifické uživatele. Budete přesměrováni.
 			</Alert.Description>
 		</Alert.Root>
 	{:else}
