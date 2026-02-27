@@ -102,7 +102,9 @@
 				description: res.Message
 			});
 
-			redirectHardScreenout();
+			if (res.Message.includes('not found')) {
+				redirectHardScreenout();
+			}
 		}
 	};
 
